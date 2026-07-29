@@ -396,7 +396,7 @@
             letter-spacing: 1px; white-space: nowrap;
         }
 
-        /* WTC Utrecht - 70m broad glass curtain wall tower at Jaarbeursplein */
+        /* XXImo Glass Building (target) */
         .building {
             position: absolute; bottom: 5%; left: 50%; transform: translateX(-50%);
             width: 80px; height: 65%;
@@ -427,15 +427,9 @@
             border-radius: 1px 1px 0 0;
         }
         .building::before {
-            content: 'WTC'; position: absolute; top: 6px; left: 50%; transform: translateX(-50%);
+            content: 'XXImo'; position: absolute; top: 6px; left: 50%; transform: translateX(-50%);
             font-size: 0.5rem; font-weight: bold; letter-spacing: 3px;
             color: rgba(200,230,255,0.8); white-space: nowrap; text-shadow: 0 0 5px rgba(100,200,255,0.4);
-        }
-        /* XXImo label lower on building */
-        .building-label {
-            position: absolute; top: 18px; left: 50%; transform: translateX(-50%);
-            font-size: 0.35rem; letter-spacing: 2px;
-            color: rgba(255,200,50,0.8); white-space: nowrap;
         }
         .building-windows {
             position: absolute; top: 28px; left: 4px; right: 4px; bottom: 4px;
@@ -1330,7 +1324,6 @@
             <div class="building" id="building" onclick="showBombInfo()">
                 <div class="building-grid"></div>
                 <div class="building-antenna"></div>
-                <span class="building-label">XXImo</span>
                 <div class="building-windows">
                     <div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div>
                     <div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div>
@@ -1603,8 +1596,8 @@
             main.style.setProperty('--shake-duration','0.03s');
 
             document.getElementById('title').textContent = '☢ DETONATION ☢';
-            document.getElementById('stageLabel').textContent = 'IMPACT CONFIRMED';
-            document.getElementById('status').textContent = 'Ground zero reached';
+            document.getElementById('stageLabel').textContent = 'TEAM OPPENHEIMER DISBANDED';
+            document.getElementById('status').textContent = 'Ground zero reached — XXImo destroyed';
             document.getElementById('status').style.color = '#ff0000';
             document.getElementById('warningBorder').classList.add('active');
             document.getElementById('days').textContent = '0';
@@ -2061,19 +2054,19 @@
         });
 
         // === CONSOLE EASTER EGGS ===
-        console.log('%c☢ PROJECT TRINITY ☢', 'color: #ff6b35; font-size: 20px; font-weight: bold;');
+        console.log('%c☢ TEAM OPPENHEIMER ☢', 'color: #ff6b35; font-size: 20px; font-weight: bold;');
         console.log('%c"Now I am become Death, the destroyer of worlds." — J. Robert Oppenheimer', 'color: #aaa; font-style: italic;');
         console.log('%c╔══════════════════════════════════════╗', 'color: #ff6b35;');
         console.log('%c║  TARGET: XXImo, Utrecht              ║', 'color: #ff6b35;');
         console.log('%c║  DEADLINE: August 31, 2026           ║', 'color: #ff6b35;');
-        console.log('%c║  STATUS: IN PROGRESS                 ║', 'color: #ff6b35;');
+        console.log('%c║  TEAM OPPENHEIMER: ACTIVE            ║', 'color: #ff6b35;');
         console.log('%c╚══════════════════════════════════════╝', 'color: #ff6b35;');
         console.log('%cTry the Konami Code: ↑↑↓↓←→←→BA', 'color: #666; font-size: 10px;');
 
         // === TAB TITLE COUNTDOWN ===
         function updateTabTitle() {
             const diff = targetDate - Date.now();
-            if (diff <= 0) { document.title = '☢ IMPACT — XXImo'; return; }
+            if (diff <= 0) { document.title = '☢ TEAM OPPENHEIMER DISBANDED — XXImo'; return; }
             const d = Math.floor(diff / 86400000);
             const h = Math.floor((diff % 86400000) / 3600000);
             document.title = `${d}d ${h}h — XXImo ☢`;
@@ -2280,7 +2273,7 @@
                 '☢ De B-29 "Enola Gay" vloog op 9.500 meter hoogte toen Little Boy werd losgelaten.',
                 '☢ Oppenheimer werd de "vader van de atoombom" genoemd.',
                 '☢ De flits van Trinity was zichtbaar tot 320 km afstand.',
-                '☢ XXImo zit in het WTC-gebouw in Utrecht.',
+                '☢ XXImo zit in Utrecht. Team Oppenheimer heeft het doelwit vergrendeld.',
                 '☢ De Domtoren is 112,5 meter hoog — de hoogste kerktoren van Nederland.',
                 '☢ Utrecht werd gesticht in 47 na Christus als Romeins fort.',
                 '☢ De Oudegracht is een uniek tweelaagsgrachtensysteem.',
@@ -2313,7 +2306,7 @@
                 '☢ The B-29 "Enola Gay" flew at 31,060 feet when it released Little Boy.',
                 '☢ Oppenheimer was known as the "father of the atomic bomb".',
                 '☢ The flash from Trinity was visible from 200 miles away.',
-                '☢ XXImo is located in the WTC building in Utrecht, Netherlands.',
+                '☢ XXImo is located in Utrecht. Team Oppenheimer has locked on target.',
                 '☢ The Dom Tower in Utrecht is 112.5m tall — the tallest church tower in the Netherlands.',
                 '☢ Utrecht was founded in 47 AD as a Roman fortress.',
                 '☢ The Oudegracht is a unique two-level canal system found only in Utrecht.',
