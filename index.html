@@ -241,10 +241,11 @@
         }
         @keyframes radarSweep { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         .radar-dot {
-            position: absolute; top: 50%; left: 50%;
+            position: absolute; top: 25%; left: 50%;
             width: 4px; height: 4px; background: #0f0;
             border-radius: 50%; transform: translate(-50%, -50%);
             animation: radarBlink 1s ease-in-out infinite;
+            transition: top 1s ease;
         }
         @keyframes radarBlink { 0%,100% { opacity:1; box-shadow:0 0 4px #0f0; } 50% { opacity:0.3; } }
 
@@ -577,7 +578,7 @@
 
         /* Panic button */
         .panic-btn {
-            position:fixed;bottom:45px;right:15px;z-index:50;
+            position:fixed;bottom:55px;right:15px;z-index:50;
             background:rgba(255,0,0,0.1);border:2px solid rgba(255,0,0,0.5);
             color:#ff0000;font-family:'Courier New',monospace;font-size:0.6rem;
             letter-spacing:2px;padding:0.6rem 1rem;border-radius:4px;cursor:pointer;
@@ -859,6 +860,97 @@
             .progress-bar { width: 180px; }
             .milestones { width: 180px; }
         }
+
+        /* Theme selector */
+        .theme-btn {
+            position:fixed;top:15px;right:320px;z-index:50;
+            background:rgba(255,255,255,0.05);border:1px solid rgba(255,107,53,0.3);
+            color:#ff6b35;font-family:'Courier New',monospace;font-size:0.7rem;
+            letter-spacing:2px;padding:0.5rem 0.8rem;border-radius:4px;cursor:pointer;
+            transition:all 0.3s;text-transform:uppercase;
+        }
+        .theme-btn:hover { background:rgba(255,107,53,0.1);border-color:rgba(255,107,53,0.7); }
+
+        /* Theme: Retro Terminal */
+        body.theme-terminal { background: #001100; }
+        body.theme-terminal .time-value { color: #0f0 !important; text-shadow: 0 0 10px #0f0 !important; }
+        body.theme-terminal h1 { color: #0f0; text-shadow: 0 0 10px #0f0; }
+        body.theme-terminal .stage-label { color: #0f0; border-color: rgba(0,255,0,0.3); }
+        body.theme-terminal .quote { color: #0a0; }
+        body.theme-terminal .progress-fill { background: linear-gradient(to right, #0a0, #0f0); }
+        body.theme-terminal .status { color: #0f0 !important; }
+        body.theme-terminal .facts-ticker { border-top-color: rgba(0,255,0,0.3); }
+        body.theme-terminal .facts-ticker-content { color: rgba(0,255,0,0.7); }
+        body.theme-terminal .joost-panel { border-color: rgba(0,255,0,0.3); }
+        body.theme-terminal .joost-panel-title { color: #0f0; }
+        body.theme-terminal .joost-quote { color: rgba(0,255,0,0.8); }
+
+        /* Theme: Neon Synthwave */
+        body.theme-neon { background: linear-gradient(to bottom, #0a001a, #1a0030); }
+        body.theme-neon .time-value { color: #f0f !important; text-shadow: 0 0 20px #f0f, 0 0 40px #a0f !important; }
+        body.theme-neon h1 { color: #0ff; text-shadow: 0 0 15px #0ff; }
+        body.theme-neon .stage-label { color: #f0f; border-color: rgba(255,0,255,0.4); }
+        body.theme-neon .quote { color: #a0f; }
+        body.theme-neon .progress-fill { background: linear-gradient(to right, #f0f, #0ff); }
+        body.theme-neon .status { color: #0ff !important; }
+        body.theme-neon .facts-ticker { border-top-color: rgba(255,0,255,0.3); background: rgba(10,0,30,0.9); }
+        body.theme-neon .facts-ticker-content { color: rgba(0,255,255,0.7); }
+        body.theme-neon .joost-panel { border-color: rgba(255,0,255,0.3); }
+        body.theme-neon .joost-panel-title { color: #0ff; }
+        body.theme-neon .joost-quote { color: rgba(255,200,255,0.8); }
+
+        /* Theme: Classified */
+        body.theme-classified { background: #1a1a10; }
+        body.theme-classified .time-value { color: #c8a000 !important; text-shadow: 0 0 5px rgba(200,160,0,0.4) !important; }
+        body.theme-classified h1 { color: #c8a000; text-shadow: none; letter-spacing: 8px; }
+        body.theme-classified .stage-label { color: #c8a000; border-color: rgba(200,160,0,0.3); }
+        body.theme-classified .quote { color: #998050; }
+        body.theme-classified .progress-fill { background: linear-gradient(to right, #c8a000, #ff0000); }
+        body.theme-classified .facts-ticker { border-top-color: rgba(200,160,0,0.3); background: rgba(20,20,10,0.95); }
+        body.theme-classified .facts-ticker-content { color: rgba(200,160,0,0.7); }
+        body.theme-classified .joost-panel { border-color: rgba(200,160,0,0.3); }
+        body.theme-classified .joost-panel-title { color: #c8a000; }
+
+        /* Defuse minigame overlay */
+        .defuse-overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            z-index: 200; background: rgba(0,0,0,0.95);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none; transition: opacity 0.3s;
+        }
+        .defuse-overlay.show { opacity: 1; pointer-events: auto; }
+        .defuse-title { font-size: 1.2rem; color: #ff6b35; letter-spacing: 4px; margin-bottom: 1.5rem; }
+        .defuse-timer { font-size: 2rem; color: #ff0000; margin-bottom: 1rem; font-weight: bold; }
+        .defuse-wires {
+            display: flex; gap: 1.5rem; margin-bottom: 1.5rem;
+        }
+        .defuse-wire {
+            width: 8px; height: 120px; border-radius: 4px; cursor: pointer;
+            transition: all 0.2s; position: relative;
+            box-shadow: 0 0 10px currentColor;
+        }
+        .defuse-wire:hover { transform: scaleX(1.5); filter: brightness(1.5); }
+        .defuse-wire.cut { opacity: 0.2; height: 60px; cursor: default; }
+        .defuse-wire.cut::after {
+            content: '✂'; position: absolute; bottom: -20px; left: 50%; transform: translateX(-50%);
+            font-size: 0.8rem;
+        }
+        .defuse-result {
+            font-size: 1rem; letter-spacing: 3px; margin-top: 1rem;
+            min-height: 2rem;
+        }
+        .defuse-close {
+            margin-top: 1.5rem; font-size: 0.6rem; color: #666;
+            cursor: pointer; letter-spacing: 2px;
+        }
+        .defuse-close:hover { color: #aaa; }
+
+        /* Progress comparison */
+        .progress-compare {
+            position: fixed; top: 80px; left: 15px; z-index: 50;
+            font-size: 0.55rem; color: rgba(255,107,53,0.5);
+            letter-spacing: 1px; line-height: 1.8;
+        }
     </style>
 </head>
 <body>
@@ -870,7 +962,9 @@
     <button class="sound-btn" id="soundBtn" onclick="toggleSound()">🔇 Sound</button>
     <button class="fullscreen-btn" onclick="toggleFullscreen()">⛶ Full</button>
     <button class="lang-btn" id="langBtn" onclick="toggleLanguage()">🇳🇱 NL</button>
-    <button class="panic-btn" id="panicBtn" onclick="panicAbort()">⚠ ABORT MISSION</button>
+    <button class="theme-btn" id="themeBtn" onclick="cycleTheme()">🎨 Theme</button>
+    <button class="panic-btn" id="panicBtn" onclick="startDefuse()">⚠ DEFUSE</button>
+    <div class="progress-compare" id="progressCompare"></div>
     <div class="time-indicator" id="timeIndicator">Utrecht 00:00</div>
     <div class="working-hours" id="workingHours"></div>
     <div class="weather-display" id="weatherDisplay">Loading weather...</div>
@@ -892,6 +986,22 @@
         <h2>ACCESS DENIED</h2>
         <p>Abort sequence unavailable — point of no return exceeded</p>
         <p style="margin-top:2rem;color:#333;font-size:0.6rem;">click anywhere to dismiss</p>
+    </div>
+
+    <!-- Defuse Minigame -->
+    <div class="defuse-overlay" id="defuseOverlay">
+        <div class="defuse-title">☢ DEFUSE THE BOMB ☢</div>
+        <div class="defuse-timer" id="defuseTimer">10</div>
+        <p style="color:#666;font-size:0.6rem;margin-bottom:1rem;letter-spacing:2px;">CUT THE CORRECT WIRE</p>
+        <div class="defuse-wires" id="defuseWires">
+            <div class="defuse-wire" style="background:#ff0000;color:#ff0000;" onclick="cutWire(0)"></div>
+            <div class="defuse-wire" style="background:#00cc00;color:#00cc00;" onclick="cutWire(1)"></div>
+            <div class="defuse-wire" style="background:#0088ff;color:#0088ff;" onclick="cutWire(2)"></div>
+            <div class="defuse-wire" style="background:#ffcc00;color:#ffcc00;" onclick="cutWire(3)"></div>
+            <div class="defuse-wire" style="background:#ff00ff;color:#ff00ff;" onclick="cutWire(4)"></div>
+        </div>
+        <div class="defuse-result" id="defuseResult"></div>
+        <div class="defuse-close" onclick="closeDefuse()">[ CLOSE ]</div>
     </div>
 
     <div class="container" id="main">
@@ -1507,17 +1617,134 @@
             else document.exitFullscreen();
         }
 
-        function panicAbort() {
-            const ad = document.getElementById('accessDenied');
-            ad.classList.add('show');
-            if (soundEnabled) playSiren();
-            setTimeout(() => { ad.addEventListener('click', () => ad.classList.remove('show'), { once: true }); }, 500);
-        }
-
         function showBombInfo() {
             const info = document.getElementById('bombInfo');
             bombInfoVisible = !bombInfoVisible;
             info.classList.toggle('show', bombInfoVisible);
+        }
+
+        // === THEME SELECTOR ===
+        const themes = ['default', 'terminal', 'neon', 'classified'];
+        let themeIndex = 0;
+
+        function cycleTheme() {
+            document.body.classList.remove('theme-terminal', 'theme-neon', 'theme-classified');
+            themeIndex = (themeIndex + 1) % themes.length;
+            if (themes[themeIndex] !== 'default') {
+                document.body.classList.add('theme-' + themes[themeIndex]);
+            }
+            const names = { default: '🎨 Oppenheimer', terminal: '🖥 Terminal', neon: '🌈 Neon', classified: '📋 Classified' };
+            document.getElementById('themeBtn').textContent = names[themes[themeIndex]];
+        }
+
+        // === DEFUSE MINIGAME ===
+        let defuseTimerInterval = null;
+        let defuseTimeLeft = 10;
+        let defuseActive = false;
+
+        function startDefuse() {
+            const overlay = document.getElementById('defuseOverlay');
+            overlay.classList.add('show');
+            defuseActive = true;
+            defuseTimeLeft = 10;
+            document.getElementById('defuseTimer').textContent = '10';
+            document.getElementById('defuseResult').textContent = '';
+            document.getElementById('defuseResult').style.color = '';
+            // Reset wires
+            document.querySelectorAll('.defuse-wire').forEach(w => { w.classList.remove('cut'); w.style.pointerEvents = 'auto'; });
+            // Start countdown
+            defuseTimerInterval = setInterval(() => {
+                defuseTimeLeft--;
+                document.getElementById('defuseTimer').textContent = defuseTimeLeft;
+                if (defuseTimeLeft <= 3) document.getElementById('defuseTimer').style.animation = 'liveBlink 0.3s infinite';
+                if (defuseTimeLeft <= 0) {
+                    clearInterval(defuseTimerInterval);
+                    defuseFail('TIME\'S UP — DETONATION IMMINENT');
+                }
+            }, 1000);
+            if (soundEnabled) playTick();
+        }
+
+        function cutWire(index) {
+            if (!defuseActive) return;
+            const wires = document.querySelectorAll('.defuse-wire');
+            wires[index].classList.add('cut');
+            wires[index].style.pointerEvents = 'none';
+
+            // Every wire is wrong — the bomb cannot be stopped
+            const failMessages = [
+                'WRONG WIRE — DETONATION ACCELERATED',
+                'INCORRECT — FAILSAFE TRIGGERED',
+                'ERROR — TAMPER DETECTED',
+                'WRONG — COUNTDOWN CONTINUES',
+                'NICE TRY — BOMB IS UNDEFUSABLE'
+            ];
+            if (soundEnabled) playSiren();
+            defuseFail(failMessages[index]);
+        }
+
+        function defuseFail(msg) {
+            defuseActive = false;
+            clearInterval(defuseTimerInterval);
+            const result = document.getElementById('defuseResult');
+            result.textContent = '❌ ' + msg;
+            result.style.color = '#ff0000';
+            document.querySelectorAll('.defuse-wire').forEach(w => w.style.pointerEvents = 'none');
+            document.getElementById('defuseTimer').style.animation = '';
+        }
+
+        function closeDefuse() {
+            document.getElementById('defuseOverlay').classList.remove('show');
+            clearInterval(defuseTimerInterval);
+            defuseActive = false;
+        }
+
+        // === PROGRESS COMPARISON ===
+        function updateProgressComparison() {
+            const now = new Date();
+            const utNow = new Date(now.toLocaleString('en-US', { timeZone: 'Europe/Amsterdam' }));
+            const day = utNow.getDay(); // 0=Sun, 6=Sat
+            const currentProgress = getProgress() * 100;
+
+            // Calculate what progress was at the start of today (or start of weekend for Sat/Sun)
+            let compareDate;
+            if (day === 0) {
+                // Sunday — compare to Friday evening (start of weekend)
+                compareDate = new Date(utNow);
+                compareDate.setDate(compareDate.getDate() - 2);
+                compareDate.setHours(17, 0, 0, 0);
+            } else if (day === 6) {
+                // Saturday — compare to Friday evening
+                compareDate = new Date(utNow);
+                compareDate.setDate(compareDate.getDate() - 1);
+                compareDate.setHours(17, 0, 0, 0);
+            } else {
+                // Weekday — compare to yesterday same time
+                compareDate = new Date(utNow);
+                compareDate.setDate(compareDate.getDate() - 1);
+            }
+
+            const compareProgress = Math.min(Math.max((compareDate.getTime() - startDate) / totalDuration, 0), 1) * 100;
+            const diff = (currentProgress - compareProgress).toFixed(2);
+
+            let label;
+            if (day === 0 || day === 6) {
+                label = currentLang === 'nl' ? 'SINDS VRIJDAG' : 'SINCE FRIDAY';
+            } else {
+                label = currentLang === 'nl' ? 'SINDS GISTEREN' : 'SINCE YESTERDAY';
+            }
+
+            document.getElementById('progressCompare').innerHTML =
+                `${label}:<br>+${diff}% ${currentLang === 'nl' ? 'dichter bij impact' : 'closer to impact'}`;
+        }
+
+        // === RADAR BLIP TRACKING ===
+        function updateRadarBlip() {
+            const p = getProgress();
+            // Dot moves from top (25%) to bottom (85%) of radar
+            const dotTop = 25 + (p * 60);
+            const dot = document.querySelector('.radar-dot');
+            if (dot) dot.style.top = dotTop + '%';
         }
 
         // === WORKING HOURS ===
@@ -1962,14 +2189,18 @@
         updateTabTitle();
         updateCountdown();
         updateJoostPanel();
+        updateProgressComparison();
+        updateRadarBlip();
         fetchWeather();
 
         setInterval(updateCountdown, 1000);
         setInterval(updateTabTitle, 1000);
+        setInterval(updateRadarBlip, 1000);
         setInterval(updateDayNight, 30000);
         setInterval(updateHorizonGlow, 30000);
         setInterval(updateWorkingHours, 60000);
         setInterval(updateMiniCountdown, 10000);
+        setInterval(updateProgressComparison, 60000);
         setInterval(updateBomber, 50);
         setInterval(updateJoostPanel, 8000); // Rotate Joost quotes every 8 seconds
         setInterval(() => { if (soundEnabled) updateHum(); }, 5000);
