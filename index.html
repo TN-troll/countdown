@@ -1027,12 +1027,147 @@
             font-size: 0.55rem; color: rgba(255,107,53,0.5);
             letter-spacing: 1px; line-height: 1.8;
         }
+
+        /* Film grain overlay */
+        .film-grain {
+            position: fixed; top:0;left:0;right:0;bottom:0;
+            pointer-events: none; z-index: 3; opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            animation: grainShift 0.3s steps(3) infinite;
+        }
+        @keyframes grainShift {
+            0% { transform: translate(0,0); }
+            33% { transform: translate(-1px,1px); }
+            66% { transform: translate(1px,-1px); }
+            100% { transform: translate(0,0); }
+        }
+
+        /* Chromatic aberration */
+        .chromatic {
+            position: fixed; top:0;left:0;right:0;bottom:0;
+            pointer-events: none; z-index: 2;
+            mix-blend-mode: screen;
+            opacity: 0;
+            transition: opacity 2s ease;
+        }
+
+        /* Streetlights */
+        .streetlight {
+            position: absolute; bottom: 5%;
+            width: 3px; height: 3px;
+            background: rgba(255,200,100,0.7);
+            border-radius: 50%;
+            box-shadow: 0 0 4px rgba(255,200,100,0.5), 0 0 8px rgba(255,200,100,0.2);
+            animation: streetlightGlow 3s ease-in-out infinite;
+        }
+        @keyframes streetlightGlow { 0%,100%{opacity:0.7;} 50%{opacity:1;} }
+        .streetlight-pole {
+            position: absolute; bottom: 5%;
+            width: 1px; height: 12px;
+            background: rgba(100,100,100,0.4);
+        }
+
+        /* Canal reflections */
+        .canal-reflection {
+            position: absolute; bottom: 0; left: 0; right: 0; height: 8px;
+            background: linear-gradient(to bottom, rgba(30,60,120,0.3), rgba(20,40,80,0.2));
+            overflow: hidden;
+        }
+        .reflection-light {
+            position: absolute; bottom: 2px;
+            width: 4px; height: 2px;
+            background: rgba(255,200,100,0.2);
+            border-radius: 50%;
+            animation: reflectionShimmer 2s ease-in-out infinite;
+            filter: blur(1px);
+        }
+        @keyframes reflectionShimmer { 0%,100%{opacity:0.3;transform:scaleX(1);} 50%{opacity:0.6;transform:scaleX(1.5);} }
+
+        /* Moving cars */
+        .car {
+            position: absolute; bottom: 6%;
+            width: 6px; height: 3px;
+            background: #333;
+            border-radius: 1px;
+            animation: carDrive var(--car-speed, 8s) linear infinite;
+        }
+        .car::before {
+            content: ''; position: absolute; left: -2px; top: 0;
+            width: 2px; height: 2px;
+            background: rgba(255,255,200,0.6);
+            border-radius: 50%;
+            box-shadow: 0 0 3px rgba(255,255,200,0.4);
+        }
+        .car::after {
+            content: ''; position: absolute; right: -2px; top: 0;
+            width: 2px; height: 2px;
+            background: rgba(255,0,0,0.5);
+            border-radius: 50%;
+        }
+        @keyframes carDrive { 0%{left:-10px;} 100%{left:calc(100% + 10px);} }
+        .car.reverse { animation-name: carDriveReverse; }
+        .car.reverse::before { left:auto;right:-2px; }
+        .car.reverse::after { right:auto;left:-2px; }
+        @keyframes carDriveReverse { 0%{left:calc(100% + 10px);} 100%{left:-10px;} }
+
+        /* Birds/bats */
+        .bird {
+            position: absolute;
+            font-size: 0.4rem;
+            color: rgba(255,255,255,0.3);
+            animation: birdFly var(--bird-speed, 6s) linear infinite;
+            pointer-events: none;
+        }
+        @keyframes birdFly { 0%{left:-5%;transform:translateY(0);} 50%{transform:translateY(-8px);} 100%{left:105%;transform:translateY(0);} }
+
+        /* Spotlight on WTC */
+        .spotlight {
+            position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+            width: 100px; height: 100%;
+            background: linear-gradient(to bottom, transparent 0%, rgba(255,200,100,0.02) 50%, rgba(255,200,100,0.04) 100%);
+            clip-path: polygon(40% 0%, 60% 0%, 75% 100%, 25% 100%);
+            pointer-events: none; z-index: 1;
+            animation: spotlightPulse 4s ease-in-out infinite;
+        }
+        @keyframes spotlightPulse { 0%,100%{opacity:0.5;} 50%{opacity:1;} }
+
+        /* Shooting star */
+        .shooting-star {
+            position: absolute;
+            width: 2px; height: 2px;
+            background: #fff;
+            border-radius: 50%;
+            pointer-events: none;
+            box-shadow: 0 0 4px #fff;
+        }
+        .shooting-star::after {
+            content: ''; position: absolute; top: 0; right: 0;
+            width: 30px; height: 1px;
+            background: linear-gradient(to left, #fff, transparent);
+            transform-origin: right center;
+        }
+
+        /* Progress bar sparks */
+        .progress-spark {
+            position: absolute; right: 0; top: 50%;
+            width: 2px; height: 2px;
+            background: #ffcc00;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: sparkFly 0.6s ease-out forwards;
+        }
+        @keyframes sparkFly {
+            0% { transform: translate(0,0) scale(1); opacity:1; }
+            100% { transform: translate(var(--sx), var(--sy)) scale(0); opacity:0; }
+        }
     </style>
 </head>
 <body>
     <div class="glow-overlay" id="glow"></div>
     <div class="vignette" id="vignette"></div>
     <div class="scanlines"></div>
+    <div class="film-grain"></div>
+    <div class="chromatic" id="chromatic"></div>
     <div class="flash" id="flash"></div>
     <div class="warning-border" id="warningBorder"></div>
     <button class="sound-btn" id="soundBtn" onclick="toggleSound()">🔇 Sound</button>
@@ -1124,6 +1259,8 @@
                 <div class="speed-line" style="margin-left:45px;height:55px;animation-delay:0.25s;animation-duration:0.65s;"></div>
             </div>
             <div class="heat-distortion" id="heatDistortion"></div>
+            <div class="spotlight"></div>
+            <div id="birdsContainer"></div>
             <div class="smoke-trail" id="smokeTrail"></div>
             <div class="bomb" id="bomb" onclick="showBombInfo()">
                 <div class="bomb-body"></div>
@@ -1160,6 +1297,30 @@
                     <div class="city-building" style="right:42%;width:14px;height:16%;"></div>
                     <!-- Canal -->
                     <div class="canal"></div>
+                    <div class="canal-reflection">
+                        <div class="reflection-light" style="left:15%;animation-delay:0s;"></div>
+                        <div class="reflection-light" style="left:30%;animation-delay:0.5s;"></div>
+                        <div class="reflection-light" style="left:50%;animation-delay:1s;"></div>
+                        <div class="reflection-light" style="left:65%;animation-delay:1.5s;"></div>
+                        <div class="reflection-light" style="left:80%;animation-delay:0.8s;"></div>
+                    </div>
+                    <!-- Streetlights -->
+                    <div class="streetlight-pole" style="left:12%;"></div>
+                    <div class="streetlight" style="left:12%;"></div>
+                    <div class="streetlight-pole" style="left:25%;"></div>
+                    <div class="streetlight" style="left:25%;"></div>
+                    <div class="streetlight-pole" style="left:43%;"></div>
+                    <div class="streetlight" style="left:43%;"></div>
+                    <div class="streetlight-pole" style="left:57%;"></div>
+                    <div class="streetlight" style="left:57%;"></div>
+                    <div class="streetlight-pole" style="left:72%;"></div>
+                    <div class="streetlight" style="left:72%;"></div>
+                    <div class="streetlight-pole" style="left:88%;"></div>
+                    <div class="streetlight" style="left:88%;"></div>
+                    <!-- Moving cars -->
+                    <div class="car" style="--car-speed:12s;bottom:7%;animation-delay:0s;"></div>
+                    <div class="car reverse" style="--car-speed:15s;bottom:8%;animation-delay:-5s;"></div>
+                    <div class="car" style="--car-speed:10s;bottom:7%;animation-delay:-3s;"></div>
                     <!-- Street labels -->
                     <span class="street-label" style="bottom:10px;left:12%;">Oudegracht</span>
                     <span class="street-label" style="bottom:10px;left:40%;">Jaarbeursplein</span>
@@ -1292,10 +1453,8 @@
             if (stage !== lastStage) {
                 lastStage = stage;
                 document.getElementById('stageLabel').textContent = stage.name;
-                document.getElementById('quote').textContent = stage.quote;
                 document.getElementById('title').textContent = stage.title;
-                document.getElementById('quote').style.animation = 'none';
-                setTimeout(() => document.getElementById('quote').style.animation = 'fadeIn 2s ease forwards', 10);
+                typewriterQuote(stage.quote);
             }
 
             updateBomb(progress);
@@ -1397,6 +1556,11 @@
             } else {
                 document.getElementById('bombScene').style.filter = 'none';
             }
+
+            // Chromatic aberration
+            updateChromatic(progress);
+            // Depth of field on background
+            updateDepthOfField(progress);
         }
 
         // === TELEMETRY ===
@@ -2244,6 +2408,115 @@
             }, 500);
         }
 
+        // === VISUAL POLISH ===
+
+        // Typewriter effect on quotes
+        let typewriterTimeout = null;
+        function typewriterQuote(text) {
+            const el = document.getElementById('quote');
+            el.textContent = '';
+            el.style.opacity = '1';
+            let i = 0;
+            clearTimeout(typewriterTimeout);
+            function typeChar() {
+                if (i < text.length) {
+                    el.textContent += text[i];
+                    i++;
+                    typewriterTimeout = setTimeout(typeChar, 30 + Math.random() * 20);
+                }
+            }
+            typeChar();
+        }
+
+        // Chromatic aberration increases with progress
+        function updateChromatic(progress) {
+            const el = document.getElementById('chromatic');
+            if (progress > 0.6) {
+                const intensity = (progress - 0.6) * 5;
+                el.style.opacity = Math.min(0.3, intensity * 0.1);
+                el.style.boxShadow = `inset ${intensity}px 0 0 rgba(255,0,0,0.1), inset -${intensity}px 0 0 rgba(0,0,255,0.1)`;
+            }
+        }
+
+        // Parallax on mouse move
+        document.addEventListener('mousemove', (e) => {
+            const scene = document.getElementById('bombScene');
+            if (!scene) return;
+            const rect = scene.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width - 0.5;
+            const y = (e.clientY - rect.top) / rect.height - 0.5;
+            const clouds = scene.querySelector('.cloud-layer');
+            if (clouds) clouds.style.transform = `translateX(${x * 10}px)`;
+            const ground = scene.querySelector('.ground');
+            if (ground) ground.style.transform = `translateX(${x * -3}px)`;
+        });
+
+        // Shooting stars (at night)
+        function createShootingStar() {
+            const { hour } = getUtrechtTime();
+            if (hour >= 7 && hour < 20) return;
+            if (Math.random() > 0.3) return;
+            const scene = document.getElementById('bombScene');
+            const star = document.createElement('div');
+            star.className = 'shooting-star';
+            star.style.top = (5 + Math.random() * 30) + '%';
+            star.style.left = (Math.random() * 60) + '%';
+            scene.appendChild(star);
+            const angle = 20 + Math.random() * 30;
+            star.style.transform = `rotate(${angle}deg)`;
+            star.animate([
+                { left: star.style.left, opacity: 1 },
+                { left: (parseFloat(star.style.left) + 30) + '%', opacity: 0 }
+            ], { duration: 800, easing: 'ease-out' });
+            setTimeout(() => star.remove(), 900);
+        }
+
+        // Birds/bats near Dom Tower
+        function createBird() {
+            const { hour } = getUtrechtTime();
+            const container = document.getElementById('birdsContainer');
+            const bird = document.createElement('div');
+            bird.className = 'bird';
+            bird.textContent = (hour >= 20 || hour < 6) ? '🦇' : '∨';
+            bird.style.top = (20 + Math.random() * 30) + '%';
+            const speed = 5 + Math.random() * 5;
+            bird.style.setProperty('--bird-speed', speed + 's');
+            bird.style.animationDelay = -Math.random() * speed + 's';
+            container.appendChild(bird);
+            setTimeout(() => bird.remove(), speed * 1000);
+        }
+
+        // Windows go dark as bomb approaches (evacuation)
+        function updateWindowEvacuation(progress) {
+            if (progress < 0.7) return;
+            const windows = document.querySelectorAll('.city-building::after, .city-building');
+            document.querySelectorAll('.city-building').forEach(b => {
+                const darkChance = (progress - 0.7) * 3;
+                if (Math.random() < darkChance * 0.01) {
+                    b.style.setProperty('--win-opacity', '0.1');
+                }
+            });
+        }
+
+        // Progress bar sparks
+        function createProgressSpark() {
+            const bar = document.getElementById('progress');
+            if (!bar || bar.offsetWidth < 10) return;
+            const spark = document.createElement('div');
+            spark.className = 'progress-spark';
+            spark.style.setProperty('--sx', (Math.random() * 20 - 10) + 'px');
+            spark.style.setProperty('--sy', (Math.random() * -20 - 5) + 'px');
+            bar.appendChild(spark);
+            setTimeout(() => spark.remove(), 600);
+        }
+
+        // Depth of field — blur background buildings
+        function updateDepthOfField(progress) {
+            document.querySelectorAll('.city-building').forEach(b => {
+                b.style.filter = `blur(${0.5 + progress * 0.5}px)`;
+            });
+        }
+
         // === RANDOM FLICKER ===
         function randomFlicker() {
             const p = getProgress(); if (p < 0.5) return;
@@ -2286,6 +2559,9 @@
         setInterval(() => { const p=getProgress(); if(p>0.75&&Math.random()<(p-0.7)*2) createDebris(); }, 400);
         setInterval(randomFlicker, 200);
         setInterval(triggerLightning, 3000);
+        setInterval(createShootingStar, 4000);
+        setInterval(createBird, 6000);
+        setInterval(createProgressSpark, 300);
         setInterval(() => { if (soundEnabled && getProgress() > 0.88) playSiren(); }, 15000);
         setInterval(() => { if (soundEnabled && getProgress() > 0.3) playRadioChatter(); }, 8000);
         // Refresh weather every 15 minutes
