@@ -551,6 +551,16 @@
         .sound-btn:hover { background:rgba(255,107,53,0.1);border-color:rgba(255,107,53,0.7); }
         .sound-btn.active { background:rgba(255,107,53,0.15);border-color:#ff6b35;box-shadow:0 0 15px rgba(255,107,53,0.3); }
 
+        /* Language toggle */
+        .lang-btn {
+            position:fixed;top:15px;right:240px;z-index:50;
+            background:rgba(255,255,255,0.05);border:1px solid rgba(255,107,53,0.3);
+            color:#ff6b35;font-family:'Courier New',monospace;font-size:0.7rem;
+            letter-spacing:2px;padding:0.5rem 0.8rem;border-radius:4px;cursor:pointer;
+            transition:all 0.3s;text-transform:uppercase;
+        }
+        .lang-btn:hover { background:rgba(255,107,53,0.1);border-color:rgba(255,107,53,0.7); }
+
         /* Fullscreen button */
         .fullscreen-btn {
             position:fixed;top:15px;right:130px;z-index:50;
@@ -694,24 +704,190 @@
         .facts-ticker {
             position: fixed;
             bottom: 0; left: 0; right: 0;
-            height: 20px;
-            background: rgba(0,0,0,0.8);
-            border-top: 1px solid rgba(255,107,53,0.2);
+            height: 32px;
+            background: rgba(0,0,0,0.9);
+            border-top: 1px solid rgba(255,107,53,0.3);
             overflow: hidden;
             z-index: 50;
         }
         .facts-ticker-content {
             position: absolute;
             white-space: nowrap;
-            font-size: 0.55rem;
-            color: rgba(255,107,53,0.6);
+            font-size: 0.8rem;
+            color: rgba(255,107,53,0.8);
             letter-spacing: 1px;
-            line-height: 20px;
+            line-height: 32px;
             animation: tickerScroll var(--ticker-duration, 60s) linear infinite;
         }
         @keyframes tickerScroll {
             0% { transform: translateX(100vw); }
             100% { transform: translateX(-100%); }
+        }
+
+        /* Joost News Panel */
+        .joost-panel {
+            position: fixed;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 260px;
+            z-index: 50;
+            background: rgba(0,0,0,0.85);
+            border: 1px solid rgba(255,107,53,0.3);
+            border-radius: 6px;
+            padding: 1rem;
+            backdrop-filter: blur(5px);
+        }
+        .joost-panel-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.6rem;
+            border-bottom: 1px solid rgba(255,107,53,0.2);
+        }
+        .joost-panel-icon {
+            font-size: 1.4rem;
+        }
+        .joost-panel-title {
+            font-size: 0.65rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #ff6b35;
+        }
+        .joost-panel-live {
+            font-size: 0.5rem;
+            color: #ff0000;
+            animation: liveBlink 1s ease-in-out infinite;
+            margin-left: auto;
+            letter-spacing: 1px;
+        }
+        @keyframes liveBlink { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+        .joost-quote {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.6;
+            font-style: italic;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            transition: opacity 0.5s ease;
+        }
+        .joost-attribution {
+            margin-top: 0.6rem;
+            font-size: 0.55rem;
+            color: rgba(255,107,53,0.6);
+            letter-spacing: 1px;
+            text-align: right;
+        }
+        .joost-counter {
+            margin-top: 0.5rem;
+            font-size: 0.45rem;
+            color: rgba(255,255,255,0.2);
+            text-align: center;
+            letter-spacing: 2px;
+        }
+        /* === MOBILE RESPONSIVE === */
+        @media (max-width: 768px) {
+            body { padding: 0.5rem 0; }
+            .container { max-width: 100%; padding: 0.5rem; }
+            h1 { font-size: 1rem; letter-spacing: 4px; }
+            .stage-label { font-size: 0.6rem; letter-spacing: 2px; padding: 0.2rem 0.6rem; }
+            .quote { font-size: 0.7rem; max-width: 90%; margin-bottom: 1rem; }
+
+            .bomb-scene { height: 400px; }
+
+            .countdown { gap: 0.5rem; }
+            .time-block { padding: 0.7rem 0.8rem; min-width: 70px; }
+            .time-value { font-size: 2rem; }
+            .time-label { font-size: 0.55rem; letter-spacing: 2px; }
+
+            /* Joost panel moves to bottom-left, smaller */
+            .joost-panel {
+                left: 5px;
+                top: auto;
+                bottom: 40px;
+                transform: none;
+                width: 200px;
+                padding: 0.7rem;
+            }
+            .joost-panel-header { margin-bottom: 0.5rem; padding-bottom: 0.4rem; }
+            .joost-panel-icon { font-size: 1rem; }
+            .joost-panel-title { font-size: 0.55rem; letter-spacing: 2px; }
+            .joost-quote { font-size: 0.6rem; min-height: 45px; line-height: 1.5; }
+            .joost-attribution { font-size: 0.45rem; }
+
+            /* Buttons smaller and repositioned */
+            .sound-btn, .fullscreen-btn, .lang-btn {
+                font-size: 0.55rem;
+                padding: 0.3rem 0.5rem;
+                letter-spacing: 1px;
+            }
+            .sound-btn { right: 5px; top: 5px; }
+            .fullscreen-btn { right: 90px; top: 5px; }
+            .lang-btn { right: 160px; top: 5px; }
+            .panic-btn { font-size: 0.5rem; padding: 0.4rem 0.6rem; bottom: 40px; right: 5px; }
+
+            /* Ticker */
+            .facts-ticker { height: 28px; }
+            .facts-ticker-content { font-size: 0.65rem; line-height: 28px; }
+
+            /* Side panels */
+            .time-indicator { font-size: 0.45rem; top: 5px; left: 5px; }
+            .working-hours { top: 35px; left: 5px; font-size: 0.4rem; }
+            .weather-display { top: 35px; right: 5px; font-size: 0.4rem; }
+            .mini-countdown { bottom: 40px; right: auto; left: 5px; font-size: 0.4rem; display: none; }
+            .telemetry { font-size: 0.45rem; bottom: 35px; }
+            .visit-counter { font-size: 0.4rem; }
+
+            /* Ground/city scale down */
+            .ground { height: 100px; }
+            .city-skyline { height: 100px; }
+            .dom-tower { height: 80px; width: 10px; }
+            .dom-tower::before { top: -15px; border-left-width: 6px; border-right-width: 6px; border-bottom-width: 15px; }
+            .building { width: 40px; height: 75px; }
+            .building::before { font-size: 0.3rem; top: 6px; }
+            .building-windows { top: 16px; left: 3px; right: 3px; bottom: 3px; gap: 1px; }
+            .utrecht-cs { width: 40px; height: 22px; }
+            .jaarbeurs { width: 25px; height: 18px; }
+            .tivoli { width: 20px; height: 28px; }
+            .hoog-catharijne { width: 30px; height: 15px; }
+            .crosshair { width: 40px; height: 40px; bottom: 70px; }
+            .searchlight { height: 150px; bottom: 100px; }
+            .heat-distortion { bottom: 100px; }
+            .horizon-glow { bottom: 100px; height: 30px; }
+
+            /* Progress */
+            .progress-bar { width: 250px; }
+            .milestones { width: 250px; }
+
+            /* Hide less important elements on mobile */
+            .radar { width: 35px; height: 35px; }
+            .altitude { font-size: 0.5rem; }
+            .altitude-value { font-size: 0.9rem; }
+        }
+
+        @media (max-width: 480px) {
+            .bomb-scene { height: 300px; }
+            .countdown { gap: 0.3rem; }
+            .time-block { padding: 0.5rem 0.6rem; min-width: 60px; }
+            .time-value { font-size: 1.6rem; }
+            h1 { font-size: 0.85rem; }
+            .quote { font-size: 0.6rem; }
+
+            /* Hide Joost panel on very small screens, rely on ticker */
+            .joost-panel { display: none; }
+            .mini-countdown { display: none; }
+            .working-hours { display: none; }
+            .weather-display { display: none; }
+
+            .ground { height: 80px; }
+            .city-skyline { height: 80px; }
+            .building { width: 35px; height: 60px; }
+            .dom-tower { height: 60px; }
+            .crosshair { width: 30px; height: 30px; bottom: 55px; }
+            .progress-bar { width: 200px; }
+            .milestones { width: 200px; }
         }
     </style>
 </head>
@@ -723,12 +899,25 @@
     <div class="warning-border" id="warningBorder"></div>
     <button class="sound-btn" id="soundBtn" onclick="toggleSound()">🔇 Sound</button>
     <button class="fullscreen-btn" onclick="toggleFullscreen()">⛶ Full</button>
+    <button class="lang-btn" id="langBtn" onclick="toggleLanguage()">🇳🇱 NL</button>
     <button class="panic-btn" id="panicBtn" onclick="panicAbort()">⚠ ABORT MISSION</button>
     <div class="time-indicator" id="timeIndicator">Utrecht 00:00</div>
     <div class="working-hours" id="workingHours"></div>
     <div class="weather-display" id="weatherDisplay">Loading weather...</div>
     <div class="mini-countdown" id="miniCountdown"></div>
     <div class="visit-counter" id="visitCounter"></div>
+
+    <!-- Joost News Panel -->
+    <div class="joost-panel" id="joostPanel">
+        <div class="joost-panel-header">
+            <span class="joost-panel-icon">📰</span>
+            <span class="joost-panel-title">Joost Post</span>
+            <span class="joost-panel-live">● LIVE</span>
+        </div>
+        <div class="joost-quote" id="joostQuote"></div>
+        <div class="joost-attribution">— Joost van Kekem</div>
+        <div class="joost-counter" id="joostCounter">1 / 20</div>
+    </div>
     <div class="access-denied" id="accessDenied">
         <h2>ACCESS DENIED</h2>
         <p>Abort sequence unavailable — point of no return exceeded</p>
@@ -871,16 +1060,41 @@
         const startDate = new Date('2026-07-28T00:00:00').getTime();
         const totalDuration = targetDate - startDate;
 
-        const stages = [
-            { threshold: 0.00, name: 'Stage I — Assembly', quote: '"The physicists have known sin; and this is a knowledge which they cannot lose."', title: 'Trinity' },
-            { threshold: 0.15, name: 'Stage II — Arming', quote: '"We knew the world would not be the same."', title: 'Trinity' },
-            { threshold: 0.30, name: 'Stage III — Payload Bay Open', quote: '"A few people laughed, a few people cried. Most people were silent."', title: 'Gadget' },
-            { threshold: 0.45, name: 'Stage IV — Release', quote: '"The bomb was released and fell freely..."', title: 'Little Boy' },
-            { threshold: 0.60, name: 'Stage V — Free Fall', quote: '"I remembered the line from the Hindu scripture..."', title: 'Fat Man' },
-            { threshold: 0.75, name: 'Stage VI — Terminal Descent', quote: '"Now I am become Death, the destroyer of worlds."', title: 'Detonation' },
-            { threshold: 0.88, name: 'Stage VII — Critical Proximity', quote: '"If the radiance of a thousand suns were to burst at once into the sky..."', title: '☢ Impact' },
-            { threshold: 0.96, name: 'Stage VIII — Point of No Return', quote: '"...that would be like the splendor of the mighty one."', title: '☢☢☢' }
-        ];
+        const stages = {
+            nl: [
+                { threshold: 0.00, name: 'Fase I — Assemblage', quote: '"The physicists have known sin; and this is a knowledge which they cannot lose." — Oppenheimer', title: 'Trinity' },
+                { threshold: 0.15, name: 'Fase II — Bewapening', quote: '"Groei zonder structuur voelt eerst snel… en daarna duur." — Joost van Kekem', title: 'Trinity' },
+                { threshold: 0.30, name: 'Fase III — Bomluik Open', quote: '"Een paar mensen lachten, een paar mensen huilden. De meesten waren stil." — Oppenheimer', title: 'Gadget' },
+                { threshold: 0.45, name: 'Fase IV — Loslating', quote: '"Hoop is geen strategie." — Joost van Kekem, Vrijdagmiddag Sales Bingo', title: 'Little Boy' },
+                { threshold: 0.60, name: 'Fase V — Vrije Val', quote: '"Now I am become Death, the destroyer of worlds." — Oppenheimer', title: 'Fat Man' },
+                { threshold: 0.75, name: 'Fase VI — Terminale Afdaling', quote: '"Eerst bouwen, dan pas versnellen. Met richting. Met vertrouwen." — Joost van Kekem', title: 'Detonatie' },
+                { threshold: 0.88, name: 'Fase VII — Kritieke Nabijheid', quote: '"Als de gloed van duizend zonnen tegelijk aan de hemel zou verschijnen…" — Oppenheimer', title: '☢ Impact' },
+                { threshold: 0.96, name: 'Fase VIII — Point of No Return', quote: '"Liever tijdelijk ongeduldig dan langdurig ongelukkig." — Joost van Kekem', title: '☢☢☢' }
+            ],
+            en: [
+                { threshold: 0.00, name: 'Stage I — Assembly', quote: '"The physicists have known sin; and this is a knowledge which they cannot lose." — Oppenheimer', title: 'Trinity' },
+                { threshold: 0.15, name: 'Stage II — Arming', quote: '"Growth without structure feels fast at first… and expensive after." — Joost van Kekem', title: 'Trinity' },
+                { threshold: 0.30, name: 'Stage III — Payload Bay Open', quote: '"A few people laughed, a few people cried. Most people were silent." — Oppenheimer', title: 'Gadget' },
+                { threshold: 0.45, name: 'Stage IV — Release', quote: '"Hope is not a strategy." — Joost van Kekem, Friday Afternoon Sales Bingo', title: 'Little Boy' },
+                { threshold: 0.60, name: 'Stage V — Free Fall', quote: '"Now I am become Death, the destroyer of worlds." — Oppenheimer', title: 'Fat Man' },
+                { threshold: 0.75, name: 'Stage VI — Terminal Descent', quote: '"First build, then accelerate. With direction. With trust." — Joost van Kekem', title: 'Detonation' },
+                { threshold: 0.88, name: 'Stage VII — Critical Proximity', quote: '"If the radiance of a thousand suns were to burst at once into the sky…" — Oppenheimer', title: '☢ Impact' },
+                { threshold: 0.96, name: 'Stage VIII — Point of No Return', quote: '"Rather temporarily impatient than permanently unhappy." — Joost van Kekem', title: '☢☢☢' }
+            ]
+        };
+
+        // === LANGUAGE ===
+        let currentLang = 'nl';
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'nl' ? 'en' : 'nl';
+            const btn = document.getElementById('langBtn');
+            btn.textContent = currentLang === 'nl' ? '🇳🇱 NL' : '🇬🇧 EN';
+            lastStage = null; // Force stage text refresh
+            setupFactsTicker();
+            updateJoostPanel();
+            updateCountdown();
+        }
 
         // === STATE ===
         let lastStage = null;
@@ -893,8 +1107,9 @@
         }
 
         function getCurrentStage(p) {
-            let c = stages[0];
-            for (const s of stages) if (p >= s.threshold) c = s;
+            const stageList = stages[currentLang];
+            let c = stageList[0];
+            for (const s of stageList) if (p >= s.threshold) c = s;
             return c;
         }
 
@@ -1618,32 +1833,140 @@
 
         // === FUN FACTS TICKER ===
         function setupFactsTicker() {
-            const facts = [
+            const factsNL = [
+                '☢ Het Manhattan Project had meer dan 125.000 medewerkers en kostte $2 miljard (1945 dollars).',
+                '☢ De codenaam "Trinity" werd gekozen door Oppenheimer, geïnspireerd door John Donne.',
+                '☢ De eerste kernproef vond plaats op 16 juli 1945 in New Mexico.',
+                '☢ "Fat Man" woog 4.670 kg en had een kracht van 21 kiloton.',
+                '☢ De B-29 "Enola Gay" vloog op 9.500 meter hoogte toen Little Boy werd losgelaten.',
+                '☢ Oppenheimer werd de "vader van de atoombom" genoemd.',
+                '☢ De flits van Trinity was zichtbaar tot 320 km afstand.',
+                '☢ XXImo zit in het WTC-gebouw in Utrecht.',
+                '☢ De Domtoren is 112,5 meter hoog — de hoogste kerktoren van Nederland.',
+                '☢ Utrecht werd gesticht in 47 na Christus als Romeins fort.',
+                '☢ De Oudegracht is een uniek tweelaagsgrachtensysteem.',
+                '☢ T-minus ' + Math.floor((targetDate - Date.now())/86400000) + ' dagen tot impact.',
+                '☢ Oppenheimer leerde Sanskriet om de Bhagavad Gita origineel te lezen.',
+                '💼 "Groei zonder structuur voelt eerst snel… en daarna duur." — Joost van Kekem',
+                '💼 "Snelle groei is mooi. Voorspelbare groei is waardevoller." — Joost van Kekem',
+                '💼 "Veel salesproblemen zijn eigenlijk geen salesproblemen." — Joost van Kekem',
+                '💼 "Werkgeluk in sales is geen luxe. Het is een groeiversneller." — Joost van Kekem',
+                '💼 "Leiderschap is soms gewoon: een route kiezen, vertrouwen geven en je eigen banaan afstaan." — Joost van Kekem',
+                '💼 "Niet alles wat kan, moet je willen... en zeker niet in sales." — Joost van Kekem',
+                '💼 "Teams falen zelden door gebrek aan inzet. Ze falen door gebrek aan vertrouwen." — Joost van Kekem',
+                '💼 "Resultaat afdwingen is iets anders dan resultaat bouwen." — Joost van Kekem',
+                '💼 "Hoop is geen strategie." — Joost van Kekem',
+                '💼 "Motivatie komt en gaat. Systemen blijven." — Joost van Kekem',
+                '💼 "Gedrag veranderen is moeilijker dan targets verhogen." — Joost van Kekem',
+                '💼 "Eerst bouwen, dan pas versnellen." — Joost van Kekem',
+                '💼 "De meeste leiders worden gevormd door een slecht voorbeeld." — Joost van Kekem',
+                '💼 "Liever tijdelijk ongeduldig dan langdurig ongelukkig." — Joost van Kekem',
+                '💼 "Wie werkgeluk negeert, jaagt zijn mensen leeg." — Joost van Kekem',
+                '💼 "Pipeline theater: forecasts worden mooier gemaakt dan ze zijn." — Joost van Kekem',
+                '💼 "Ze komen er volgende week op terug" — Joost van Kekem, Vrijdagmiddag Sales Bingo 🎯',
+                '💼 "Het is eigenlijk al rond, alleen nog de handtekening" — Joost van Kekem 🎯',
+            ];
+            const factsEN = [
                 '☢ The Manhattan Project employed over 125,000 people and cost $2 billion (1945 dollars).',
-                '☢ The codename "Trinity" was chosen by Oppenheimer, inspired by John Donne\'s poetry.',
+                '☢ The codename "Trinity" was chosen by Oppenheimer, inspired by John Donne.',
                 '☢ The first nuclear test took place on July 16, 1945 in New Mexico.',
                 '☢ "Fat Man" weighed 4,670 kg and had a yield of 21 kilotons.',
                 '☢ The B-29 "Enola Gay" flew at 31,060 feet when it released Little Boy.',
-                '☢ The Trinity test created a crater 5 feet deep and 30 feet wide.',
                 '☢ Oppenheimer was known as the "father of the atomic bomb".',
                 '☢ The flash from Trinity was visible from 200 miles away.',
-                '☢ XXImo is located in the heart of Utrecht, Netherlands.',
-                '☢ The Dom Tower in Utrecht is 112.5 meters tall — the tallest church tower in the Netherlands.',
+                '☢ XXImo is located in the WTC building in Utrecht, Netherlands.',
+                '☢ The Dom Tower in Utrecht is 112.5m tall — the tallest church tower in the Netherlands.',
                 '☢ Utrecht was founded in 47 AD as a Roman fortress.',
                 '☢ The Oudegracht is a unique two-level canal system found only in Utrecht.',
                 '☢ T-minus ' + Math.floor((targetDate - Date.now())/86400000) + ' days until impact.',
-                '☢ Current descent velocity: ' + Math.floor(getProgress() * 340) + ' m/s.',
-                '☢ "The optimist thinks this is the best of all possible worlds. The pessimist fears it is true." — Oppenheimer',
-                '☢ Los Alamos Laboratory was established in 1943 in complete secrecy.',
-                '☢ The temperature at the center of a nuclear explosion reaches 100 million degrees.',
                 '☢ Oppenheimer studied Sanskrit to read the Bhagavad Gita in its original language.',
+                '💼 "Growth without structure feels fast at first… and expensive after." — Joost van Kekem',
+                '💼 "Fast growth is nice. Predictable growth is more valuable." — Joost van Kekem',
+                '💼 "Many sales problems aren\'t actually sales problems." — Joost van Kekem',
+                '💼 "Work happiness in sales is not a luxury. It\'s a growth accelerator." — Joost van Kekem',
+                '💼 "Leadership is sometimes: pick a route, give trust, and give away your banana." — Joost van Kekem',
+                '💼 "Not everything you can do, you should want to do... especially in sales." — Joost van Kekem',
+                '💼 "Teams rarely fail due to lack of effort. They fail due to lack of trust." — Joost van Kekem',
+                '💼 "Forcing results is different from building results." — Joost van Kekem',
+                '💼 "Hope is not a strategy." — Joost van Kekem',
+                '💼 "Motivation comes and goes. Systems stay." — Joost van Kekem',
+                '💼 "Changing behavior is harder than raising targets." — Joost van Kekem',
+                '💼 "First build, then accelerate." — Joost van Kekem',
+                '💼 "Most leaders are shaped by a bad example." — Joost van Kekem',
+                '💼 "Rather temporarily impatient than permanently unhappy." — Joost van Kekem',
+                '💼 "Whoever ignores work happiness, drains their people dry." — Joost van Kekem',
+                '💼 "Pipeline theater: forecasts are made prettier than they are." — Joost van Kekem',
+                '💼 "They\'ll get back to us next week" — Joost van Kekem, Friday Sales Bingo 🎯',
+                '💼 "It\'s basically done, just needs the signature" — Joost van Kekem 🎯',
             ];
+            const facts = currentLang === 'nl' ? factsNL : factsEN;
             const ticker = document.getElementById('factsTicker');
             const text = facts.join('     ●     ');
             ticker.textContent = text;
-            // Adjust speed based on content length
-            const duration = Math.max(30, text.length * 0.3);
+            const duration = Math.max(45, text.length * 0.25);
             ticker.style.setProperty('--ticker-duration', duration + 's');
+        }
+
+        // === JOOST NEWS PANEL ===
+        const joostQuotesNL = [
+            'Groei zonder structuur voelt eerst snel… en daarna duur.',
+            'Snelle groei is mooi. Voorspelbare groei is waardevoller.',
+            'Veel salesproblemen zijn eigenlijk geen salesproblemen.',
+            'Werkgeluk in sales is geen luxe. Het is een groeiversneller.',
+            'Leiderschap is soms gewoon: een route kiezen, vertrouwen geven en je eigen banaan afstaan.',
+            'Niet alles wat kan, moet je willen... en zeker niet in sales.',
+            'Teams falen zelden door gebrek aan inzet. Ze falen door gebrek aan vertrouwen, richting en verantwoordelijkheid.',
+            'Resultaat afdwingen is iets anders dan resultaat bouwen.',
+            'Hoop is geen strategie.',
+            'Motivatie komt en gaat. Systemen blijven.',
+            'Gedrag veranderen is moeilijker dan targets verhogen.',
+            'Sterke teams ontstaan niet vanzelf. Die ontstaan wanneer richting, vertrouwen en verantwoordelijkheid kloppen.',
+            'Eerst bouwen, dan pas versnellen.',
+            'De meeste leiders worden gevormd door een slecht voorbeeld.',
+            'Liever tijdelijk ongeduldig dan langdurig ongelukkig.',
+            'Targets haal je zelden op wilskracht alleen.',
+            'Een dag zonder lach is in mijn boek een verloren dag.',
+            'Wie werkgeluk negeert, jaagt zijn mensen leeg.',
+            'Pipeline theater: forecasts worden mooier gemaakt dan ze zijn.',
+            'Duurzame groei ontstaat niet door harder te werken, maar door een organisatie te bouwen die blijft functioneren als het druk wordt.',
+        ];
+        const joostQuotesEN = [
+            'Growth without structure feels fast at first… and expensive after.',
+            'Fast growth is nice. Predictable growth is more valuable.',
+            'Many sales problems aren\'t actually sales problems.',
+            'Work happiness in sales is not a luxury. It\'s a growth accelerator.',
+            'Leadership is sometimes: pick a route, give trust, and give away your own banana along the way.',
+            'Not everything you can do, you should want to do... especially in sales.',
+            'Teams rarely fail due to lack of effort. They fail due to lack of trust, direction and responsibility.',
+            'Forcing results is different from building results.',
+            'Hope is not a strategy.',
+            'Motivation comes and goes. Systems stay.',
+            'Changing behavior is harder than raising targets.',
+            'Strong teams don\'t appear by themselves. They emerge when direction, trust and responsibility align.',
+            'First build, then accelerate.',
+            'Most leaders are shaped by a bad example.',
+            'Rather temporarily impatient than permanently unhappy.',
+            'You rarely hit targets on willpower alone.',
+            'A day without laughter is a lost day in my book.',
+            'Whoever ignores work happiness, drains their people dry.',
+            'Pipeline theater: forecasts are made prettier than they really are.',
+            'Sustainable growth doesn\'t come from working harder, but from building an organization that keeps functioning when things get busy.',
+        ];
+        let joostIndex = 0;
+
+        function updateJoostPanel() {
+            const quotes = currentLang === 'nl' ? joostQuotesNL : joostQuotesEN;
+            const quoteEl = document.getElementById('joostQuote');
+            const counterEl = document.getElementById('joostCounter');
+
+            // Fade out
+            quoteEl.style.opacity = '0';
+            setTimeout(() => {
+                quoteEl.textContent = '"' + quotes[joostIndex] + '"';
+                counterEl.textContent = (joostIndex + 1) + ' / ' + quotes.length;
+                quoteEl.style.opacity = '1';
+                joostIndex = (joostIndex + 1) % quotes.length;
+            }, 500);
         }
 
         // === RANDOM FLICKER ===
@@ -1666,6 +1989,7 @@
         updateMiniCountdown();
         updateTabTitle();
         updateCountdown();
+        updateJoostPanel();
         fetchWeather();
 
         setInterval(updateCountdown, 1000);
@@ -1675,6 +1999,7 @@
         setInterval(updateWorkingHours, 60000);
         setInterval(updateMiniCountdown, 10000);
         setInterval(updateBomber, 50);
+        setInterval(updateJoostPanel, 8000); // Rotate Joost quotes every 8 seconds
         setInterval(() => { if (soundEnabled) updateHum(); }, 5000);
         setInterval(() => { const p=getProgress(); for(let i=0;i<Math.ceil(p*3);i++) createParticle(); }, 150);
         setInterval(createWindStreak, 100);
