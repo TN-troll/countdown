@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Countdown — XXImo</title>
+    <title>Team Oppenheimer — Countdown to Disbandment</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -1356,7 +1356,7 @@
 
         <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
         <div class="milestones" id="milestones"></div>
-        <p class="status" id="status">Systems nominal</p>
+        <p class="status" id="status">Team Oppenheimer — active</p>
     </div>
 
     <div class="telemetry" id="telemetry"></div>
@@ -1372,24 +1372,24 @@
 
         const stages = {
             nl: [
-                { threshold: 0.00, name: 'Fase I — Assemblage', quote: '"The physicists have known sin; and this is a knowledge which they cannot lose." — Oppenheimer', title: 'Trinity' },
-                { threshold: 0.15, name: 'Fase II — Bewapening', quote: '"Groei zonder structuur voelt eerst snel… en daarna duur." — Joost van Kekem', title: 'Trinity' },
-                { threshold: 0.30, name: 'Fase III — Bomluik Open', quote: '"Een paar mensen lachten, een paar mensen huilden. De meesten waren stil." — Oppenheimer', title: 'Gadget' },
-                { threshold: 0.45, name: 'Fase IV — Loslating', quote: '"Hoop is geen strategie." — Joost van Kekem, Vrijdagmiddag Sales Bingo', title: 'Little Boy' },
-                { threshold: 0.60, name: 'Fase V — Vrije Val', quote: '"Now I am become Death, the destroyer of worlds." — Oppenheimer', title: 'Fat Man' },
-                { threshold: 0.75, name: 'Fase VI — Terminale Afdaling', quote: '"Eerst bouwen, dan pas versnellen. Met richting. Met vertrouwen." — Joost van Kekem', title: 'Detonatie' },
-                { threshold: 0.88, name: 'Fase VII — Kritieke Nabijheid', quote: '"Als de gloed van duizend zonnen tegelijk aan de hemel zou verschijnen…" — Oppenheimer', title: '☢ Impact' },
-                { threshold: 0.96, name: 'Fase VIII — Point of No Return', quote: '"Liever tijdelijk ongeduldig dan langdurig ongelukkig." — Joost van Kekem', title: '☢☢☢' }
+                { threshold: 0.00, name: 'Fase I — Assemblage', quote: '"The physicists have known sin; and this is a knowledge which they cannot lose." — Oppenheimer', title: 'Team Oppenheimer' },
+                { threshold: 0.15, name: 'Fase II — Bewapening', quote: '"Groei zonder structuur voelt eerst snel… en daarna duur." — Joost van Kekem', title: 'Team Oppenheimer' },
+                { threshold: 0.30, name: 'Fase III — Bomluik Open', quote: '"Een paar mensen lachten, een paar mensen huilden. De meesten waren stil." — Oppenheimer', title: 'Ontbinding nadert' },
+                { threshold: 0.45, name: 'Fase IV — Loslating', quote: '"Hoop is geen strategie." — Joost van Kekem, Vrijdagmiddag Sales Bingo', title: 'Ontbinding nadert' },
+                { threshold: 0.60, name: 'Fase V — Vrije Val', quote: '"Now I am become Death, the destroyer of worlds." — Oppenheimer', title: 'Einde in zicht' },
+                { threshold: 0.75, name: 'Fase VI — Terminale Afdaling', quote: '"Eerst bouwen, dan pas versnellen. Met richting. Met vertrouwen." — Joost van Kekem', title: '☢ Ontbinding' },
+                { threshold: 0.88, name: 'Fase VII — Kritieke Nabijheid', quote: '"Als de gloed van duizend zonnen tegelijk aan de hemel zou verschijnen…" — Oppenheimer', title: '☢ Bijna ontbonden' },
+                { threshold: 0.96, name: 'Fase VIII — Point of No Return', quote: '"Liever tijdelijk ongeduldig dan langdurig ongelukkig." — Joost van Kekem', title: '☢☢☢ ONTBINDING ☢☢☢' }
             ],
             en: [
-                { threshold: 0.00, name: 'Stage I — Assembly', quote: '"The physicists have known sin; and this is a knowledge which they cannot lose." — Oppenheimer', title: 'Trinity' },
-                { threshold: 0.15, name: 'Stage II — Arming', quote: '"Growth without structure feels fast at first… and expensive after." — Joost van Kekem', title: 'Trinity' },
-                { threshold: 0.30, name: 'Stage III — Payload Bay Open', quote: '"A few people laughed, a few people cried. Most people were silent." — Oppenheimer', title: 'Gadget' },
-                { threshold: 0.45, name: 'Stage IV — Release', quote: '"Hope is not a strategy." — Joost van Kekem, Friday Afternoon Sales Bingo', title: 'Little Boy' },
-                { threshold: 0.60, name: 'Stage V — Free Fall', quote: '"Now I am become Death, the destroyer of worlds." — Oppenheimer', title: 'Fat Man' },
-                { threshold: 0.75, name: 'Stage VI — Terminal Descent', quote: '"First build, then accelerate. With direction. With trust." — Joost van Kekem', title: 'Detonation' },
-                { threshold: 0.88, name: 'Stage VII — Critical Proximity', quote: '"If the radiance of a thousand suns were to burst at once into the sky…" — Oppenheimer', title: '☢ Impact' },
-                { threshold: 0.96, name: 'Stage VIII — Point of No Return', quote: '"Rather temporarily impatient than permanently unhappy." — Joost van Kekem', title: '☢☢☢' }
+                { threshold: 0.00, name: 'Stage I — Assembly', quote: '"The physicists have known sin; and this is a knowledge which they cannot lose." — Oppenheimer', title: 'Team Oppenheimer' },
+                { threshold: 0.15, name: 'Stage II — Arming', quote: '"Growth without structure feels fast at first… and expensive after." — Joost van Kekem', title: 'Team Oppenheimer' },
+                { threshold: 0.30, name: 'Stage III — Payload Bay Open', quote: '"A few people laughed, a few people cried. Most people were silent." — Oppenheimer', title: 'Disbandment approaching' },
+                { threshold: 0.45, name: 'Stage IV — Release', quote: '"Hope is not a strategy." — Joost van Kekem, Friday Afternoon Sales Bingo', title: 'Disbandment approaching' },
+                { threshold: 0.60, name: 'Stage V — Free Fall', quote: '"Now I am become Death, the destroyer of worlds." — Oppenheimer', title: 'End in sight' },
+                { threshold: 0.75, name: 'Stage VI — Terminal Descent', quote: '"First build, then accelerate. With direction. With trust." — Joost van Kekem', title: '☢ Disbandment' },
+                { threshold: 0.88, name: 'Stage VII — Critical Proximity', quote: '"If the radiance of a thousand suns were to burst at once into the sky…" — Oppenheimer', title: '☢ Almost disbanded' },
+                { threshold: 0.96, name: 'Stage VIII — Point of No Return', quote: '"Rather temporarily impatient than permanently unhappy." — Joost van Kekem', title: '☢☢☢ DISBANDED ☢☢☢' }
             ]
         };
 
@@ -1565,14 +1565,14 @@
             document.getElementById('telemetry').innerHTML = `SYS: ${sys}<br>VEL: ${vel} m/s<br>TEMP: ${temp.toLocaleString()}°C<br>PSI: ${psi} atm<br>YIELD: ${progress > 0.5 ? '21 KT' : 'CLASSIFIED'}`;
 
             const statusEl = document.getElementById('status');
-            if (progress < 0.15) { statusEl.textContent = 'Systems nominal'; statusEl.style.color = '#4a9'; }
-            else if (progress < 0.30) { statusEl.textContent = 'Weapon armed'; statusEl.style.color = '#ff6b35'; }
-            else if (progress < 0.45) { statusEl.textContent = 'Bay doors open'; statusEl.style.color = '#ff6b35'; }
-            else if (progress < 0.60) { statusEl.textContent = 'Package released'; statusEl.style.color = '#ff4500'; }
-            else if (progress < 0.75) { statusEl.textContent = 'Free fall — accelerating'; statusEl.style.color = '#ff3300'; }
-            else if (progress < 0.88) { statusEl.textContent = '⚠ Terminal velocity reached ⚠'; statusEl.style.color = '#ff2200'; }
-            else if (progress < 0.96) { statusEl.textContent = '⚠⚠ CRITICAL ALTITUDE ⚠⚠'; statusEl.style.color = '#ff0000'; }
-            else { statusEl.textContent = '☢ BRACE FOR IMPACT ☢'; statusEl.style.color = '#ff0000'; }
+            if (progress < 0.15) { statusEl.textContent = 'Team Oppenheimer — active'; statusEl.style.color = '#4a9'; }
+            else if (progress < 0.30) { statusEl.textContent = 'Team Oppenheimer — armed'; statusEl.style.color = '#ff6b35'; }
+            else if (progress < 0.45) { statusEl.textContent = 'Disbandment countdown initiated'; statusEl.style.color = '#ff6b35'; }
+            else if (progress < 0.60) { statusEl.textContent = 'Package released — disbandment accelerating'; statusEl.style.color = '#ff4500'; }
+            else if (progress < 0.75) { statusEl.textContent = 'Free fall — Team Oppenheimer ending soon'; statusEl.style.color = '#ff3300'; }
+            else if (progress < 0.88) { statusEl.textContent = '⚠ Disbandment imminent ⚠'; statusEl.style.color = '#ff2200'; }
+            else if (progress < 0.96) { statusEl.textContent = '⚠⚠ TEAM OPPENHEIMER ALMOST DISBANDED ⚠⚠'; statusEl.style.color = '#ff0000'; }
+            else { statusEl.textContent = '☢ TEAM OPPENHEIMER WILL BE DISBANDED ☢'; statusEl.style.color = '#ff0000'; }
         }
 
         // === IMPACT ===
@@ -2069,7 +2069,7 @@
             if (diff <= 0) { document.title = '☢ TEAM OPPENHEIMER DISBANDED — XXImo'; return; }
             const d = Math.floor(diff / 86400000);
             const h = Math.floor((diff % 86400000) / 3600000);
-            document.title = `${d}d ${h}h — XXImo ☢`;
+            document.title = `${d}d ${h}h — Team Oppenheimer disbands ☢`;
         }
 
         // === B-29 BOMBER & CONTRAILS ===
