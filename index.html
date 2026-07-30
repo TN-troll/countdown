@@ -680,7 +680,7 @@
         .bomb-info.show { opacity:1; }
 
         /* Time indicator */
-        .time-indicator { position:fixed;top:15px;left:15px;z-index:50;font-size:0.55rem;color:rgba(255,255,255,0.3);letter-spacing:2px; }
+        .time-indicator { position:fixed;top:50px;left:15px;z-index:50;font-size:0.55rem;color:rgba(255,255,255,0.3);letter-spacing:2px; }
 
         /* Visit counter */
         .visit-counter { position:fixed;bottom:15px;left:50%;transform:translateX(-50%);z-index:50;font-size:0.5rem;color:rgba(255,255,255,0.2);letter-spacing:2px; }
@@ -1017,7 +1017,7 @@
 
         /* Progress comparison */
         .progress-compare {
-            position: fixed; top: 80px; left: 15px; z-index: 50;
+            position: fixed; top: 100px; left: 15px; z-index: 50;
             font-size: 0.55rem; color: rgba(255,107,53,0.5);
             letter-spacing: 1px; line-height: 1.8;
         }
@@ -1168,7 +1168,7 @@
     <button class="fullscreen-btn" onclick="toggleFullscreen()">⛶ Full</button>
     <button class="lang-btn" id="langBtn" onclick="toggleLanguage()">🇳🇱 NL</button>
     <button class="theme-btn" id="themeBtn" onclick="cycleTheme()">🎨 Theme</button>
-    <a href="doomsday.html" class="theme-btn" style="right:400px;background:rgba(0,135,85,0.1);border-color:rgba(0,135,85,0.4);color:#39A87B;">⏱ Arval Clock</a>
+    <a href="doomsday.html" style="position:fixed;top:15px;left:15px;z-index:50;background:rgba(0,135,85,0.1);border:1px solid rgba(0,135,85,0.4);color:#39A87B;font-family:'Courier New',monospace;font-size:0.7rem;letter-spacing:2px;padding:0.5rem 1rem;border-radius:4px;text-decoration:none;text-transform:uppercase;transition:all 0.3s;">⏱ Arval Clock</a>
     <button class="panic-btn" id="panicBtn" onclick="startDefuse()">⚠ DEFUSE</button>
     <div class="progress-compare" id="progressCompare"></div>
     <div class="time-indicator" id="timeIndicator">Utrecht 00:00</div>
