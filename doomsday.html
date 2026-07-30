@@ -115,17 +115,24 @@
             border-radius: 1.5px;
         }
         .hand-second {
-            width: 1.5px; height: 100px;
-            margin-left: -0.75px; margin-top: -70px;
-            background: #008755;
+            width: 1.5px; height: 130px;
+            margin-left: -0.75px; margin-top: -95px;
+            background: linear-gradient(to top, #008755 30px, #008755 100%);
             box-shadow: 0 0 6px rgba(0,135,85,0.6);
+            transition: none;
+            animation: smoothSecond 60s linear infinite;
         }
         .hand-second::after {
             content: '';
-            position: absolute; bottom: -30px; left: 50%;
-            width: 1.5px; height: 30px;
-            margin-left: -0.75px;
+            position: absolute; bottom: 0; left: 50%;
+            width: 3px; height: 30px;
+            margin-left: -1.5px;
             background: #008755;
+            border-radius: 1px;
+        }
+        @keyframes smoothSecond {
+            from { transform: rotate(var(--sec-start, 0deg)); }
+            to { transform: rotate(calc(var(--sec-start, 0deg) + 360deg)); }
         }
         .hand-second-circle {
             position: absolute;
@@ -239,7 +246,7 @@
     </style>
 </head>
 <body>
-    <a href="countdown.html" class="nav-btn">☢ Team Oppenheimer</a>
+    <a href="index.html" class="nav-btn">☢ Team Oppenheimer</a>
 
     <div class="container">
         <div class="header">
@@ -347,7 +354,6 @@
             const progress = getProgress();
             const diff = targetDate - Date.now();
             const currentWeek = getCurrentWeek();
-            const seconds = new Date().getSeconds();
 
             if (diff <= 0) {
                 document.getElementById('weeks').textContent = '0';
@@ -384,12 +390,21 @@
             const hourDeg = 180 + (progress * 180);
             // Minute hand: faster movement
             const minuteDeg = 180 + (progress * 180 * 5) % 360;
-            // Second hand: real-time ticking
-            const secondDeg = seconds * 6;
+            // Second hand: smooth continuous rotation
+            const now = new Date();
+            const secAngle = (now.getSeconds() + now.getMilliseconds() / 1000) * 6;
+            const secHand = document.getElementById('handSecond');
+            secHand.style.setProperty('--sec-start', secAngle + 'deg');
+            // Only restart animation if not already running smoothly
+            if (!secHand.dataset.started) {
+                secHand.style.animation = 'none';
+                secHand.offsetHeight; // force reflow
+                secHand.style.animation = `smoothSecond 60s linear infinite`;
+                secHand.dataset.started = '1';
+            }
 
             document.getElementById('handHour').style.transform = `rotate(${hourDeg}deg)`;
             document.getElementById('handMinute').style.transform = `rotate(${minuteDeg}deg)`;
-            document.getElementById('handSecond').style.transform = `rotate(${secondDeg}deg)`;
 
             // Time to midnight display
             const minsLeft = Math.max(0, Math.round((1 - progress) * 60));
