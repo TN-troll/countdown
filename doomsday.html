@@ -329,10 +329,10 @@
         }
         .fleet-car {
             position: absolute; bottom: 4px;
-            font-size: 0.7rem;
+            font-size: 0.8rem;
             animation: fleetDrive var(--fleet-speed, 12s) linear infinite;
         }
-        @keyframes fleetDrive { from{left:-30px;} to{left:calc(100% + 30px);} }
+        @keyframes fleetDrive { from{right:-30px;left:auto;} to{right:calc(100% + 30px);left:auto;} }
 
         /* Cost counter */
         .cost-counter {
@@ -429,9 +429,14 @@
     <div class="footer">POWERED BY LEASING ⚡</div>
 
     <script>
-        const targetDate = new Date('2026-10-01T00:00:00').getTime();
-        const startDate = new Date('2026-07-23T00:00:00').getTime();
+        // All times in Europe/Amsterdam (GMT+1/CEST)
+        const targetDate = new Date('2026-10-01T00:00:00+02:00').getTime();
+        const startDate = new Date('2026-07-23T00:00:00+02:00').getTime();
         const totalDuration = targetDate - startDate;
+
+        function getAmsterdamTime() {
+            return new Date(new Date().toLocaleString('en-US', { timeZone: 'Europe/Amsterdam' }));
+        }
         const totalWeeks = 10;
 
         const doomQuotes = [
