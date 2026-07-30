@@ -47,89 +47,130 @@
             font-size: 0.5rem; color: #39A87B; letter-spacing: 4px;
         }
 
-        /* Doomsday Clock - properly centered */
+        /* Rolex-inspired Doomsday Clock */
         .clock-wrapper {
             position: relative;
             display: flex; align-items: center; justify-content: center;
+            width: 300px; height: 300px;
         }
-        .clock-container {
-            position: relative;
-            width: 280px; height: 280px;
+        .clock-bezel {
+            position: absolute;
+            width: 300px; height: 300px;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, #1a1a1a, #333, #1a1a1a, #444, #1a1a1a, #333, #1a1a1a);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.8), inset 0 2px 4px rgba(255,255,255,0.05);
+        }
+        .clock-bezel-inner {
+            position: absolute;
+            top: 8px; left: 8px;
+            width: 284px; height: 284px;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, #222, #3a3a3a, #222, #3a3a3a, #222);
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.5);
         }
         .clock-face {
-            position: absolute; top: 0; left: 0;
-            width: 100%; height: 100%;
-            border-radius: 50%;
-            border: 3px solid #008755;
-            box-shadow: 0 0 40px rgba(0,135,85,0.15), inset 0 0 40px rgba(0,135,85,0.03);
-            background: radial-gradient(circle at 40% 40%, #001f12, #000);
-        }
-        .clock-marks { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-        .clock-mark {
             position: absolute;
-            top: 10px; left: calc(50% - 1px);
-            width: 2px; height: 10px;
-            background: #39A87B;
-            transform-origin: 1px 130px;
-        }
-        .clock-mark.major { width: 3px; height: 16px; background: #008755; left: calc(50% - 1.5px); transform-origin: 1.5px 130px; }
-
-        .clock-hand-minute {
-            position: absolute; top: 50%; left: 50%;
-            width: 3px; height: 95px;
-            background: linear-gradient(to top, transparent, #39A87B, #6ABB97);
-            transform-origin: 50% 100%;
-            transform: rotate(0deg);
-            margin-left: -1.5px; margin-top: -95px;
-            border-radius: 2px;
-            transition: transform 1s ease;
-            box-shadow: 0 0 10px rgba(0,135,85,0.6);
-        }
-        .clock-hand-hour {
-            position: absolute; top: 50%; left: 50%;
-            width: 4px; height: 65px;
-            background: linear-gradient(to top, transparent, #007348, #008755);
-            transform-origin: 50% 100%;
-            transform: rotate(0deg);
-            margin-left: -2px; margin-top: -65px;
-            border-radius: 2px;
-            transition: transform 1s ease;
-        }
-        .clock-center {
-            position: absolute; top: 50%; left: 50%;
-            width: 10px; height: 10px;
-            background: radial-gradient(circle, #39A87B, #008755);
+            top: 16px; left: 16px;
+            width: 268px; height: 268px;
             border-radius: 50%;
-            transform: translate(-50%, -50%);
-            box-shadow: 0 0 12px rgba(0,135,85,0.8);
-        }
-        .clock-midnight {
-            position: absolute; top: 12%; left: 50%; transform: translateX(-50%);
-            font-size: 0.45rem; color: #ff4400;
-            letter-spacing: 3px; text-transform: uppercase;
-            text-shadow: 0 0 5px rgba(255,50,0,0.3);
-        }
-        .clock-time {
-            position: absolute; bottom: 22%; left: 50%; transform: translateX(-50%);
-            font-size: 1.3rem; font-weight: 700; color: #008755;
-            text-shadow: 0 0 8px rgba(0,135,85,0.3);
-            letter-spacing: 2px;
+            background: radial-gradient(circle at 40% 35%, #0a1f15, #041a0d, #000);
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.5);
         }
 
-        /* Glow rings */
-        .glow-ring {
-            position: absolute; top: 50%; left: 50%;
-            width: 300px; height: 300px;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            border: 1px solid rgba(0,135,85,0.08);
-            animation: ringPulse 4s ease-in-out infinite;
-            pointer-events: none;
+        /* Hour markers - Rolex style rectangles */
+        .marker {
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 4px; height: 18px;
+            background: linear-gradient(to bottom, #c0c0c0, #808080);
+            border-radius: 1px;
+            transform-origin: 50% 0;
+            box-shadow: 0 0 3px rgba(200,200,200,0.3);
         }
-        .glow-ring:nth-child(2) { width: 320px; height: 320px; animation-delay: -2s; }
-        @keyframes ringPulse {
-            0%,100% { transform: translate(-50%,-50%) scale(1); opacity:0.2; }
-            50% { transform: translate(-50%,-50%) scale(1.03); opacity:0.5; }
+        .marker-12 {
+            width: 8px; height: 22px;
+            background: linear-gradient(to bottom, #ff4400, #cc2200);
+            box-shadow: 0 0 8px rgba(255,68,0,0.5);
+        }
+
+        /* Hands */
+        .hand {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform-origin: 50% 100%;
+            border-radius: 2px;
+        }
+        .hand-hour {
+            width: 5px; height: 60px;
+            margin-left: -2.5px; margin-top: -60px;
+            background: linear-gradient(to top, #555, #aaa, #ddd, #aaa);
+            box-shadow: 0 0 4px rgba(0,0,0,0.5);
+            border-radius: 2px 2px 1px 1px;
+        }
+        .hand-minute {
+            width: 3px; height: 90px;
+            margin-left: -1.5px; margin-top: -90px;
+            background: linear-gradient(to top, #555, #ccc, #fff, #ccc);
+            box-shadow: 0 0 6px rgba(0,135,85,0.3);
+            border-radius: 1.5px;
+        }
+        .hand-second {
+            width: 1.5px; height: 100px;
+            margin-left: -0.75px; margin-top: -70px;
+            background: #008755;
+            box-shadow: 0 0 6px rgba(0,135,85,0.6);
+        }
+        .hand-second::after {
+            content: '';
+            position: absolute; bottom: -30px; left: 50%;
+            width: 1.5px; height: 30px;
+            margin-left: -0.75px;
+            background: #008755;
+        }
+        .hand-second-circle {
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 8px; height: 8px;
+            margin-left: -4px; margin-top: -4px;
+            background: #008755;
+            border-radius: 50%;
+            box-shadow: 0 0 8px rgba(0,135,85,0.8);
+            z-index: 5;
+        }
+        .center-pin {
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 12px; height: 12px;
+            margin-left: -6px; margin-top: -6px;
+            background: radial-gradient(circle, #eee, #999);
+            border-radius: 50%;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+            z-index: 6;
+        }
+
+        /* Clock labels */
+        .clock-brand {
+            position: absolute;
+            top: 30%; left: 50%; transform: translateX(-50%);
+            font-size: 0.55rem; letter-spacing: 4px;
+            color: #008755; text-transform: uppercase;
+            text-shadow: 0 0 5px rgba(0,135,85,0.3);
+        }
+        .clock-midnight-marker {
+            position: absolute;
+            top: 8%; left: 50%; transform: translateX(-50%);
+            font-size: 0.4rem; letter-spacing: 2px;
+            color: #ff4400; text-transform: uppercase;
+        }
+        .clock-time-display {
+            position: absolute;
+            bottom: 28%; left: 50%; transform: translateX(-50%);
+            font-size: 0.9rem; font-weight: 600; letter-spacing: 2px;
+            color: #6ABB97;
+            padding: 0.2rem 0.6rem;
+            border: 1px solid rgba(0,135,85,0.2);
+            border-radius: 3px;
+            background: rgba(0,20,10,0.5);
         }
 
         /* Countdown */
@@ -165,8 +206,7 @@
         .doom-quote {
             font-size: 0.7rem; font-style: italic; color: rgba(106,187,151,0.6);
             max-width: 450px; line-height: 1.7;
-            min-height: 2.5rem; display: flex; align-items: center; justify-content: center;
-            transition: opacity 0.5s ease;
+            min-height: 2rem; transition: opacity 0.5s ease;
         }
 
         /* Navigation */
@@ -183,20 +223,14 @@
         /* Particles */
         .particle-green { position:fixed; border-radius:50%; background:#008755; pointer-events:none; }
 
-        /* Scanline */
-        .scanline-green {
-            position:fixed; top:0;left:0;right:0;bottom:0; pointer-events:none; z-index:1;
-            background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,135,85,0.01) 3px, rgba(0,135,85,0.01) 6px);
-        }
-
         @media (max-width: 768px) {
-            .clock-container { width:220px; height:220px; }
-            .clock-mark { transform-origin:1px 100px; top:10px; }
-            .clock-mark.major { transform-origin:1.5px 100px; }
-            .clock-hand-minute { height:72px; margin-top:-72px; }
-            .clock-hand-hour { height:50px; margin-top:-50px; }
-            .glow-ring { width:240px; height:240px; }
-            .glow-ring:nth-child(2) { width:260px; height:260px; }
+            .clock-wrapper { width:240px; height:240px; }
+            .clock-bezel { width:240px; height:240px; }
+            .clock-bezel-inner { top:6px;left:6px;width:228px;height:228px; }
+            .clock-face { top:12px;left:12px;width:216px;height:216px; }
+            .hand-minute { height:70px; margin-top:-70px; }
+            .hand-hour { height:48px; margin-top:-48px; }
+            .hand-second { height:78px; margin-top:-55px; }
             .arval-logo { font-size:2rem; }
             .time-value { font-size:1.8rem; }
             .week-block { width:22px; height:22px; font-size:0.35rem; }
@@ -205,7 +239,6 @@
     </style>
 </head>
 <body>
-    <div class="scanline-green"></div>
     <a href="countdown.html" class="nav-btn">☢ Team Oppenheimer</a>
 
     <div class="container">
@@ -216,16 +249,18 @@
         </div>
 
         <div class="clock-wrapper">
-            <div class="glow-ring"></div>
-            <div class="glow-ring"></div>
-            <div class="clock-container">
-                <div class="clock-face">
-                    <div class="clock-marks" id="clockMarks"></div>
-                    <div class="clock-midnight">MIDNIGHT</div>
-                    <div class="clock-hand-hour" id="hourHand"></div>
-                    <div class="clock-hand-minute" id="minuteHand"></div>
-                    <div class="clock-center"></div>
-                    <div class="clock-time" id="clockTimeLabel">11:50</div>
+            <div class="clock-bezel">
+                <div class="clock-bezel-inner">
+                    <div class="clock-face" id="clockFace">
+                        <div class="clock-brand">ARVAL</div>
+                        <div class="clock-midnight-marker">☢ MIDNIGHT</div>
+                        <div class="clock-time-display" id="clockTimeDisplay">11:50</div>
+                        <div class="hand hand-hour" id="handHour"></div>
+                        <div class="hand hand-minute" id="handMinute"></div>
+                        <div class="hand hand-second" id="handSecond"></div>
+                        <div class="hand-second-circle"></div>
+                        <div class="center-pin"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -242,7 +277,6 @@
 
         <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
         <p class="status" id="status">Doomsday clock — ticking</p>
-
         <div class="doom-quote" id="doomQuote">"It is now 90 seconds to midnight."</div>
     </div>
 
@@ -254,20 +288,20 @@
 
         const doomQuotes = [
             '"It is now 90 seconds to midnight." — Bulletin of the Atomic Scientists',
-            '"We are not combating the weather, we are the weather." — Doomsday Clock Statement',
             '"The clock ticks. Every second is a step closer to the irreversible."',
             '"Midnight represents catastrophe. How close are we willing to get?"',
-            '"The Doomsday Clock is a reminder that the world can still choose a different path."',
             '"Time does not wait for decisions to be made."',
             '"Every week that passes is a week that cannot be recovered."',
             '"The countdown is not a prediction — it is a warning."',
             '"When the clock strikes twelve, there are no second chances."',
-            '"We have moved the hands forward. The question is: can we move them back?"',
-            '"The end is not an event. It is a deadline." — Arval Operations',
-            '"In 10 weeks, the world as we know it changes."',
+            '"We have moved the hands forward. Can we move them back?"',
+            '"The end is not an event. It is a deadline."',
+            '"In 10 weeks, everything changes."',
             '"Tick. Tick. Tick. Each second costs more than the last."',
             '"There is no snooze button on the doomsday clock."',
             '"The closer to midnight, the harder it is to turn back."',
+            '"Doomsday is not destruction — it is transformation."',
+            '"Every ending is a new beginning. But first comes midnight."',
         ];
         let quoteIndex = 0;
 
@@ -277,16 +311,24 @@
 
         function getCurrentWeek() {
             const elapsed = Date.now() - startDate;
-            return Math.min(Math.floor(elapsed / (7*86400000)) + 1, totalWeeks);
+            return Math.min(Math.max(Math.floor(elapsed / (7*86400000)) + 1, 1), totalWeeks);
         }
 
-        function setupClock() {
-            const marks = document.getElementById('clockMarks');
-            for (let i = 0; i < 60; i++) {
-                const mark = document.createElement('div');
-                mark.className = 'clock-mark' + (i % 5 === 0 ? ' major' : '');
-                mark.style.transform = `rotate(${i * 6}deg)`;
-                marks.appendChild(mark);
+        // Place hour markers (Rolex-style)
+        function setupMarkers() {
+            const face = document.getElementById('clockFace');
+            const radius = 118; // distance from center to marker
+            for (let i = 0; i < 12; i++) {
+                const angle = (i * 30 - 90) * (Math.PI / 180);
+                const marker = document.createElement('div');
+                marker.className = 'marker' + (i === 0 ? ' marker-12' : '');
+                const x = 134 + radius * Math.cos(angle) - 2;
+                const y = 134 + radius * Math.sin(angle);
+                marker.style.left = x + 'px';
+                marker.style.top = y + 'px';
+                marker.style.transform = `translate(-50%, 0) rotate(${i * 30}deg)`;
+                marker.style.transformOrigin = '50% 0';
+                face.appendChild(marker);
             }
         }
 
@@ -301,10 +343,11 @@
             }
         }
 
-        function updateCountdown() {
-            const diff = targetDate - Date.now();
+        function updateClock() {
             const progress = getProgress();
+            const diff = targetDate - Date.now();
             const currentWeek = getCurrentWeek();
+            const seconds = new Date().getSeconds();
 
             if (diff <= 0) {
                 document.getElementById('weeks').textContent = '0';
@@ -313,18 +356,21 @@
                 document.getElementById('minutes').textContent = '0';
                 document.getElementById('status').textContent = '☢ MIDNIGHT — DOOMSDAY ☢';
                 document.getElementById('status').style.color = '#ff3300';
-                document.getElementById('clockTimeLabel').textContent = '12:00';
+                document.getElementById('clockTimeDisplay').textContent = '12:00';
                 document.title = '☢ MIDNIGHT — Arval Doomsday';
                 return;
             }
 
+            // Countdown numbers
             document.getElementById('weeks').textContent = Math.floor(diff / (7*86400000));
             document.getElementById('days').textContent = Math.floor((diff % (7*86400000)) / 86400000);
             document.getElementById('hours').textContent = Math.floor((diff % 86400000) / 3600000);
             document.getElementById('minutes').textContent = Math.floor((diff % 3600000) / 60000);
 
+            // Progress
             document.getElementById('progress').style.width = (progress * 100) + '%';
 
+            // Week blocks
             for (let i = 1; i <= totalWeeks; i++) {
                 const block = document.getElementById('week-' + i);
                 block.classList.remove('passed', 'current');
@@ -333,15 +379,21 @@
             }
             document.getElementById('weeksLabel').textContent = `Week ${currentWeek} of ${totalWeeks}`;
 
-            // Clock hands: 180° (6 o'clock) to 360° (12 o'clock / midnight)
-            const minAngle = 180 + progress * 180;
-            const hourAngle = 180 + progress * 170;
-            document.getElementById('minuteHand').style.transform = `rotate(${minAngle}deg)`;
-            document.getElementById('hourHand').style.transform = `rotate(${hourAngle}deg)`;
+            // Clock hands — represent "time to midnight"
+            // Hour hand: progress from 6 (180°) toward 12 (360°)
+            const hourDeg = 180 + (progress * 180);
+            // Minute hand: faster movement
+            const minuteDeg = 180 + (progress * 180 * 5) % 360;
+            // Second hand: real-time ticking
+            const secondDeg = seconds * 6;
 
-            // Time display
-            const minsLeft = Math.round((1 - progress) * 60);
-            document.getElementById('clockTimeLabel').textContent = minsLeft <= 0 ? '12:00' : `11:${String(60 - minsLeft).padStart(2, '0')}`;
+            document.getElementById('handHour').style.transform = `rotate(${hourDeg}deg)`;
+            document.getElementById('handMinute').style.transform = `rotate(${minuteDeg}deg)`;
+            document.getElementById('handSecond').style.transform = `rotate(${secondDeg}deg)`;
+
+            // Time to midnight display
+            const minsLeft = Math.max(0, Math.round((1 - progress) * 60));
+            document.getElementById('clockTimeDisplay').textContent = minsLeft <= 0 ? '12:00' : `11:${String(60 - minsLeft).padStart(2, '0')}`;
 
             // Status
             if (progress < 0.3) { document.getElementById('status').textContent = 'Doomsday clock — ticking'; document.getElementById('status').style.color = '#39A87B'; }
@@ -373,14 +425,15 @@
             document.body.appendChild(el);
             const dur = 4000+Math.random()*4000;
             el.animate([{top:'-5px',opacity:0.2},{top:'105vh',opacity:0}],{duration:dur,easing:'linear'});
-            setTimeout(()=>el.remove(),dur);
+            setTimeout(()=>el.remove(), dur);
         }
 
-        setupClock();
+        // Init
+        setupMarkers();
         setupWeeks();
-        updateCountdown();
+        updateClock();
         rotateQuote();
-        setInterval(updateCountdown, 1000);
+        setInterval(updateClock, 1000);
         setInterval(createParticle, 250);
         setInterval(rotateQuote, 10000);
     </script>
