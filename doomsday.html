@@ -92,52 +92,49 @@
             box-shadow: 0 0 8px rgba(255,68,0,0.5);
         }
 
-        /* Hands - all positioned from absolute center */
+        /* Hands - all rotate around center of 268px face */
         .hand {
             position: absolute;
-            left: 50%; top: 50%;
-            transform-origin: 50% 100%;
+            left: calc(50% - 2px);
+            top: 50%;
+            transform-origin: 50% 0%;
             border-radius: 2px;
         }
         .hand-hour {
-            width: 5px; height: 60px;
-            margin-left: -2.5px; margin-top: -60px;
+            width: 5px;
+            left: calc(50% - 2.5px);
+            height: 60px;
+            top: calc(50% - 60px);
+            transform-origin: 50% 100%;
             background: linear-gradient(to top, #555, #aaa, #ddd, #aaa);
             box-shadow: 0 0 4px rgba(0,0,0,0.5);
             z-index: 3;
         }
         .hand-minute {
-            width: 3px; height: 90px;
-            margin-left: -1.5px; margin-top: -90px;
+            width: 3px;
+            left: calc(50% - 1.5px);
+            height: 90px;
+            top: calc(50% - 90px);
+            transform-origin: 50% 100%;
             background: linear-gradient(to top, #555, #ccc, #fff, #ccc);
             box-shadow: 0 0 6px rgba(0,135,85,0.3);
             z-index: 4;
         }
         .hand-second {
-            width: 1.5px; height: 95px;
-            margin-left: -0.75px; margin-top: -75px;
+            width: 2px;
+            left: calc(50% - 1px);
+            height: 110px;
+            top: calc(50% - 80px);
+            transform-origin: 50% 72.7%; /* 80/110 = pivot point */
             background: #008755;
             box-shadow: 0 0 6px rgba(0,135,85,0.6);
             z-index: 5;
-            animation: smoothSecond 60s linear infinite;
-        }
-        .hand-second::after {
-            content: '';
-            position: absolute; top: 100%; left: 50%;
-            width: 2px; height: 20px;
-            margin-left: -1px;
-            background: #008755;
             border-radius: 1px;
-        }
-        @keyframes smoothSecond {
-            from { transform: rotate(var(--sec-start, 0deg)); }
-            to { transform: rotate(calc(var(--sec-start, 0deg) + 360deg)); }
         }
         .center-pin {
             position: absolute;
-            top: 50%; left: 50%;
+            top: calc(50% - 6px); left: calc(50% - 6px);
             width: 12px; height: 12px;
-            margin-left: -6px; margin-top: -6px;
             background: radial-gradient(circle, #eee, #999);
             border-radius: 50%;
             box-shadow: 0 1px 3px rgba(0,0,0,0.5);
@@ -145,9 +142,8 @@
         }
         .center-dot {
             position: absolute;
-            top: 50%; left: 50%;
+            top: calc(50% - 3px); left: calc(50% - 3px);
             width: 6px; height: 6px;
-            margin-left: -3px; margin-top: -3px;
             background: #008755;
             border-radius: 50%;
             z-index: 8;
@@ -233,9 +229,9 @@
             .clock-bezel { width:240px; height:240px; }
             .clock-bezel-inner { top:6px;left:6px;width:228px;height:228px; }
             .clock-face { top:12px;left:12px;width:216px;height:216px; }
-            .hand-minute { height:72px; margin-top:-72px; }
-            .hand-hour { height:48px; margin-top:-48px; }
-            .hand-second { height:76px; margin-top:-60px; }
+            .hand-minute { height:72px; top:calc(50% - 72px); }
+            .hand-hour { height:48px; top:calc(50% - 48px); }
+            .hand-second { height:88px; top:calc(50% - 64px); transform-origin:50% 72.7%; }
             .arval-logo { font-size:2rem; }
             .time-value { font-size:1.8rem; }
             .week-block { width:22px; height:22px; font-size:0.35rem; }
@@ -384,23 +380,9 @@
             }
             document.getElementById('weeksLabel').textContent = `Week ${currentWeek} of ${totalWeeks}`;
 
-            // Clock hands — represent "time to midnight"
-            // Hour hand: progress from 6 (180°) toward 12 (360°)
+            // Clock hands
             const hourDeg = 180 + (progress * 180);
-            // Minute hand: faster movement
-            const minuteDeg = 180 + (progress * 180 * 5) % 360;
-            // Second hand: smooth continuous rotation
-            const now = new Date();
-            const secAngle = (now.getSeconds() + now.getMilliseconds() / 1000) * 6;
-            const secHand = document.getElementById('handSecond');
-            secHand.style.setProperty('--sec-start', secAngle + 'deg');
-            // Only restart animation if not already running smoothly
-            if (!secHand.dataset.started) {
-                secHand.style.animation = 'none';
-                secHand.offsetHeight; // force reflow
-                secHand.style.animation = `smoothSecond 60s linear infinite`;
-                secHand.dataset.started = '1';
-            }
+            const minuteDeg = (180 + (progress * 180 * 5)) % 360;
 
             document.getElementById('handHour').style.transform = `rotate(${hourDeg}deg)`;
             document.getElementById('handMinute').style.transform = `rotate(${minuteDeg}deg)`;
@@ -417,6 +399,15 @@
             else { document.getElementById('status').textContent = '☢ SECONDS TO MIDNIGHT ☢'; document.getElementById('status').style.color = '#ff3300'; }
 
             document.title = `${Math.floor(diff/(7*86400000))}w ${Math.floor((diff%(7*86400000))/86400000)}d — Arval Doomsday Clock`;
+        }
+
+        // Smooth second hand via requestAnimationFrame
+        function animateSecondHand() {
+            const now = new Date();
+            const sec = now.getSeconds() + now.getMilliseconds() / 1000;
+            const deg = sec * 6;
+            document.getElementById('handSecond').style.transform = `rotate(${deg}deg)`;
+            requestAnimationFrame(animateSecondHand);
         }
 
         function rotateQuote() {
@@ -447,6 +438,7 @@
         setupWeeks();
         updateClock();
         rotateQuote();
+        animateSecondHand();
         setInterval(updateClock, 1000);
         setInterval(createParticle, 250);
         setInterval(rotateQuote, 10000);
