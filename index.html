@@ -981,6 +981,57 @@
         body.theme-classified .joost-panel { border-color: rgba(200,160,0,0.3); }
         body.theme-classified .joost-panel-title { color: #c8a000; }
 
+        /* Theme: Pip-Boy / Fallout */
+        body.theme-pipboy {
+            background: #001100;
+            font-family: 'Courier New', monospace;
+        }
+        body.theme-pipboy .time-value { color: #14fe17 !important; text-shadow: 0 0 8px #14fe17, 0 0 20px rgba(20,254,23,0.3) !important; }
+        body.theme-pipboy h1 { color: #14fe17; text-shadow: 0 0 10px #14fe17; font-family: 'Courier New', monospace; }
+        body.theme-pipboy .stage-label { color: #14fe17; border-color: rgba(20,254,23,0.4); font-family: 'Courier New', monospace; }
+        body.theme-pipboy .quote { color: #0a9e0c; font-family: 'Courier New', monospace; }
+        body.theme-pipboy .progress-fill { background: linear-gradient(to right, #0a5e0c, #14fe17); box-shadow: 0 0 10px rgba(20,254,23,0.5); }
+        body.theme-pipboy .time-block { border-color: rgba(20,254,23,0.3); background: rgba(20,254,23,0.03); }
+        body.theme-pipboy .time-label { color: #0a9e0c; }
+        body.theme-pipboy .status { color: #14fe17 !important; font-family: 'Courier New', monospace; }
+        body.theme-pipboy .facts-ticker { border-top-color: rgba(20,254,23,0.3); background: rgba(0,17,0,0.95); }
+        body.theme-pipboy .facts-ticker-content { color: rgba(20,254,23,0.7); font-family: 'Courier New', monospace; }
+        body.theme-pipboy .joost-panel { border-color: rgba(20,254,23,0.3); background: rgba(0,17,0,0.9); }
+        body.theme-pipboy .joost-panel-title { color: #14fe17; }
+        body.theme-pipboy .joost-panel-live { color: #14fe17; }
+        body.theme-pipboy .joost-quote { color: rgba(20,254,23,0.8); font-family: 'Courier New', monospace; }
+        body.theme-pipboy .joost-attribution { color: rgba(20,254,23,0.4); }
+        body.theme-pipboy .bomb-scene { border-color: rgba(20,254,23,0.2); }
+        body.theme-pipboy .telemetry { color: rgba(20,254,23,0.5); }
+        body.theme-pipboy .building { border-color: rgba(20,254,23,0.3); box-shadow: 0 0 15px rgba(20,254,23,0.1); background: rgba(20,254,23,0.05); }
+        body.theme-pipboy .building::before { color: #14fe17; text-shadow: 0 0 5px #14fe17; }
+        body.theme-pipboy .window { background: rgba(20,254,23,0.2); border-color: rgba(20,254,23,0.15); }
+        body.theme-pipboy .building-grid { background: repeating-linear-gradient(0deg, transparent 0px, transparent 8px, rgba(20,254,23,0.1) 8px, rgba(20,254,23,0.1) 9px), repeating-linear-gradient(90deg, transparent 0px, transparent 19px, rgba(20,254,23,0.08) 19px, rgba(20,254,23,0.08) 20px); }
+        body.theme-pipboy .crosshair { border-color: rgba(20,254,23,0.6); }
+        body.theme-pipboy .crosshair::before, body.theme-pipboy .crosshair::after { background: rgba(20,254,23,0.5); }
+        body.theme-pipboy .city-building { background: rgba(20,254,23,0.08); border-top-color: rgba(20,254,23,0.15); }
+        body.theme-pipboy .dom-tower { background: rgba(20,254,23,0.1); }
+        body.theme-pipboy .dom-tower::before { border-bottom-color: rgba(20,254,23,0.15); }
+        body.theme-pipboy .street-label { color: rgba(20,254,23,0.3); }
+        body.theme-pipboy .canal { background: rgba(20,254,23,0.1); }
+        body.theme-pipboy .radar { border-color: rgba(20,254,23,0.5); }
+        body.theme-pipboy .sky { background: linear-gradient(to bottom, #001100, #000800) !important; }
+        /* CRT scanline effect stronger */
+        body.theme-pipboy .scanlines { background: repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(0,0,0,0.15) 1px, rgba(0,0,0,0.15) 2px); }
+        /* CRT flicker */
+        body.theme-pipboy::after {
+            content: ''; position: fixed; top:0;left:0;right:0;bottom:0;
+            pointer-events: none; z-index: 200;
+            background: rgba(20,254,23,0.01);
+            animation: crtFlicker 0.1s infinite;
+        }
+        @keyframes crtFlicker { 0%{opacity:0.02;} 50%{opacity:0.04;} 100%{opacity:0.02;} }
+        /* CRT curved edges */
+        body.theme-pipboy .vignette { box-shadow: inset 0 0 120px rgba(0,0,0,0.7) !important; border-radius: 20px; }
+        /* Glow on everything */
+        body.theme-pipboy .bomb-body { background: linear-gradient(to right, #0a3e0c, #14fe17, #0a3e0c) !important; }
+        body.theme-pipboy .bomb-fins::before, body.theme-pipboy .bomb-fins::after { background: rgba(20,254,23,0.5) !important; }
+
         /* Defuse minigame overlay */
         .defuse-overlay {
             position: fixed; top: 0; left: 0; right: 0; bottom: 0;
@@ -1858,16 +1909,16 @@
         }
 
         // === THEME SELECTOR ===
-        const themes = ['default', 'terminal', 'neon', 'classified'];
+        const themes = ['default', 'terminal', 'neon', 'classified', 'pipboy'];
         let themeIndex = 0;
 
         function cycleTheme() {
-            document.body.classList.remove('theme-terminal', 'theme-neon', 'theme-classified');
+            document.body.classList.remove('theme-terminal', 'theme-neon', 'theme-classified', 'theme-pipboy');
             themeIndex = (themeIndex + 1) % themes.length;
             if (themes[themeIndex] !== 'default') {
                 document.body.classList.add('theme-' + themes[themeIndex]);
             }
-            const names = { default: '🎨 Oppenheimer', terminal: '🖥 Terminal', neon: '🌈 Neon', classified: '📋 Classified' };
+            const names = { default: '🎨 Oppenheimer', terminal: '🖥 Terminal', neon: '🌈 Neon', classified: '📋 Classified', pipboy: '☢ Pip-Boy' };
             document.getElementById('themeBtn').textContent = names[themes[themeIndex]];
         }
 
