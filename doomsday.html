@@ -159,6 +159,25 @@
             border: 1px solid rgba(0,135,85,0.2);
             border-radius: 3px;
             background: rgba(0,20,10,0.5);
+            transition: color 0.5s, border-color 0.5s, background 0.5s, box-shadow 0.5s;
+        }
+        .clock-time-display.danger {
+            color: #ff3300;
+            border-color: rgba(255,50,0,0.5);
+            background: rgba(40,0,0,0.6);
+            box-shadow: 0 0 10px rgba(255,50,0,0.3);
+            animation: dangerPulse 1s ease-in-out infinite;
+        }
+        @keyframes dangerPulse { 0%,100%{opacity:1;} 50%{opacity:0.7;} }
+        .clock-doomsday-field {
+            position: absolute;
+            top: 38%; left: 50%; transform: translateX(-50%);
+            font-size: 0.5rem; font-weight: 600; letter-spacing: 2px;
+            color: #ff4400;
+            padding: 0.15rem 0.5rem;
+            border: 1px solid rgba(255,68,0,0.2);
+            border-radius: 2px;
+            background: rgba(30,5,0,0.4);
         }
 
         /* Countdown */
@@ -396,8 +415,9 @@
                 </div>
                 <div class="red-zone"></div>
                 <div class="clock-brand">ARVAL</div>
-                <div class="clock-midnight-marker">☢ MIDNIGHT</div>
-                <div class="clock-time-display" id="clockTimeDisplay">11:50</div>
+                <div class="clock-midnight-marker">☢ 00:00</div>
+                <div class="clock-doomsday-field" id="doomsdayField">23:50</div>
+                <div class="clock-time-display" id="clockTimeDisplay">18:45</div>
                 <div class="hand hand-hour" id="handHour"></div>
                 <div class="hand hand-minute" id="handMinute"></div>
                 <div class="hand hand-second" id="handSecond"></div>
@@ -478,8 +498,8 @@
         // Place hour markers (Rolex-style) around the dial
         function setupMarkers() {
             const face = document.getElementById('clockFace');
-            const cx = 130, cy = 130; // center of 260px face
-            const radius = 108;
+            const cx = 140, cy = 140; // center of 280px face
+            const radius = 120;
             for (let i = 0; i < 12; i++) {
                 const angle = i * 30; // degrees
                 const rad = (angle - 90) * Math.PI / 180;
@@ -540,16 +560,43 @@
             }
             document.getElementById('weeksLabel').textContent = `Week ${currentWeek} of ${totalWeeks}`;
 
-            // Clock hands
-            const hourDeg = 180 + (progress * 180);
-            const minuteDeg = (180 + (progress * 180 * 5)) % 360;
+            // Clock hands - show REAL current time in Amsterdam (24h)
+            const amTime = getAmsterdamTime();
+            const realHours = amTime.getHours();
+            const realMins = amTime.getMinutes();
+            // Hour hand: 360° / 12h = 30° per hour + 0.5° per minute
+            const hourDeg = ((realHours % 12) * 30) + (realMins * 0.5);
+            // Minute hand: 360° / 60min = 6° per minute
+            const minuteDeg = realMins * 6;
 
             document.getElementById('handHour').style.transform = `rotate(${hourDeg}deg)`;
             document.getElementById('handMinute').style.transform = `rotate(${minuteDeg}deg)`;
 
-            // Time to midnight display
-            const minsLeft = Math.max(0, Math.round((1 - progress) * 60));
-            document.getElementById('clockTimeDisplay').textContent = minsLeft <= 0 ? '12:00' : `11:${String(60 - minsLeft).padStart(2, '0')}`;
+            // Time display: 24h format (real time)
+            const timeStr = `${String(realHours).padStart(2,'0')}:${String(realMins).padStart(2,'0')}`;
+            document.getElementById('clockTimeDisplay').textContent = timeStr;
+
+            // Doomsday indicator: metaphorical time to midnight based on progress
+            const doomMinsLeft = Math.max(0, Math.round((1 - progress) * 600)); // 10h mapped to 10 weeks
+            const doomH = 23 - Math.floor(doomMinsLeft / 60);
+            const doomM = 60 - (doomMinsLeft % 60);
+            const doomStr = `${String(Math.min(23, Math.max(0, 23 - Math.floor((1-progress)*24)))).padStart(2,'0')}:${String(Math.round(progress * 60) % 60).padStart(2,'0')}`;
+            // Simpler: map progress 0→1 to 00:00→23:59
+            const totalDoomMins = Math.floor(progress * 1440); // 1440 min in 24h
+            const doomHour = Math.floor(totalDoomMins / 60);
+            const doomMin = totalDoomMins % 60;
+            const doomDisplay = `${String(doomHour).padStart(2,'0')}:${String(doomMin).padStart(2,'0')}`;
+            document.getElementById('doomsdayField').textContent = doomDisplay;
+
+            // Turn clock red when doomsday time passes 23:50
+            const clockDisplay = document.getElementById('clockTimeDisplay');
+            if (doomHour >= 23 && doomMin >= 50) {
+                clockDisplay.classList.add('danger');
+                document.getElementById('doomsdayField').style.color = '#ff0000';
+                document.getElementById('doomsdayField').style.animation = 'dangerPulse 0.5s ease-in-out infinite';
+            } else {
+                clockDisplay.classList.remove('danger');
+            }
 
             // Status
             if (progress < 0.3) { document.getElementById('status').textContent = 'Doomsday clock — ticking'; document.getElementById('status').style.color = '#39A87B'; }
@@ -561,10 +608,10 @@
             document.title = `${Math.floor(diff/(7*86400000))}w ${Math.floor((diff%(7*86400000))/86400000)}d — Arval Doomsday Clock`;
         }
 
-        // Smooth second hand via requestAnimationFrame
+        // Smooth second hand via requestAnimationFrame (Amsterdam time)
         function animateSecondHand() {
-            const now = new Date();
-            const sec = now.getSeconds() + now.getMilliseconds() / 1000;
+            const amTime = getAmsterdamTime();
+            const sec = amTime.getSeconds() + amTime.getMilliseconds() / 1000;
             const deg = sec * 6;
             document.getElementById('handSecond').style.transform = `rotate(${deg}deg)`;
             requestAnimationFrame(animateSecondHand);
