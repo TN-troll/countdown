@@ -56,6 +56,7 @@
         }
         .clock-bezel {
             position: absolute;
+            top: 0; left: 0;
             width: 300px; height: 300px;
             border-radius: 50%;
             background: conic-gradient(
@@ -100,16 +101,16 @@
         }
         .clock-bezel-inner {
             position: absolute;
-            top: 8px; left: 8px;
-            width: 284px; height: 284px;
+            top: 10px; left: 10px;
+            width: 280px; height: 280px;
             border-radius: 50%;
             background: conic-gradient(from 0deg, #222, #3a3a3a, #222, #3a3a3a, #222);
             box-shadow: inset 0 2px 8px rgba(0,0,0,0.5);
         }
         .clock-face {
             position: absolute;
-            top: 16px; left: 16px;
-            width: 268px; height: 268px;
+            top: 20px; left: 20px;
+            width: 260px; height: 260px;
             border-radius: 50%;
             background: radial-gradient(circle at 40% 35%, #0a1f15, #041a0d, #000);
             box-shadow: inset 0 0 30px rgba(0,0,0,0.5);
@@ -272,6 +273,32 @@
         .btn-theme { right: 15px; }
         .btn-sound { right: 110px; }
 
+        /* Volume slider */
+        .volume-control {
+            position: fixed; top: 50px; right: 110px; z-index: 50;
+            display: none; align-items: center; gap: 0.4rem;
+            background: rgba(0,20,10,0.9); border: 1px solid rgba(0,135,85,0.3);
+            padding: 0.4rem 0.8rem; border-radius: 4px;
+        }
+        .volume-control.show { display: flex; }
+        .volume-control label { font-size: 0.5rem; color: #6ABB97; letter-spacing: 1px; }
+        .volume-slider {
+            -webkit-appearance: none; appearance: none;
+            width: 80px; height: 4px;
+            background: rgba(0,135,85,0.2); border-radius: 2px; outline: none;
+        }
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none; appearance: none;
+            width: 12px; height: 12px;
+            background: #008755; border-radius: 50%; cursor: pointer;
+            box-shadow: 0 0 5px rgba(0,135,85,0.5);
+        }
+        .volume-slider::-moz-range-thumb {
+            width: 12px; height: 12px;
+            background: #008755; border-radius: 50%; cursor: pointer; border: none;
+        }
+        .volume-value { font-size: 0.5rem; color: #39A87B; min-width: 20px; text-align: center; }
+
         /* Light mode */
         body.light {
             background: radial-gradient(ellipse at center, #e8f5f0 0%, #d4edda 50%, #c3e6cb 100%);
@@ -322,6 +349,11 @@
 <body>
     <a href="index.html" class="nav-btn">☢ Team Oppenheimer</a>
     <button class="ctrl-btn btn-sound" id="soundBtn" onclick="toggleSound()">🔇 Sound</button>
+    <div class="volume-control" id="volumeControl">
+        <label>VOL</label>
+        <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="50" oninput="setVolume(this.value)">
+        <span class="volume-value" id="volumeValue">50</span>
+    </div>
     <button class="ctrl-btn btn-theme" id="themeBtn" onclick="toggleTheme()">☀ Light</button>
 
     <div class="container">
@@ -400,8 +432,8 @@
         // Place hour markers (Rolex-style) around the dial
         function setupMarkers() {
             const face = document.getElementById('clockFace');
-            const cx = 134, cy = 134; // center of 268px face
-            const radius = 115;
+            const cx = 130, cy = 130; // center of 260px face
+            const radius = 108;
             for (let i = 0; i < 12; i++) {
                 const angle = i * 30; // degrees
                 const rad = (angle - 90) * Math.PI / 180;
@@ -524,7 +556,8 @@
         }
 
         // === SOUND ===
-        let audioCtx = null, soundEnabled = false, tickOsc = null;
+        let audioCtx = null, soundEnabled = false;
+        let volume = 0.5;
 
         function initAudio() {
             audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -532,27 +565,35 @@
 
         function toggleSound() {
             const btn = document.getElementById('soundBtn');
+            const volCtrl = document.getElementById('volumeControl');
             if (!soundEnabled) {
                 if (!audioCtx) initAudio();
                 if (audioCtx.state === 'suspended') audioCtx.resume();
                 soundEnabled = true;
                 btn.textContent = '🔊 Sound';
                 btn.classList.add('active');
+                volCtrl.classList.add('show');
                 startTickSound();
             } else {
                 soundEnabled = false;
                 btn.textContent = '🔇 Sound';
                 btn.classList.remove('active');
+                volCtrl.classList.remove('show');
             }
         }
 
+        function setVolume(val) {
+            volume = val / 100;
+            document.getElementById('volumeValue').textContent = val;
+        }
+
         function playTick() {
-            if (!soundEnabled || !audioCtx) return;
+            if (!soundEnabled || !audioCtx || volume === 0) return;
             const osc = audioCtx.createOscillator();
             const gain = audioCtx.createGain();
             osc.type = 'sine';
             osc.frequency.value = 600;
-            gain.gain.value = 0.03;
+            gain.gain.value = 0.06 * volume;
             osc.connect(gain);
             gain.connect(audioCtx.destination);
             osc.start();
@@ -561,12 +602,12 @@
         }
 
         function playTock() {
-            if (!soundEnabled || !audioCtx) return;
+            if (!soundEnabled || !audioCtx || volume === 0) return;
             const osc = audioCtx.createOscillator();
             const gain = audioCtx.createGain();
             osc.type = 'sine';
             osc.frequency.value = 450;
-            gain.gain.value = 0.02;
+            gain.gain.value = 0.04 * volume;
             osc.connect(gain);
             gain.connect(audioCtx.destination);
             osc.start();
