@@ -51,71 +51,17 @@
         .clock-wrapper {
             position: relative;
             display: flex; align-items: center; justify-content: center;
-            width: 300px; height: 300px;
-            margin: 0 auto;
-        }
-        .clock-bezel {
-            position: absolute;
-            top: 0; left: 0;
-            width: 300px; height: 300px;
-            border-radius: 50%;
-            background: conic-gradient(
-                from 0deg,
-                #4a4a4a 0deg, #2a2a2a 5deg, #5a5a5a 7deg, #2a2a2a 10deg,
-                #4a4a4a 12deg, #2a2a2a 17deg, #5a5a5a 19deg, #2a2a2a 22deg,
-                #4a4a4a 24deg, #2a2a2a 29deg, #5a5a5a 31deg, #2a2a2a 34deg,
-                #4a4a4a 36deg, #2a2a2a 41deg, #5a5a5a 43deg, #2a2a2a 46deg,
-                #4a4a4a 48deg, #2a2a2a 53deg, #5a5a5a 55deg, #2a2a2a 58deg,
-                #4a4a4a 60deg, #2a2a2a 65deg, #5a5a5a 67deg, #2a2a2a 70deg,
-                #4a4a4a 72deg, #2a2a2a 77deg, #5a5a5a 79deg, #2a2a2a 82deg,
-                #4a4a4a 84deg, #2a2a2a 89deg, #5a5a5a 91deg, #2a2a2a 94deg,
-                #4a4a4a 96deg, #2a2a2a 101deg, #5a5a5a 103deg, #2a2a2a 106deg,
-                #4a4a4a 108deg, #2a2a2a 113deg, #5a5a5a 115deg, #2a2a2a 118deg,
-                #4a4a4a 120deg, #2a2a2a 125deg, #5a5a5a 127deg, #2a2a2a 130deg,
-                #4a4a4a 132deg, #2a2a2a 137deg, #5a5a5a 139deg, #2a2a2a 142deg,
-                #4a4a4a 144deg, #2a2a2a 149deg, #5a5a5a 151deg, #2a2a2a 154deg,
-                #4a4a4a 156deg, #2a2a2a 161deg, #5a5a5a 163deg, #2a2a2a 166deg,
-                #4a4a4a 168deg, #2a2a2a 173deg, #5a5a5a 175deg, #2a2a2a 178deg,
-                #4a4a4a 180deg, #2a2a2a 185deg, #5a5a5a 187deg, #2a2a2a 190deg,
-                #4a4a4a 192deg, #2a2a2a 197deg, #5a5a5a 199deg, #2a2a2a 202deg,
-                #4a4a4a 204deg, #2a2a2a 209deg, #5a5a5a 211deg, #2a2a2a 214deg,
-                #4a4a4a 216deg, #2a2a2a 221deg, #5a5a5a 223deg, #2a2a2a 226deg,
-                #4a4a4a 228deg, #2a2a2a 233deg, #5a5a5a 235deg, #2a2a2a 238deg,
-                #4a4a4a 240deg, #2a2a2a 245deg, #5a5a5a 247deg, #2a2a2a 250deg,
-                #4a4a4a 252deg, #2a2a2a 257deg, #5a5a5a 259deg, #2a2a2a 262deg,
-                #4a4a4a 264deg, #2a2a2a 269deg, #5a5a5a 271deg, #2a2a2a 274deg,
-                #4a4a4a 276deg, #2a2a2a 281deg, #5a5a5a 283deg, #2a2a2a 286deg,
-                #4a4a4a 288deg, #2a2a2a 293deg, #5a5a5a 295deg, #2a2a2a 298deg,
-                #4a4a4a 300deg, #2a2a2a 305deg, #5a5a5a 307deg, #2a2a2a 310deg,
-                #4a4a4a 312deg, #2a2a2a 317deg, #5a5a5a 319deg, #2a2a2a 322deg,
-                #4a4a4a 324deg, #2a2a2a 329deg, #5a5a5a 331deg, #2a2a2a 334deg,
-                #4a4a4a 336deg, #2a2a2a 341deg, #5a5a5a 343deg, #2a2a2a 346deg,
-                #4a4a4a 348deg, #2a2a2a 353deg, #5a5a5a 355deg, #2a2a2a 358deg,
-                #4a4a4a 360deg
-            );
-            box-shadow: 
-                0 4px 20px rgba(0,0,0,0.8),
-                0 0 0 2px #1a1a1a,
-                inset 0 1px 2px rgba(255,255,255,0.1),
-                inset 0 -1px 2px rgba(0,0,0,0.3);
-        }
-        .clock-bezel-inner {
-            position: absolute;
-            top: 10px; left: 10px;
             width: 280px; height: 280px;
-            border-radius: 50%;
-            background: conic-gradient(from 0deg, #222, #3a3a3a, #222, #3a3a3a, #222);
-            box-shadow: inset 0 2px 8px rgba(0,0,0,0.5);
+            margin: 0 auto;
         }
         .clock-face {
             position: absolute;
-            top: 20px; left: 20px;
-            width: 260px; height: 260px;
+            top: 0; left: 0;
+            width: 280px; height: 280px;
             border-radius: 50%;
             background: radial-gradient(circle at 40% 35%, #0a1f15, #041a0d, #000);
-            box-shadow: inset 0 0 30px rgba(0,0,0,0.5);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.6), 0 0 0 4px #333, 0 0 0 6px #1a1a1a, inset 0 0 30px rgba(0,0,0,0.5);
         }
-
         /* Hour markers - Rolex style rectangles */
         .marker {
             position: absolute;
@@ -306,10 +252,8 @@
         }
         body.light .clock-face {
             background: radial-gradient(circle at 40% 35%, #e8f5f0, #d4edda, #c3e6cb);
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1), 0 0 0 4px #bbb, 0 0 0 6px #ddd, inset 0 0 20px rgba(0,0,0,0.03);
         }
-        body.light .clock-bezel { background: conic-gradient(from 0deg, #ccc, #eee, #ccc, #ddd, #ccc); }
-        body.light .clock-bezel-inner { background: conic-gradient(from 0deg, #bbb, #ddd, #bbb, #ddd, #bbb); }
         body.light .arval-logo { color: #007348; text-shadow: none; }
         body.light .arval-sub { color: #007348; }
         body.light .bnp-badge { color: #007348; border-color: rgba(0,115,72,0.3); }
@@ -331,11 +275,85 @@
         /* Particles */
         .particle-green { position:fixed; border-radius:50%; background:#008755; pointer-events:none; }
 
+        /* Gears behind clock face */
+        .gears {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            border-radius: 50%; overflow: hidden; opacity: 0.06;
+            pointer-events: none;
+        }
+        .gear {
+            position: absolute;
+            border: 3px solid #39A87B;
+            border-radius: 50%;
+            animation: gearSpin var(--gear-speed, 10s) linear infinite;
+        }
+        .gear::before {
+            content: ''; position: absolute; top: 50%; left: 50%;
+            width: 30%; height: 30%;
+            margin-left: -15%; margin-top: -15%;
+            border: 2px solid #39A87B;
+            border-radius: 50%;
+        }
+        @keyframes gearSpin { from{transform:rotate(0deg);} to{transform:rotate(360deg);} }
+        .gear-reverse { animation-direction: reverse; }
+
+        /* Red zone on clock (last 2 weeks = last 20% = 324° to 360°) */
+        .red-zone {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            border-radius: 50%; pointer-events: none;
+            background: conic-gradient(from 288deg, transparent 0deg, transparent 324deg, rgba(255,0,0,0.08) 324deg, rgba(255,0,0,0.15) 360deg);
+        }
+
+        /* Wind-back overlay */
+        .wind-back-msg {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 0.8rem; font-weight: 700; color: #ff4400;
+            letter-spacing: 3px; text-transform: uppercase;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.3s;
+            text-shadow: 0 0 10px rgba(255,68,0,0.5);
+            z-index: 20;
+        }
+        .wind-back-msg.show { opacity: 1; }
+
+        /* Fleet animation */
+        .fleet-road {
+            position: fixed; bottom: 32px; left: 0; right: 0;
+            height: 20px; overflow: hidden;
+            border-top: 1px solid rgba(0,135,85,0.1);
+            pointer-events: none; z-index: 40;
+        }
+        .fleet-car {
+            position: absolute; bottom: 4px;
+            font-size: 0.7rem;
+            animation: fleetDrive var(--fleet-speed, 12s) linear infinite;
+        }
+        @keyframes fleetDrive { from{left:-30px;} to{left:calc(100% + 30px);} }
+
+        /* Cost counter */
+        .cost-counter {
+            font-size: 0.6rem; color: rgba(255,107,53,0.6);
+            letter-spacing: 1px;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* Business days */
+        .biz-days {
+            font-size: 0.55rem; color: #6ABB97;
+            letter-spacing: 2px; text-transform: uppercase;
+        }
+
+        /* Footer */
+        .footer {
+            position: fixed; bottom: 5px; left: 50%; transform: translateX(-50%);
+            font-size: 0.45rem; color: rgba(0,135,85,0.3);
+            letter-spacing: 3px; z-index: 50;
+        }
+
         @media (max-width: 768px) {
             .clock-wrapper { width:240px; height:240px; }
-            .clock-bezel { width:240px; height:240px; }
-            .clock-bezel-inner { top:6px;left:6px;width:228px;height:228px; }
-            .clock-face { top:12px;left:12px;width:216px;height:216px; }
+            .clock-face { width:240px; height:240px; }
             .hand-minute { height:72px; top:calc(50% - 72px); }
             .hand-hour { height:48px; top:calc(50% - 48px); }
             .hand-second { height:88px; top:calc(50% - 64px); transform-origin:50% 72.7%; }
@@ -343,6 +361,7 @@
             .time-value { font-size:1.8rem; }
             .week-block { width:22px; height:22px; font-size:0.35rem; }
             .container { gap:0.8rem; }
+            .fleet-road { bottom: 28px; }
         }
     </style>
 </head>
@@ -364,19 +383,23 @@
         </div>
 
         <div class="clock-wrapper">
-            <div class="clock-bezel">
-                <div class="clock-bezel-inner">
-                    <div class="clock-face" id="clockFace">
-                        <div class="clock-brand">ARVAL</div>
-                        <div class="clock-midnight-marker">☢ MIDNIGHT</div>
-                        <div class="clock-time-display" id="clockTimeDisplay">11:50</div>
-                        <div class="hand hand-hour" id="handHour"></div>
-                        <div class="hand hand-minute" id="handMinute"></div>
-                        <div class="hand hand-second" id="handSecond"></div>
-                        <div class="center-pin"></div>
-                        <div class="center-dot"></div>
-                    </div>
+            <div class="clock-face" id="clockFace" onclick="windBack()">
+                <div class="gears">
+                    <div class="gear" style="width:80px;height:80px;top:20%;left:10%;--gear-speed:8s;"></div>
+                    <div class="gear gear-reverse" style="width:60px;height:60px;top:50%;right:15%;--gear-speed:6s;"></div>
+                    <div class="gear" style="width:45px;height:45px;bottom:15%;left:30%;--gear-speed:12s;"></div>
+                    <div class="gear gear-reverse" style="width:35px;height:35px;top:15%;right:30%;--gear-speed:5s;"></div>
                 </div>
+                <div class="red-zone"></div>
+                <div class="clock-brand">ARVAL</div>
+                <div class="clock-midnight-marker">☢ MIDNIGHT</div>
+                <div class="clock-time-display" id="clockTimeDisplay">11:50</div>
+                <div class="hand hand-hour" id="handHour"></div>
+                <div class="hand hand-minute" id="handMinute"></div>
+                <div class="hand hand-second" id="handSecond"></div>
+                <div class="center-pin"></div>
+                <div class="center-dot"></div>
+                <div class="wind-back-msg" id="windBackMsg">NICE TRY ☢</div>
             </div>
         </div>
 
@@ -391,9 +414,15 @@
         <div class="weeks-label" id="weeksLabel">Week 1 of 10</div>
 
         <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+        <div class="biz-days" id="bizDays">Business days remaining: --</div>
+        <div class="cost-counter" id="costCounter">€0.00 burned since you opened this page</div>
         <p class="status" id="status">Doomsday clock — ticking</p>
         <div class="doom-quote" id="doomQuote">"It is now 90 seconds to midnight."</div>
     </div>
+
+    <!-- Fleet animation -->
+    <div class="fleet-road" id="fleetRoad"></div>
+    <div class="footer">POWERED BY LEASING ⚡</div>
 
     <script>
         const targetDate = new Date('2026-10-01T00:00:00').getTime();
@@ -412,11 +441,19 @@
             '"We have moved the hands forward. Can we move them back?"',
             '"The end is not an event. It is a deadline."',
             '"In 10 weeks, everything changes."',
-            '"Tick. Tick. Tick. Each second costs more than the last."',
             '"There is no snooze button on the doomsday clock."',
             '"The closer to midnight, the harder it is to turn back."',
-            '"Doomsday is not destruction — it is transformation."',
-            '"Every ending is a new beginning. But first comes midnight."',
+            // Arval facts
+            '🚗 Arval manages a fleet of over 1.6 million vehicles worldwide.',
+            '🚗 Arval is present in 30 countries across the globe.',
+            '🚗 Arval is a subsidiary of BNP Paribas, one of the world\'s largest banking groups.',
+            '🚗 Arval was founded in 1989 and is headquartered in Rueil-Malmaison, France.',
+            '🚗 Arval\'s mission: sustainable mobility solutions for businesses.',
+            '🚗 Every minute, another lease contract expires somewhere. Tick tock.',
+            '🚗 At €1M/month burn rate, this page has already cost €' + (costPerSecond * 10).toFixed(2) + ' in the last 10 seconds.',
+            '🚗 Arval SMaRT: their data-driven fleet management platform.',
+            '🚗 Fun fact: the average Arval lease lasts 48 months. This countdown lasts 10 weeks.',
+            '🚗 Arval delivers over 300,000 new vehicles per year globally.',
         ];
         let quoteIndex = 0;
 
@@ -555,6 +592,64 @@
             document.getElementById('themeBtn').textContent = darkMode ? '☀ Light' : '🌙 Dark';
         }
 
+        // === WIND BACK CLOCK ===
+        function windBack() {
+            const hourHand = document.getElementById('handHour');
+            const minHand = document.getElementById('handMinute');
+            const msg = document.getElementById('windBackMsg');
+            // Spin backward briefly
+            hourHand.style.transition = 'transform 0.5s ease';
+            minHand.style.transition = 'transform 0.5s ease';
+            const currentH = parseFloat(hourHand.style.transform.replace(/[^\d.-]/g,'')) || 180;
+            const currentM = parseFloat(minHand.style.transform.replace(/[^\d.-]/g,'')) || 180;
+            hourHand.style.transform = `rotate(${currentH - 30}deg)`;
+            minHand.style.transform = `rotate(${currentM - 60}deg)`;
+            msg.classList.add('show');
+            setTimeout(() => {
+                hourHand.style.transition = '';
+                minHand.style.transition = '';
+                msg.classList.remove('show');
+            }, 1500);
+        }
+
+        // === BUSINESS DAYS ===
+        function updateBizDays() {
+            const now = new Date();
+            const target = new Date('2026-10-01T00:00:00');
+            let bizDays = 0;
+            const cur = new Date(now); cur.setHours(0,0,0,0);
+            while (cur < target) {
+                const day = cur.getDay();
+                if (day !== 0 && day !== 6) bizDays++;
+                cur.setDate(cur.getDate() + 1);
+            }
+            document.getElementById('bizDays').textContent = `Business days remaining: ${bizDays}`;
+        }
+
+        // === COST COUNTER (€1M/month ≈ €0.386/second) ===
+        const costPerSecond = 1000000 / (30 * 24 * 3600); // ~€0.386/sec
+        const pageLoadTime = Date.now();
+        function updateCostCounter() {
+            const elapsed = (Date.now() - pageLoadTime) / 1000;
+            const cost = (elapsed * costPerSecond).toFixed(2);
+            document.getElementById('costCounter').textContent = `€${cost} burned since you opened this page`;
+        }
+
+        // === FLEET ANIMATION ===
+        const fleetCars = ['🚗', '🚙', '🚕', '🏎️', '🚐', '🚘'];
+        function spawnFleetCar() {
+            const road = document.getElementById('fleetRoad');
+            const car = document.createElement('div');
+            car.className = 'fleet-car';
+            car.textContent = fleetCars[Math.floor(Math.random() * fleetCars.length)];
+            car.style.setProperty('--fleet-speed', (8 + Math.random() * 8) + 's');
+            car.style.animationDelay = -Math.random() * 5 + 's';
+            road.appendChild(car);
+            setTimeout(() => car.remove(), 20000);
+        }
+
+        // === ARVAL FACTS (mixed into doomQuotes) ===
+
         // === SOUND ===
         let audioCtx = null, soundEnabled = false;
         let volume = 0.5;
@@ -632,11 +727,16 @@
         setupMarkers();
         setupWeeks();
         updateClock();
+        updateBizDays();
         rotateQuote();
         animateSecondHand();
+        spawnFleetCar();
         setInterval(updateClock, 1000);
+        setInterval(updateCostCounter, 100);
         setInterval(createParticle, 250);
         setInterval(rotateQuote, 10000);
+        setInterval(spawnFleetCar, 3000);
+        setInterval(updateBizDays, 60000);
     </script>
 </body>
 </html>
