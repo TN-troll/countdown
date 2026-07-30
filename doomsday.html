@@ -608,11 +608,11 @@
             document.title = `${Math.floor(diff/(7*86400000))}w ${Math.floor((diff%(7*86400000))/86400000)}d — Arval Doomsday Clock`;
         }
 
-        // Smooth second hand via requestAnimationFrame (Amsterdam time)
+        // Smooth second hand via requestAnimationFrame (uses real milliseconds)
         function animateSecondHand() {
-            const amTime = getAmsterdamTime();
-            const sec = amTime.getSeconds() + amTime.getMilliseconds() / 1000;
-            const deg = sec * 6;
+            const now = new Date();
+            const sec = now.getSeconds() + now.getMilliseconds() / 1000;
+            const deg = sec * 6; // 6° per second, smooth via milliseconds
             document.getElementById('handSecond').style.transform = `rotate(${deg}deg)`;
             requestAnimationFrame(animateSecondHand);
         }
