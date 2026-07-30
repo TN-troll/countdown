@@ -52,6 +52,7 @@
             position: relative;
             display: flex; align-items: center; justify-content: center;
             width: 300px; height: 300px;
+            margin: 0 auto;
         }
         .clock-bezel {
             position: absolute;
@@ -80,11 +81,9 @@
         /* Hour markers - Rolex style rectangles */
         .marker {
             position: absolute;
-            top: 50%; left: 50%;
             width: 4px; height: 18px;
             background: linear-gradient(to bottom, #c0c0c0, #808080);
             border-radius: 1px;
-            transform-origin: 50% 0;
             box-shadow: 0 0 3px rgba(200,200,200,0.3);
         }
         .marker-12 {
@@ -93,10 +92,10 @@
             box-shadow: 0 0 8px rgba(255,68,0,0.5);
         }
 
-        /* Hands */
+        /* Hands - all positioned from absolute center */
         .hand {
             position: absolute;
-            top: 50%; left: 50%;
+            left: 50%; top: 50%;
             transform-origin: 50% 100%;
             border-radius: 2px;
         }
@@ -105,44 +104,34 @@
             margin-left: -2.5px; margin-top: -60px;
             background: linear-gradient(to top, #555, #aaa, #ddd, #aaa);
             box-shadow: 0 0 4px rgba(0,0,0,0.5);
-            border-radius: 2px 2px 1px 1px;
+            z-index: 3;
         }
         .hand-minute {
             width: 3px; height: 90px;
             margin-left: -1.5px; margin-top: -90px;
             background: linear-gradient(to top, #555, #ccc, #fff, #ccc);
             box-shadow: 0 0 6px rgba(0,135,85,0.3);
-            border-radius: 1.5px;
+            z-index: 4;
         }
         .hand-second {
-            width: 1.5px; height: 130px;
-            margin-left: -0.75px; margin-top: -95px;
-            background: linear-gradient(to top, #008755 30px, #008755 100%);
+            width: 1.5px; height: 95px;
+            margin-left: -0.75px; margin-top: -75px;
+            background: #008755;
             box-shadow: 0 0 6px rgba(0,135,85,0.6);
-            transition: none;
+            z-index: 5;
             animation: smoothSecond 60s linear infinite;
         }
         .hand-second::after {
             content: '';
-            position: absolute; bottom: 0; left: 50%;
-            width: 3px; height: 30px;
-            margin-left: -1.5px;
+            position: absolute; top: 100%; left: 50%;
+            width: 2px; height: 20px;
+            margin-left: -1px;
             background: #008755;
             border-radius: 1px;
         }
         @keyframes smoothSecond {
             from { transform: rotate(var(--sec-start, 0deg)); }
             to { transform: rotate(calc(var(--sec-start, 0deg) + 360deg)); }
-        }
-        .hand-second-circle {
-            position: absolute;
-            top: 50%; left: 50%;
-            width: 8px; height: 8px;
-            margin-left: -4px; margin-top: -4px;
-            background: #008755;
-            border-radius: 50%;
-            box-shadow: 0 0 8px rgba(0,135,85,0.8);
-            z-index: 5;
         }
         .center-pin {
             position: absolute;
@@ -152,7 +141,16 @@
             background: radial-gradient(circle, #eee, #999);
             border-radius: 50%;
             box-shadow: 0 1px 3px rgba(0,0,0,0.5);
-            z-index: 6;
+            z-index: 7;
+        }
+        .center-dot {
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 6px; height: 6px;
+            margin-left: -3px; margin-top: -3px;
+            background: #008755;
+            border-radius: 50%;
+            z-index: 8;
         }
 
         /* Clock labels */
@@ -165,7 +163,7 @@
         }
         .clock-midnight-marker {
             position: absolute;
-            top: 8%; left: 50%; transform: translateX(-50%);
+            top: 10%; left: 50%; transform: translateX(-50%);
             font-size: 0.4rem; letter-spacing: 2px;
             color: #ff4400; text-transform: uppercase;
         }
@@ -235,9 +233,9 @@
             .clock-bezel { width:240px; height:240px; }
             .clock-bezel-inner { top:6px;left:6px;width:228px;height:228px; }
             .clock-face { top:12px;left:12px;width:216px;height:216px; }
-            .hand-minute { height:70px; margin-top:-70px; }
+            .hand-minute { height:72px; margin-top:-72px; }
             .hand-hour { height:48px; margin-top:-48px; }
-            .hand-second { height:78px; margin-top:-55px; }
+            .hand-second { height:76px; margin-top:-60px; }
             .arval-logo { font-size:2rem; }
             .time-value { font-size:1.8rem; }
             .week-block { width:22px; height:22px; font-size:0.35rem; }
@@ -265,8 +263,8 @@
                         <div class="hand hand-hour" id="handHour"></div>
                         <div class="hand hand-minute" id="handMinute"></div>
                         <div class="hand hand-second" id="handSecond"></div>
-                        <div class="hand-second-circle"></div>
                         <div class="center-pin"></div>
+                        <div class="center-dot"></div>
                     </div>
                 </div>
             </div>
@@ -321,20 +319,21 @@
             return Math.min(Math.max(Math.floor(elapsed / (7*86400000)) + 1, 1), totalWeeks);
         }
 
-        // Place hour markers (Rolex-style)
+        // Place hour markers (Rolex-style) around the dial
         function setupMarkers() {
             const face = document.getElementById('clockFace');
-            const radius = 118; // distance from center to marker
+            const cx = 134, cy = 134; // center of 268px face
+            const radius = 115;
             for (let i = 0; i < 12; i++) {
-                const angle = (i * 30 - 90) * (Math.PI / 180);
+                const angle = i * 30; // degrees
+                const rad = (angle - 90) * Math.PI / 180;
                 const marker = document.createElement('div');
                 marker.className = 'marker' + (i === 0 ? ' marker-12' : '');
-                const x = 134 + radius * Math.cos(angle) - 2;
-                const y = 134 + radius * Math.sin(angle);
+                const x = cx + radius * Math.cos(rad);
+                const y = cy + radius * Math.sin(rad);
                 marker.style.left = x + 'px';
                 marker.style.top = y + 'px';
-                marker.style.transform = `translate(-50%, 0) rotate(${i * 30}deg)`;
-                marker.style.transformOrigin = '50% 0';
+                marker.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
                 face.appendChild(marker);
             }
         }
