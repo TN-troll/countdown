@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arval Doomsday Clock — 10 Weeks</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Segoe UI', Arial, sans-serif;
+            font-family: 'Montserrat', Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -32,19 +33,21 @@
         /* Header */
         .header { display: flex; flex-direction: column; align-items: center; }
         .arval-logo {
-            font-size: 2.8rem; font-weight: 700; letter-spacing: 8px;
+            font-size: 2.8rem; font-weight: 700; letter-spacing: 10px;
             color: #008755;
             text-shadow: 0 0 30px rgba(0,135,85,0.3), 0 2px 4px rgba(0,0,0,0.5);
         }
         .arval-sub {
-            font-size: 0.75rem; color: #6ABB97;
+            font-size: 0.7rem; color: #6ABB97;
             letter-spacing: 6px; text-transform: uppercase; margin-top: 0.2rem;
+            font-weight: 300;
         }
         .bnp-badge {
             display: inline-block; margin-top: 0.6rem;
             padding: 0.2rem 1rem;
             border: 1px solid rgba(0,135,85,0.25); border-radius: 3px;
             font-size: 0.5rem; color: #39A87B; letter-spacing: 4px;
+            font-weight: 600;
         }
 
         /* Rolex-inspired Doomsday Clock */
@@ -212,7 +215,7 @@
             color:#39A87B; font-size:0.65rem; letter-spacing:2px;
             padding:0.5rem 0.8rem; border-radius:4px;
             cursor:pointer; transition:all 0.3s; text-transform:uppercase;
-            font-family: 'Segoe UI', Arial, sans-serif;
+            font-family: 'Montserrat', Arial, sans-serif;
         }
         .ctrl-btn:hover { background:rgba(0,135,85,0.15); border-color:#008755; }
         .ctrl-btn.active { background:rgba(0,135,85,0.2); border-color:#008755; box-shadow:0 0 10px rgba(0,135,85,0.3); }
@@ -335,7 +338,8 @@
         .cost-counter {
             font-size: 0.6rem; color: rgba(255,107,53,0.6);
             letter-spacing: 1px;
-            font-family: 'Courier New', monospace;
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-weight: 600;
         }
 
         /* Business days */
@@ -450,7 +454,7 @@
             '🚗 Arval was founded in 1989 and is headquartered in Rueil-Malmaison, France.',
             '🚗 Arval\'s mission: sustainable mobility solutions for businesses.',
             '🚗 Every minute, another lease contract expires somewhere. Tick tock.',
-            '🚗 At €1M/month burn rate, this page has already cost €' + (costPerSecond * 10).toFixed(2) + ' in the last 10 seconds.',
+            '🚗 At €1M/month burn rate, every hour costs €1,389. Every day: €33,333.',
             '🚗 Arval SMaRT: their data-driven fleet management platform.',
             '🚗 Fun fact: the average Arval lease lasts 48 months. This countdown lasts 10 weeks.',
             '🚗 Arval delivers over 300,000 new vehicles per year globally.',
@@ -647,8 +651,6 @@
             road.appendChild(car);
             setTimeout(() => car.remove(), 20000);
         }
-
-        // === ARVAL FACTS (mixed into doomQuotes) ===
 
         // === SOUND ===
         let audioCtx = null, soundEnabled = false;
