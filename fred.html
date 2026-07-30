@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FRED Clock — Dolphin Countdown</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Courier+Prime&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Courier+Prime&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Courier Prime', monospace;
             display: flex; justify-content: center; align-items: center;
-            height: 100vh; overflow: hidden;
+            min-height: 100vh; overflow-x: hidden;
             background: radial-gradient(ellipse at center, #2a1810, #1a0e08, #0a0500);
             color: #e8d5b0;
             transition: background 0.5s, color 0.5s;
@@ -19,27 +19,68 @@
             background: radial-gradient(ellipse at center, #f5ebe0, #ede0d4, #ddb892);
             color: #3d2b1f;
         }
-
-        .container {
-            text-align: center; width: 100%; max-width: 700px; padding: 1rem;
-            display: flex; flex-direction: column; align-items: center; gap: 1rem;
+        body.christmas {
+            background: radial-gradient(ellipse at center, #1a2a1a, #0e1a0e, #050a05);
         }
 
-        /* Header */
+        .container {
+            text-align: center; width: 100%; max-width: 750px; padding: 1rem;
+            display: flex; flex-direction: column; align-items: center; gap: 0.8rem;
+        }
+
+        /* FRED Acronym Header */
         .fred-title {
             font-family: 'Playfair Display', serif;
-            font-size: 2.5rem; font-weight: 900; letter-spacing: 6px;
+            font-size: 2.8rem; font-weight: 900; letter-spacing: 8px;
             color: #c8956c;
             text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
         body.light .fred-title { color: #6b3a20; text-shadow: none; }
-        .fred-sub { font-size: 0.6rem; color: #8b6b4a; letter-spacing: 5px; text-transform: uppercase; }
-        .fred-date { font-size: 0.5rem; color: #665533; letter-spacing: 3px; margin-top: 0.3rem; }
+        .fred-acronym {
+            font-size: 0.55rem; color: #a0784a; letter-spacing: 3px;
+            margin-top: 0.2rem; line-height: 1.5;
+        }
+        .fred-acronym span { color: #c8956c; font-weight: bold; font-size: 0.7rem; }
+        body.light .fred-acronym span { color: #6b3a20; }
+        .fred-sub { font-size: 0.6rem; color: #8b6b4a; letter-spacing: 5px; text-transform: uppercase; margin-top: 0.3rem; }
+        .fred-date { font-size: 0.5rem; color: #665533; letter-spacing: 3px; margin-top: 0.2rem; }
+
+        /* Wood Carving Frame */
+        .wood-frame {
+            position: relative;
+            padding: 12px;
+            background: linear-gradient(135deg, #3d2010, #5c3520, #4a2815);
+            border-radius: 12px;
+            border: 3px solid #2a1508;
+            box-shadow: 
+                inset 0 0 15px rgba(0,0,0,0.4),
+                0 6px 20px rgba(0,0,0,0.5),
+                inset 2px 2px 4px rgba(200,149,108,0.1);
+        }
+        .wood-frame::before {
+            content: '';
+            position: absolute; inset: 4px;
+            border: 2px solid rgba(200,149,108,0.15);
+            border-radius: 8px;
+            pointer-events: none;
+        }
+        /* Carved corner ornaments */
+        .carving {
+            position: absolute; font-size: 1.1rem; opacity: 0.6;
+            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5));
+        }
+        .carving-tl { top: 6px; left: 8px; }
+        .carving-tr { top: 6px; right: 8px; }
+        .carving-bl { bottom: 6px; left: 8px; }
+        .carving-br { bottom: 6px; right: 8px; }
+        .carving-side-l { top: 50%; left: 6px; transform: translateY(-50%); }
+        .carving-side-r { top: 50%; right: 6px; transform: translateY(-50%); }
+        body.light .wood-frame { background: linear-gradient(135deg, #b5825a, #c8956c, #a0714f); border-color: #8b5e3c; }
 
         /* Cuckoo Clock Body */
         .cuckoo-clock {
             position: relative;
-            width: 220px; height: 300px;
+            width: 240px; height: 320px;
         }
         .clock-house {
             position: absolute; top: 0; left: 10px; right: 10px; bottom: 40px;
@@ -49,18 +90,29 @@
             border: 2px solid #2a1508;
         }
         body.light .clock-house { background: linear-gradient(to right, #a0714f, #c8956c, #b5825a, #c8956c, #a0714f); border-color: #8b5e3c; }
-        /* Roof */
         .clock-roof {
             position: absolute; top: -30px; left: 0; right: 0; height: 40px;
             background: linear-gradient(to bottom, #2a1508, #3d2010);
             clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
         }
         body.light .clock-roof { background: linear-gradient(to bottom, #6b3a20, #8b5e3c); }
-        /* Roof ornament */
         .roof-ornament {
             position: absolute; top: -42px; left: 50%; transform: translateX(-50%);
             font-size: 1.2rem;
         }
+        /* Wood grain texture on house */
+        .clock-house::after {
+            content: '';
+            position: absolute; inset: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent, transparent 8px,
+                rgba(0,0,0,0.05) 8px, rgba(0,0,0,0.05) 9px
+            );
+            border-radius: 8px 8px 0 0;
+            pointer-events: none;
+        }
+
         /* Cuckoo door */
         .cuckoo-door {
             position: absolute; top: 15px; left: 50%; transform: translateX(-50%);
@@ -77,6 +129,11 @@
             transition: bottom 0.3s ease;
         }
         .cuckoo-bird.out { bottom: 2px; }
+        .cuckoo-bird.fed { animation: happyBounce 0.5s ease 3; }
+        @keyframes happyBounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-5px); }
+        }
 
         /* Clock face */
         .cuckoo-face {
@@ -88,12 +145,12 @@
             box-shadow: inset 0 0 10px rgba(0,0,0,0.1), 0 2px 8px rgba(0,0,0,0.3);
         }
         body.light .cuckoo-face { border-color: #6b3a20; }
-        /* Roman numerals */
         .numeral {
             position: absolute;
             font-family: 'Playfair Display', serif;
             font-size: 0.6rem; font-weight: 700; color: #2a1508;
         }
+
         /* Clock hands */
         .c-hand {
             position: absolute; left: 50%; top: 50%;
@@ -114,7 +171,7 @@
             width: 1px; height: 52px;
             margin-left: -0.5px; margin-top: -40px;
             background: #8b2010;
-            transform-origin: 50% 76.9%; /* 40/52 */
+            transform-origin: 50% 76.9%;
         }
         .c-center-pin {
             position: absolute; top: 50%; left: 50%;
@@ -124,6 +181,45 @@
             border-radius: 50%;
             z-index: 5;
         }
+
+        /* Chains and Weights */
+        .chains-container {
+            position: absolute; bottom: -120px; left: 50%; transform: translateX(-50%);
+            width: 140px; height: 120px;
+        }
+        .chain {
+            position: absolute; top: 0; width: 3px;
+            background: repeating-linear-gradient(
+                to bottom,
+                #8b6b4a 0px, #8b6b4a 4px,
+                #5c4530 4px, #5c4530 6px,
+                #a0784a 6px, #a0784a 10px,
+                #5c4530 10px, #5c4530 12px
+            );
+            border-radius: 1px;
+            animation: chainDrop 4s ease-in-out infinite;
+        }
+        .chain-left { left: 30px; height: 90px; animation-delay: 0s; }
+        .chain-right { right: 30px; height: 80px; animation-delay: 0.5s; }
+        .chain-center { left: 50%; margin-left: -1.5px; height: 100px; animation-delay: 0.25s; }
+        @keyframes chainDrop {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(2px); }
+        }
+        .weight {
+            position: absolute; bottom: 0; width: 18px; height: 28px;
+            background: linear-gradient(135deg, #6b5030, #8b6b4a, #5c4020, #8b6b4a);
+            border-radius: 3px 3px 6px 6px;
+            border: 1px solid #3d2515;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.4);
+        }
+        .weight::after {
+            content: ''; position: absolute; top: 3px; left: 3px; right: 3px; height: 3px;
+            background: rgba(200,149,108,0.3); border-radius: 2px;
+        }
+        .weight-left { left: 22px; }
+        .weight-right { right: 22px; }
+        .weight-center { left: 50%; margin-left: -9px; }
 
         /* Pendulum */
         .pendulum-container {
@@ -140,8 +236,8 @@
         }
         .pendulum-bob {
             position: absolute; bottom: -10px; left: 50%;
-            width: 20px; height: 20px;
-            margin-left: -10px;
+            width: 22px; height: 22px;
+            margin-left: -11px;
             background: radial-gradient(circle at 35% 35%, #c8956c, #8b5e3c, #5c3520);
             border-radius: 50%;
             border: 1px solid #3d2010;
@@ -151,6 +247,35 @@
             0%, 100% { transform: rotate(15deg); }
             50% { transform: rotate(-15deg); }
         }
+
+        /* Feed Button */
+        .feed-btn {
+            background: linear-gradient(135deg, #3d5530, #5c7740);
+            border: 2px solid #2a3d1a;
+            color: #c8e8a0; font-size: 0.6rem; letter-spacing: 2px;
+            padding: 0.5rem 1rem; border-radius: 20px; cursor: pointer;
+            transition: all 0.3s; text-transform: uppercase;
+            font-family: 'Courier Prime', monospace;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        .feed-btn:hover { background: linear-gradient(135deg, #5c7740, #7a9955); transform: scale(1.05); }
+        .feed-btn:active { transform: scale(0.95); }
+        .feed-btn.fed { background: linear-gradient(135deg, #775530, #996640); color: #ffe0b0; }
+        .feed-count { font-size: 0.45rem; color: #8b6b4a; margin-top: 0.2rem; }
+
+        /* Weather display */
+        .weather-panel {
+            display: flex; align-items: center; gap: 0.6rem;
+            background: rgba(139,107,74,0.08);
+            border: 1px solid rgba(139,107,74,0.2);
+            border-radius: 6px; padding: 0.5rem 1rem;
+        }
+        .weather-icon { font-size: 1.4rem; }
+        .weather-info { text-align: left; }
+        .weather-temp { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: #c8956c; }
+        body.light .weather-temp { color: #6b3a20; }
+        .weather-desc { font-size: 0.45rem; color: #8b6b4a; letter-spacing: 1px; text-transform: uppercase; }
+        .weather-location { font-size: 0.4rem; color: #665533; }
 
         /* Countdown display */
         .countdown-display {
@@ -178,11 +303,11 @@
         .fred-quote { font-size: 0.6rem; font-style: italic; color: rgba(139,107,74,0.5); max-width: 380px; line-height: 1.7; transition: opacity 0.5s; }
 
         /* Controls */
-        .controls { position: fixed; top: 15px; right: 15px; z-index: 50; display: flex; gap: 6px; }
+        .controls { position: fixed; top: 15px; right: 15px; z-index: 50; display: flex; gap: 6px; flex-wrap: wrap; max-width: 300px; justify-content: flex-end; }
         .ctrl-btn {
             background: rgba(139,107,74,0.1); border: 1px solid rgba(139,107,74,0.3);
-            color: #c8956c; font-size: 0.6rem; letter-spacing: 2px;
-            padding: 0.4rem 0.7rem; border-radius: 4px; cursor: pointer;
+            color: #c8956c; font-size: 0.55rem; letter-spacing: 2px;
+            padding: 0.4rem 0.6rem; border-radius: 4px; cursor: pointer;
             transition: all 0.3s; text-transform: uppercase;
             font-family: 'Courier Prime', monospace;
         }
@@ -212,53 +337,135 @@
         }
         .cuckoo-msg.show { opacity: 1; }
 
+        /* Christmas Snowflakes */
+        .snowflake {
+            position: fixed; top: -10px; color: #fff; opacity: 0.7;
+            font-size: 1rem; pointer-events: none; z-index: 0;
+            animation: snowfall linear infinite;
+        }
+        @keyframes snowfall {
+            0% { transform: translateY(-10px) rotate(0deg); }
+            100% { transform: translateY(105vh) rotate(360deg); }
+        }
+        /* Christmas garland */
+        .christmas-garland {
+            display: none; position: fixed; top: 0; left: 0; right: 0;
+            height: 30px; z-index: 1;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent 0px, transparent 20px,
+                #cc3333 20px, #cc3333 22px,
+                transparent 22px, transparent 40px
+            );
+            opacity: 0.3;
+        }
+        .christmas-garland::after {
+            content: '🎄 🌟 🎄 🌟 🎄 🌟 🎄 🌟 🎄 🌟 🎄';
+            position: absolute; width: 100%; text-align: center;
+            font-size: 1rem; top: 5px; letter-spacing: 20px;
+        }
+        body.christmas .christmas-garland { display: block; }
+
+        /* Chime indicator */
+        .chime-indicator {
+            font-size: 0.45rem; color: #8b6b4a; opacity: 0;
+            transition: opacity 0.5s; letter-spacing: 2px;
+        }
+        .chime-indicator.active { opacity: 1; }
+
         @media (max-width: 768px) {
-            .cuckoo-clock { transform: scale(0.8); }
+            .cuckoo-clock { transform: scale(0.75); }
             .fred-title { font-size: 2rem; }
             .cd-value { font-size: 1.4rem; }
-            .container { gap: 0.8rem; }
+            .container { gap: 0.6rem; }
+            .wood-frame { padding: 8px; }
         }
     </style>
 </head>
 <body>
+    <div class="christmas-garland"></div>
     <div class="nav-buttons">
         <a href="index.html" class="nav-btn">☢ Team Oppenheimer</a>
         <a href="doomsday.html" class="nav-btn">⏱ Arval Clock</a>
     </div>
     <div class="controls">
         <button class="ctrl-btn" id="soundBtn" onclick="toggleSound()">🔇 Sound</button>
+        <button class="ctrl-btn" id="chimeBtn" onclick="toggleChime()">🔔 Chime</button>
         <button class="ctrl-btn" id="themeBtn" onclick="toggleTheme()">☀ Light</button>
     </div>
-    <div class="cuckoo-msg" id="cuckooMsg">� DOLPHIN!</div>
+    <div class="cuckoo-msg" id="cuckooMsg">🐬 DOLPHIN!</div>
 
     <div class="container">
+        <!-- FRED Acronym Header -->
         <div>
-            <div class="fred-title">FRED</div>
-            <div class="fred-sub">Dolphin Countdown</div>
+            <div class="fred-title">F.R.E.D.</div>
+            <div class="fred-acronym">
+                <span>F</span>iscal <span>R</span>ecords &amp; <span>E</span>xpenditure <span>D</span>iary
+            </div>
+            <div class="fred-sub">The Old Bookkeeper's Clock</div>
             <div class="fred-date">22 December 2026 • GMT+1</div>
         </div>
 
-        <div class="cuckoo-clock">
-            <div class="roof-ornament">🌲</div>
-            <div class="clock-roof"></div>
-            <div class="clock-house">
-                <div class="cuckoo-door">
-                    <div class="cuckoo-bird" id="cuckooBird">�</div>
-                </div>
-                <div class="cuckoo-face" id="clockFace">
-                    <div class="c-hand c-hand-hour" id="cHour"></div>
-                    <div class="c-hand c-hand-minute" id="cMinute"></div>
-                    <div class="c-hand c-hand-second" id="cSecond"></div>
-                    <div class="c-center-pin"></div>
-                </div>
+        <!-- Weather Panel -->
+        <div class="weather-panel" id="weatherPanel">
+            <div class="weather-icon" id="weatherIcon">🌡️</div>
+            <div class="weather-info">
+                <div class="weather-temp" id="weatherTemp">--°C</div>
+                <div class="weather-desc" id="weatherDesc">Loading weather...</div>
+                <div class="weather-location">Amsterdam, NL</div>
             </div>
-            <div class="pendulum-container">
-                <div class="pendulum">
-                    <div class="pendulum-bob"></div>
+        </div>
+
+        <!-- Wood Carved Frame around clock -->
+        <div class="wood-frame">
+            <span class="carving carving-tl">🌿</span>
+            <span class="carving carving-tr">🌿</span>
+            <span class="carving carving-bl">🍂</span>
+            <span class="carving carving-br">🍂</span>
+            <span class="carving carving-side-l">⚜️</span>
+            <span class="carving carving-side-r">⚜️</span>
+
+            <div class="cuckoo-clock">
+                <div class="roof-ornament" id="roofOrnament">🌲</div>
+                <div class="clock-roof"></div>
+                <div class="clock-house">
+                    <div class="cuckoo-door">
+                        <div class="cuckoo-bird" id="cuckooBird">🐬</div>
+                    </div>
+                    <div class="cuckoo-face" id="clockFace">
+                        <div class="c-hand c-hand-hour" id="cHour"></div>
+                        <div class="c-hand c-hand-minute" id="cMinute"></div>
+                        <div class="c-hand c-hand-second" id="cSecond"></div>
+                        <div class="c-center-pin"></div>
+                    </div>
+                </div>
+                <div class="pendulum-container">
+                    <div class="pendulum">
+                        <div class="pendulum-bob"></div>
+                    </div>
+                </div>
+                <!-- Chains with weights -->
+                <div class="chains-container">
+                    <div class="chain chain-left"></div>
+                    <div class="chain chain-center"></div>
+                    <div class="chain chain-right"></div>
+                    <div class="weight weight-left"></div>
+                    <div class="weight weight-center"></div>
+                    <div class="weight weight-right"></div>
                 </div>
             </div>
         </div>
 
+        <!-- Feed the Cuckoo -->
+        <div>
+            <button class="feed-btn" id="feedBtn" onclick="feedCuckoo()">🐟 Feed the Dolphin</button>
+            <div class="feed-count" id="feedCount">Fish fed today: 0</div>
+        </div>
+
+        <!-- Chime indicator -->
+        <div class="chime-indicator" id="chimeIndicator">♪ Westminster Chime ♪</div>
+
+        <!-- Countdown -->
         <div class="countdown-display">
             <div class="cd-block"><div class="cd-value" id="cdDays">--</div><div class="cd-label">Days</div></div>
             <div class="cd-block"><div class="cd-value" id="cdHours">--</div><div class="cd-label">Hours</div></div>
@@ -268,11 +475,11 @@
 
         <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
         <p class="status" id="status">FRED is ticking</p>
-        <div class="fred-quote" id="fredQuote">"Time flies like a cuckoo from its clock."</div>
+        <div class="fred-quote" id="fredQuote">"The ledger must balance before the clock strikes."</div>
     </div>
 
     <script>
-        // Config
+        // ===== CONFIG =====
         const targetDate = new Date('2026-12-22T00:00:00+01:00').getTime();
         const startDate = new Date('2026-07-30T00:00:00+02:00').getTime();
         const totalDuration = targetDate - startDate;
@@ -280,12 +487,197 @@
         function getAmsterdamTime() {
             return new Date(new Date().toLocaleString('en-US', { timeZone: 'Europe/Amsterdam' }));
         }
-
         function getProgress() {
             return Math.min(Math.max((Date.now() - startDate) / totalDuration, 0), 1);
         }
 
-        // Setup roman numerals
+        // ===== CHRISTMAS MODE =====
+        function checkChristmasSeason() {
+            const now = getAmsterdamTime();
+            const month = now.getMonth(); // 0-indexed
+            const day = now.getDate();
+            // Activate from December 1st onwards
+            const isChristmas = (month === 11 && day >= 1);
+            document.body.classList.toggle('christmas', isChristmas);
+            if (isChristmas) {
+                createSnowflakes();
+                document.getElementById('roofOrnament').textContent = '⭐';
+                // Update carvings for christmas
+                document.querySelectorAll('.carving-tl, .carving-tr').forEach(el => el.textContent = '🎄');
+                document.querySelectorAll('.carving-bl, .carving-br').forEach(el => el.textContent = '🎁');
+                document.querySelectorAll('.carving-side-l, .carving-side-r').forEach(el => el.textContent = '❄️');
+            }
+        }
+
+        function createSnowflakes() {
+            if (document.querySelector('.snowflake')) return; // already created
+            const flakes = ['❄', '❅', '❆', '✧', '•'];
+            for (let i = 0; i < 30; i++) {
+                const flake = document.createElement('div');
+                flake.className = 'snowflake';
+                flake.textContent = flakes[Math.floor(Math.random() * flakes.length)];
+                flake.style.left = Math.random() * 100 + 'vw';
+                flake.style.fontSize = (0.5 + Math.random() * 1) + 'rem';
+                flake.style.opacity = 0.3 + Math.random() * 0.5;
+                flake.style.animationDuration = (5 + Math.random() * 10) + 's';
+                flake.style.animationDelay = Math.random() * 10 + 's';
+                document.body.appendChild(flake);
+            }
+        }
+
+        // ===== WEATHER =====
+        async function fetchWeather() {
+            try {
+                // Open-Meteo free API for Amsterdam (no key needed)
+                const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=52.37&longitude=4.89&current=temperature_2m,weather_code&timezone=Europe/Amsterdam');
+                const data = await res.json();
+                const temp = Math.round(data.current.temperature_2m);
+                const code = data.current.weather_code;
+                document.getElementById('weatherTemp').textContent = temp + '°C';
+                document.getElementById('weatherDesc').textContent = getWeatherDescription(code);
+                document.getElementById('weatherIcon').textContent = getWeatherEmoji(code);
+            } catch(e) {
+                document.getElementById('weatherDesc').textContent = 'Weather unavailable';
+            }
+        }
+
+        function getWeatherDescription(code) {
+            if (code === 0) return 'Clear sky';
+            if (code <= 3) return 'Partly cloudy';
+            if (code <= 48) return 'Foggy';
+            if (code <= 57) return 'Drizzle';
+            if (code <= 65) return 'Rain';
+            if (code <= 67) return 'Freezing rain';
+            if (code <= 77) return 'Snow';
+            if (code <= 82) return 'Rain showers';
+            if (code <= 86) return 'Snow showers';
+            if (code <= 99) return 'Thunderstorm';
+            return 'Unknown';
+        }
+
+        function getWeatherEmoji(code) {
+            if (code === 0) return '☀️';
+            if (code <= 2) return '⛅';
+            if (code <= 3) return '☁️';
+            if (code <= 48) return '🌫️';
+            if (code <= 57) return '🌦️';
+            if (code <= 65) return '🌧️';
+            if (code <= 67) return '🧊';
+            if (code <= 77) return '❄️';
+            if (code <= 82) return '🌧️';
+            if (code <= 86) return '🌨️';
+            if (code <= 99) return '⛈️';
+            return '🌡️';
+        }
+
+        // ===== FEED THE CUCKOO =====
+        let feedCount = parseInt(localStorage.getItem('fredFeedCount_' + new Date().toDateString()) || '0');
+        document.getElementById('feedCount').textContent = 'Fish fed today: ' + feedCount;
+
+        function feedCuckoo() {
+            feedCount++;
+            localStorage.setItem('fredFeedCount_' + new Date().toDateString(), feedCount);
+            document.getElementById('feedCount').textContent = 'Fish fed today: ' + feedCount;
+
+            const bird = document.getElementById('cuckooBird');
+            const btn = document.getElementById('feedBtn');
+            bird.classList.add('out');
+            bird.classList.add('fed');
+            btn.classList.add('fed');
+            btn.textContent = '🐟 Yum! Fed!';
+
+            // Happy dolphin chirps
+            if (soundEnabled) playFeedSound();
+
+            setTimeout(() => {
+                bird.classList.remove('out');
+                bird.classList.remove('fed');
+                btn.classList.remove('fed');
+                btn.textContent = '🐟 Feed the Dolphin';
+            }, 2500);
+        }
+
+        function playFeedSound() {
+            if (!audioCtx) return;
+            // Happy ascending chirp
+            [600, 900, 1200].forEach((freq, i) => {
+                setTimeout(() => {
+                    if (!audioCtx) return;
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'sine'; osc.frequency.value = freq;
+                    gain.gain.value = 0.08;
+                    osc.connect(gain); gain.connect(audioCtx.destination); osc.start();
+                    osc.frequency.exponentialRampToValueAtTime(freq * 1.5, audioCtx.currentTime + 0.1);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
+                    osc.stop(audioCtx.currentTime + 0.18);
+                }, i * 120);
+            });
+        }
+
+        // ===== GRANDFATHER CLOCK WESTMINSTER CHIME =====
+        let chimeEnabled = true;
+
+        function toggleChime() {
+            chimeEnabled = !chimeEnabled;
+            const btn = document.getElementById('chimeBtn');
+            btn.textContent = chimeEnabled ? '🔔 Chime' : '🔕 Chime';
+            btn.classList.toggle('active', chimeEnabled);
+        }
+
+        // Westminster chime notes: E4, C4, D4, G3 (quarter), variations for half/3q/hour
+        function playWestminsterChime(quarters) {
+            if (!chimeEnabled || !soundEnabled || !audioCtx) return;
+
+            const indicator = document.getElementById('chimeIndicator');
+            indicator.classList.add('active');
+            setTimeout(() => indicator.classList.remove('active'), 4000);
+
+            // Westminster melody frequencies
+            const E4 = 329.63, C4 = 261.63, D4 = 293.66, G3 = 196.00, G4 = 392.00;
+            const patterns = {
+                1: [E4, C4, D4, G3],
+                2: [C4, D4, E4, C4,  E4, C4, D4, G3],
+                3: [E4, C4, D4, G3,  E4, D4, C4, E4,  C4, E4, D4, G3],
+                4: [E4, C4, D4, G3,  E4, D4, C4, E4,  C4, E4, D4, G3,  G3, D4, E4, C4]
+            };
+
+            const notes = patterns[quarters] || patterns[1];
+            const noteDuration = 0.5;
+
+            notes.forEach((freq, i) => {
+                setTimeout(() => {
+                    if (!audioCtx) return;
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    // Bell-like tone
+                    osc.type = 'sine';
+                    osc.frequency.value = freq;
+                    gain.gain.value = 0.12;
+                    osc.connect(gain); gain.connect(audioCtx.destination);
+                    osc.start();
+                    // Gentle decay like a bell
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + noteDuration * 0.9);
+                    osc.stop(audioCtx.currentTime + noteDuration);
+                }, i * (noteDuration * 1000 * 0.7));
+            });
+        }
+
+        // Check for quarter hours
+        let lastChimeMinute = -1;
+        function checkChime() {
+            const amTime = getAmsterdamTime();
+            const m = amTime.getMinutes();
+            if (m % 15 === 0 && m !== lastChimeMinute) {
+                lastChimeMinute = m;
+                const quarter = m === 0 ? 4 : m / 15;
+                playWestminsterChime(quarter);
+                // Also trigger cuckoo at the full hour
+                if (m === 0) setTimeout(triggerCuckoo, 3000);
+            }
+        }
+
+        // ===== CLOCK NUMERALS =====
         function setupNumerals() {
             const face = document.getElementById('clockFace');
             const numerals = ['XII','I','II','III','IV','V','VI','VII','VIII','IX','X','XI'];
@@ -302,7 +694,7 @@
             });
         }
 
-        // Update countdown
+        // ===== COUNTDOWN =====
         function updateFred() {
             const diff = targetDate - Date.now();
             const progress = getProgress();
@@ -312,8 +704,8 @@
                 document.getElementById('cdHours').textContent = '0';
                 document.getElementById('cdMins').textContent = '0';
                 document.getElementById('cdSecs').textContent = '0';
-                document.getElementById('status').textContent = '� FRED HAS ARRIVED';
-                document.title = '🐦 FRED — Complete';
+                document.getElementById('status').textContent = '🐬 FRED HAS ARRIVED — Books Closed!';
+                document.title = '📒 FRED — Complete';
                 return;
             }
 
@@ -328,16 +720,16 @@
             document.getElementById('cdSecs').textContent = secs;
             document.getElementById('progressFill').style.width = (progress * 100) + '%';
 
-            if (progress < 0.25) document.getElementById('status').textContent = 'FRED is ticking';
-            else if (progress < 0.5) document.getElementById('status').textContent = 'The dolphin stirs';
-            else if (progress < 0.75) document.getElementById('status').textContent = 'Winter approaches';
-            else if (progress < 0.95) document.getElementById('status').textContent = '� The dolphin is restless';
-            else document.getElementById('status').textContent = '� DOLPHIN IMMINENT';
+            if (progress < 0.25) document.getElementById('status').textContent = 'FRED is balancing the books';
+            else if (progress < 0.5) document.getElementById('status').textContent = 'The ledger stirs';
+            else if (progress < 0.75) document.getElementById('status').textContent = 'Winter audit approaches';
+            else if (progress < 0.95) document.getElementById('status').textContent = '🐬 The bookkeeper grows restless';
+            else document.getElementById('status').textContent = '📒 FISCAL YEAR END IMMINENT';
 
             document.title = `${days}d ${hours}h — FRED Clock`;
         }
 
-        // Animate clock hands (Amsterdam time, smooth second)
+        // ===== CLOCK HANDS =====
         function animateHands() {
             const now = new Date();
             const amTime = getAmsterdamTime();
@@ -352,35 +744,20 @@
             document.getElementById('cHour').style.transform = `rotate(${hourDeg}deg)`;
             document.getElementById('cMinute').style.transform = `rotate(${minDeg}deg)`;
             document.getElementById('cSecond').style.transform = `rotate(${secDeg}deg)`;
-
             requestAnimationFrame(animateHands);
         }
 
-        // Cuckoo at the hour
-        let lastCuckooHour = -1;
-        function checkCuckoo() {
-            const amTime = getAmsterdamTime();
-            const h = amTime.getHours();
-            const m = amTime.getMinutes();
-            if (m === 0 && h !== lastCuckooHour) {
-                lastCuckooHour = h;
-                triggerCuckoo();
-            }
-        }
-
+        // ===== CUCKOO =====
         function triggerCuckoo() {
             const bird = document.getElementById('cuckooBird');
             const msg = document.getElementById('cuckooMsg');
-            // Bird comes out
             bird.classList.add('out');
             msg.classList.add('show');
-            // Play cuckoo sound
             if (soundEnabled) playCuckoo();
-            // Retract after 3 seconds
             setTimeout(() => { bird.classList.remove('out'); msg.classList.remove('show'); }, 3000);
         }
 
-        // === SOUND ===
+        // ===== SOUND ENGINE =====
         let audioCtx = null, soundEnabled = false;
 
         function initAudio() {
@@ -426,14 +803,12 @@
 
         function playCuckoo() {
             if (!soundEnabled || !audioCtx) return;
-            // Dolphin click/chirp - rising frequency
             const o1 = audioCtx.createOscillator(); const g1 = audioCtx.createGain();
             o1.type = 'sine'; o1.frequency.value = 800; g1.gain.value = 0.12;
             o1.connect(g1); g1.connect(audioCtx.destination); o1.start();
             o1.frequency.exponentialRampToValueAtTime(2000, audioCtx.currentTime + 0.15);
             g1.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.2);
             o1.stop(audioCtx.currentTime + 0.25);
-            // Second chirp
             setTimeout(() => {
                 if (!audioCtx) return;
                 const o2 = audioCtx.createOscillator(); const g2 = audioCtx.createGain();
@@ -443,7 +818,6 @@
                 g2.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.18);
                 o2.stop(audioCtx.currentTime + 0.2);
             }, 250);
-            // Third chirp
             setTimeout(() => {
                 if (!audioCtx) return;
                 const o3 = audioCtx.createOscillator(); const g3 = audioCtx.createGain();
@@ -465,7 +839,7 @@
             }
         }
 
-        // === THEME ===
+        // ===== THEME =====
         let darkMode = true;
         function toggleTheme() {
             darkMode = !darkMode;
@@ -473,37 +847,47 @@
             document.getElementById('themeBtn').textContent = darkMode ? '☀ Light' : '🌙 Dark';
         }
 
-        // === QUOTES ===
+        // ===== QUOTES (bookkeeper themed) =====
         const quotes = [
-            '"Time flows like water, and the dolphin rides the current."',
-            '"The dolphin calls when the hour demands it."',
-            '"December 22 waits for no one."',
-            '"An old clock never lies about the time remaining."',
-            '"FRED counts down. The dolphin counts the hours."',
-            '"Dolphins can hear frequencies up to 150 kHz. They hear FRED ticking."',
-            '"Every tick brings us closer. Every tock confirms it."',
-            '"The pendulum swings. Time marches. FRED approaches."',
-            '"When winter arrives, so does FRED."',
-            '"Dolphins sleep with one eye open. FRED never sleeps."',
+            '"The ledger must balance before the clock strikes."',
+            '"FRED counts every second — just as he counted every guilder."',
+            '"A good bookkeeper knows: time is the most valuable entry."',
+            '"December 22 — when the fiscal year meets the dolphin."',
+            '"Every tick is a debit. Every tock, a credit. The balance: time."',
+            '"The old bookkeeper\'s hands never rest — nor do FRED\'s."',
+            '"Fiscal Records & Expenditure Diary — since time immemorial."',
+            '"When the weights drop, the accounts close."',
+            '"FRED keeps the books that time writes."',
+            '"The pendulum swings. The ledger grows. Winter approaches."',
+            '"Dolphins can hear frequencies up to 150 kHz. They audit every tick."',
+            '"In the end, all clocks report to the same accountant."',
         ];
         let quoteIdx = 0;
         function rotateQuote() {
             const el = document.getElementById('fredQuote');
             el.style.opacity = '0';
-            setTimeout(() => { el.textContent = quotes[quoteIdx]; el.style.opacity = '1'; quoteIdx = (quoteIdx+1) % quotes.length; }, 500);
+            setTimeout(() => {
+                el.textContent = quotes[quoteIdx];
+                el.style.opacity = '1';
+                quoteIdx = (quoteIdx + 1) % quotes.length;
+            }, 500);
         }
 
-        // === INIT ===
+        // ===== INIT =====
         setupNumerals();
         updateFred();
         animateHands();
         rotateQuote();
+        fetchWeather();
+        checkChristmasSeason();
+
         setInterval(updateFred, 1000);
         setInterval(tickTock, 100);
-        setInterval(checkCuckoo, 5000);
+        setInterval(checkChime, 5000);
         setInterval(rotateQuote, 10000);
+        setInterval(fetchWeather, 600000); // refresh weather every 10 min
 
-        // Test cuckoo on click
+        // Click clock for cuckoo
         document.querySelector('.cuckoo-clock').addEventListener('click', triggerCuckoo);
     </script>
 </body>
