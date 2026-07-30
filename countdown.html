@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Countdown — XXImo</title>
+    <title>Team Oppenheimer — Countdown to Disbandment</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -11,14 +11,13 @@
             font-family: 'Courier New', monospace;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
+            align-items: center;
             min-height: 100vh;
+            height: 100vh;
             background: #000;
             color: #fff;
-            overflow-x: hidden;
-            overflow-y: auto;
+            overflow: hidden;
             cursor: crosshair;
-            padding: 1rem 0;
         }
 
         .container {
@@ -27,13 +26,18 @@
             z-index: 2;
             width: 100%;
             max-width: 1000px;
-            padding: 1rem;
+            padding: 0.5rem;
             transition: transform 0.5s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            justify-content: space-between;
         }
 
         h1 {
-            font-size: 1.4rem;
-            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+            margin-bottom: 0.3rem;
             font-weight: 300;
             letter-spacing: 6px;
             text-transform: uppercase;
@@ -51,12 +55,12 @@
         }
 
         .stage-label {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             letter-spacing: 4px;
             text-transform: uppercase;
             color: #ff6b35;
-            margin-bottom: 1.5rem;
-            padding: 0.3rem 1rem;
+            margin-bottom: 0.3rem;
+            padding: 0.2rem 0.8rem;
             border: 1px solid rgba(255, 107, 53, 0.3);
             display: inline-block;
             animation: stagePulse 2s ease-in-out infinite;
@@ -69,13 +73,13 @@
 
         .quote {
             font-style: italic;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: #aaa;
-            margin-bottom: 1.5rem;
+            margin-bottom: 0.5rem;
             max-width: 500px;
             margin-left: auto;
             margin-right: auto;
-            line-height: 1.6;
+            line-height: 1.5;
             opacity: 0;
             animation: fadeIn 2s ease forwards;
         }
@@ -84,10 +88,10 @@
 
         .countdown {
             display: flex;
-            gap: 1rem;
+            gap: 0.8rem;
             justify-content: center;
             flex-wrap: wrap;
-            margin-bottom: 1.5rem;
+            margin-bottom: 0.5rem;
         }
 
         .time-block {
@@ -128,9 +132,9 @@
         /* Bomb scene */
         .bomb-scene {
             position: relative;
-            height: 800px;
+            height: 55vh;
             width: 100%;
-            margin-bottom: 1.5rem;
+            margin-bottom: 0.5rem;
             overflow: hidden;
             border: 1px solid rgba(255, 107, 53, 0.1);
             border-radius: 4px;
@@ -204,8 +208,8 @@
         /* Searchlights */
         .searchlight {
             position: absolute;
-            bottom: 200px;
-            width: 2px; height: 300px;
+            bottom: 25%;
+            width: 2px; height: 50%;
             background: linear-gradient(to top, rgba(255,255,200,0.15), transparent);
             transform-origin: bottom center;
             animation: searchSweep 4s ease-in-out infinite alternate;
@@ -237,10 +241,11 @@
         }
         @keyframes radarSweep { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         .radar-dot {
-            position: absolute; top: 50%; left: 50%;
+            position: absolute; top: 25%; left: 50%;
             width: 4px; height: 4px; background: #0f0;
             border-radius: 50%; transform: translate(-50%, -50%);
             animation: radarBlink 1s ease-in-out infinite;
+            transition: top 1s ease;
         }
         @keyframes radarBlink { 0%,100% { opacity:1; box-shadow:0 0 4px #0f0; } 50% { opacity:0.3; } }
 
@@ -264,7 +269,7 @@
 
         /* Heat distortion */
         .heat-distortion {
-            position: absolute; bottom: 200px; left: 0; right: 0; height: 60px;
+            position: absolute; bottom: 25%; left: 0; right: 0; height: 5%;
             pointer-events: none; opacity: 0;
             background: repeating-linear-gradient(0deg, transparent, rgba(255,100,0,0.02) 2px, transparent 4px);
             animation: heatWave 0.5s ease-in-out infinite alternate;
@@ -274,11 +279,11 @@
 
         /* Ground & Utrecht skyline */
         .ground {
-            position: absolute; bottom: 0; left: 0; right: 0; height: 200px;
+            position: absolute; bottom: 0; left: 0; right: 0; height: 25%;
             background: linear-gradient(to bottom, #1a1a2a, #0a0a15);
             border-top: 1px solid rgba(100, 100, 150, 0.15);
         }
-        .city-skyline { position: absolute; bottom: 0; left: 0; right: 0; height: 200px; }
+        .city-skyline { position: absolute; bottom: 0; left: 0; right: 0; height: 100%; }
         .city-building {
             position: absolute; bottom: 8px;
             background: linear-gradient(to right, #15152a, #20203a, #15152a);
@@ -291,68 +296,94 @@
             background: repeating-linear-gradient(0deg, rgba(255,200,50,0.12) 0px, rgba(255,200,50,0.12) 2px, transparent 2px, transparent 5px);
             opacity: 0.6;
         }
-        /* Dom Tower */
+        /* Dom Tower - Gothic, 112.5m, tallest church tower NL */
         .dom-tower {
-            position: absolute; bottom: 10px; left: 15%;
-            width: 18px; height: 160px;
+            position: absolute; bottom: 5%; left: 15%;
+            width: 16px; height: 75%;
             background: linear-gradient(to right, #1a1a30, #2a2a4a, #1a1a30);
             border-radius: 2px 2px 0 0;
         }
         .dom-tower::before {
-            content: ''; position: absolute; top: -35px; left: 50%; transform: translateX(-50%);
+            content: ''; position: absolute; top: -20%; left: 50%; transform: translateX(-50%);
             width: 0; height: 0;
-            border-left: 12px solid transparent; border-right: 12px solid transparent;
-            border-bottom: 35px solid #2a2a4a;
+            border-left: 10px solid transparent; border-right: 10px solid transparent;
+            border-bottom: 30px solid #2a2a4a;
         }
         .dom-tower::after {
-            content: 'DOM'; position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
-            font-size: 0.4rem; color: rgba(255,255,255,0.5); letter-spacing: 1px; white-space: nowrap;
+            content: 'DOM'; position: absolute; bottom: 5px; left: 50%; transform: translateX(-50%);
+            font-size: 0.35rem; color: rgba(255,255,255,0.5); letter-spacing: 1px; white-space: nowrap;
         }
-        /* Utrecht Centraal station */
+        /* Dom tower gothic window details */
+        .dom-tower-detail {
+            position: absolute; bottom: 5%; left: 15%;
+            width: 16px; height: 75%;
+            pointer-events: none;
+            background: repeating-linear-gradient(0deg,
+                transparent 0px, transparent 8px,
+                rgba(200,180,100,0.1) 8px, rgba(200,180,100,0.1) 9px
+            );
+        }
+        /* Utrecht Centraal - undulating wave roof */
         .utrecht-cs {
-            position: absolute; bottom: 10px; right: 12%;
-            width: 80px; height: 45px;
-            background: linear-gradient(to bottom, #2a2a3a, #1a1a2a);
-            border-radius: 25px 25px 0 0;
-            border-top: 1px solid rgba(100,200,255,0.2);
+            position: absolute; bottom: 5%; right: 10%;
+            width: 90px; height: 22%;
+            background: linear-gradient(to bottom, #333, #222);
+            border-radius: 0;
+            overflow: hidden;
+        }
+        .utrecht-cs::before {
+            content: ''; position: absolute; top: -12px; left: 0; right: 0;
+            height: 25px;
+            background: #3a3a4a;
+            border-radius: 0;
+            clip-path: path('M0,20 Q15,0 30,15 Q45,25 60,10 Q75,0 90,15 L90,25 L0,25 Z');
         }
         .utrecht-cs::after {
-            content: 'UTRECHT CS'; position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%);
-            font-size: 0.35rem; color: rgba(255,255,255,0.4); letter-spacing: 1px;
+            content: 'UTRECHT CS'; position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%);
+            font-size: 0.3rem; color: rgba(255,255,255,0.5); letter-spacing: 1px; white-space: nowrap;
         }
-        /* Jaarbeurs */
+        /* Glass front of CS */
+        .utrecht-cs-glass {
+            position: absolute; top: 30%; left: 5%; right: 5%; bottom: 15%;
+            background: rgba(100,150,200,0.15);
+            border: 1px solid rgba(100,150,200,0.1);
+        }
+        /* Jaarbeurs - large flat exhibition hall */
         .jaarbeurs {
-            position: absolute; bottom: 10px; right: 25%;
-            width: 50px; height: 38px;
-            background: linear-gradient(to right, #1a1a30, #252540, #1a1a30);
+            position: absolute; bottom: 5%; right: 28%;
+            width: 55px; height: 18%;
+            background: linear-gradient(to bottom, #252535, #1a1a2a);
             border-radius: 1px 1px 0 0;
         }
-        .jaarbeurs::after {
-            content: 'JAARBEURS'; position: absolute; bottom: 5px; left: 50%; transform: translateX(-50%);
-            font-size: 0.3rem; color: rgba(255,255,255,0.3); letter-spacing: 0.5px; white-space: nowrap;
+        .jaarbeurs::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+            background: linear-gradient(to right, rgba(255,200,0,0.3), rgba(255,200,0,0.1));
         }
-        /* TivoliVredenburg */
+        .jaarbeurs::after {
+            content: 'JAARBEURS'; position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%);
+            font-size: 0.3rem; color: rgba(255,255,255,0.35); letter-spacing: 0.5px; white-space: nowrap;
+        }
+        /* TivoliVredenburg - angular modern concert hall, multiple volumes */
         .tivoli {
-            position: absolute; bottom: 10px; left: 30%;
-            width: 35px; height: 55px;
-            background: linear-gradient(135deg, #1a1a35, #252545);
-            border-radius: 2px 2px 0 0;
-            clip-path: polygon(0% 30%, 50% 0%, 100% 30%, 100% 100%, 0% 100%);
+            position: absolute; bottom: 5%; left: 30%;
+            width: 38px; height: 28%;
+            background: linear-gradient(160deg, #252540, #1a1a35);
+            clip-path: polygon(0% 40%, 30% 0%, 70% 10%, 100% 30%, 100% 100%, 0% 100%);
         }
         .tivoli::after {
-            content: 'TIVOLI'; position: absolute; bottom: 5px; left: 50%; transform: translateX(-50%);
-            font-size: 0.3rem; color: rgba(255,255,255,0.3); letter-spacing: 0.5px; white-space: nowrap;
+            content: 'TIVOLI'; position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%);
+            font-size: 0.28rem; color: rgba(255,255,255,0.35); letter-spacing: 0.5px; white-space: nowrap;
         }
-        /* Hoog Catharijne */
+        /* Hoog Catharijne mall - long, low, modern */
         .hoog-catharijne {
-            position: absolute; bottom: 10px; right: 35%;
-            width: 55px; height: 30px;
+            position: absolute; bottom: 5%; right: 38%;
+            width: 50px; height: 13%;
             background: linear-gradient(to right, #1a1a2e, #222240, #1a1a2e);
-            border-radius: 3px 3px 0 0;
+            border-radius: 2px 2px 0 0;
         }
         .hoog-catharijne::after {
-            content: 'HOOG CATHARIJNE'; position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%);
-            font-size: 0.25rem; color: rgba(255,255,255,0.3); white-space: nowrap;
+            content: 'HOOG CATHARIJNE'; position: absolute; bottom: 3px; left: 50%; transform: translateX(-50%);
+            font-size: 0.22rem; color: rgba(255,255,255,0.3); white-space: nowrap;
         }
         .canal {
             position: absolute; bottom: 0; left: 0; right: 0; height: 8px;
@@ -365,28 +396,72 @@
             letter-spacing: 1px; white-space: nowrap;
         }
 
-        /* WTC / XXImo Glass Building (target) */
+        /* XXImo Glass Building (target) */
         .building {
-            position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
-            width: 70px; height: 150px;
+            position: absolute; bottom: 5%; left: 50%; transform: translateX(-50%);
+            width: 80px; height: 65%;
             background: linear-gradient(to right,
-                rgba(80,130,180,0.3),
-                rgba(120,180,220,0.4),
-                rgba(150,200,240,0.3),
-                rgba(120,180,220,0.4),
-                rgba(80,130,180,0.3)
+                rgba(60,100,140,0.4),
+                rgba(90,140,180,0.5),
+                rgba(110,160,200,0.45),
+                rgba(90,140,180,0.5),
+                rgba(60,100,140,0.4)
             );
-            border-radius: 2px 2px 0 0; z-index: 2;
-            border: 1px solid rgba(120,200,255,0.3);
-            box-shadow: 0 0 20px rgba(100,180,255,0.15), inset 0 0 20px rgba(100,180,255,0.05);
+            border-radius: 1px 1px 0 0; z-index: 2;
+            border: 1px solid rgba(120,200,255,0.25);
+            box-shadow: 0 0 25px rgba(100,180,255,0.12), inset 0 0 30px rgba(100,180,255,0.05);
             cursor: pointer;
-            backdrop-filter: blur(1px);
+        }
+        /* WTC horizontal floor lines (curtain wall grid) */
+        .building-grid {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background:
+                repeating-linear-gradient(0deg,
+                    transparent 0px, transparent 8px,
+                    rgba(80,150,200,0.2) 8px, rgba(80,150,200,0.2) 9px
+                ),
+                repeating-linear-gradient(90deg,
+                    transparent 0px, transparent 19px,
+                    rgba(80,150,200,0.15) 19px, rgba(80,150,200,0.15) 20px
+                );
+            border-radius: 1px 1px 0 0;
         }
         .building::before {
-            content: 'WTC XXImo'; position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
-            font-size: 0.5rem; font-weight: bold; letter-spacing: 2px;
-            color: rgba(200,230,255,0.9); white-space: nowrap; text-shadow: 0 0 5px rgba(100,200,255,0.5);
+            content: 'XXImo'; position: absolute; top: 6px; left: 50%; transform: translateX(-50%);
+            font-size: 0.5rem; font-weight: bold; letter-spacing: 3px;
+            color: rgba(200,230,255,0.8); white-space: nowrap; text-shadow: 0 0 5px rgba(100,200,255,0.4);
         }
+        .building-windows {
+            position: absolute; top: 28px; left: 4px; right: 4px; bottom: 4px;
+            display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(6, 1fr); gap: 2px;
+        }
+        .window {
+            background: rgba(150, 220, 255, 0.2);
+            border: 1px solid rgba(120, 200, 255, 0.1);
+            border-radius: 0;
+            animation: glassFlicker 4s ease-in-out infinite;
+        }
+        .window:nth-child(odd) { animation-delay: -2s; background: rgba(170, 230, 255, 0.25); }
+        .window:nth-child(3n) { background: rgba(100, 180, 220, 0.12); }
+        .window:nth-child(4n+1) { background: rgba(200, 240, 255, 0.3); }
+        @keyframes glassFlicker { 0%,100% { opacity:1; } 50% { opacity:0.7; } }
+        /* Glass reflection shimmer */
+        .building::after {
+            content: ''; position: absolute; top: 0; left: -50%; width: 30%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent);
+            animation: glassShimmer 8s ease-in-out infinite;
+        }
+        @keyframes glassShimmer { 0%{left:-50%;} 100%{left:150%;} }
+        .building-antenna {
+            position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+            width: 2px; height: 12px; background: #556;
+        }
+        .building-antenna::after {
+            content: ''; position: absolute; top: 0; left: -2px;
+            width: 6px; height: 3px; background: #ff0000; border-radius: 50%;
+            animation: antennaLight 1s ease-in-out infinite;
+        }
+        @keyframes antennaLight { 0%,100% { opacity:1; } 50% { opacity:0.2; } }
         .building-windows {
             position: absolute; top: 20px; left: 4px; right: 4px; bottom: 4px;
             display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(6, 1fr); gap: 2px;
@@ -421,7 +496,7 @@
 
         /* Crosshair */
         .crosshair {
-            position: absolute; bottom: 150px; left: 50%; transform: translateX(-50%);
+            position: absolute; bottom: 22%; left: 50%; transform: translateX(-50%);
             width: 70px; height: 70px;
             border: 1px solid rgba(255,0,0,0.4); border-radius: 50%;
             animation: crosshairPulse 1.5s ease-in-out infinite; z-index: 3;
@@ -476,19 +551,19 @@
 
         /* Explosion, mushroom, shockwave */
         .explosion {
-            position:absolute; bottom:150px; left:50%; transform:translateX(-50%);
+            position:absolute; bottom:20%; left:50%; transform:translateX(-50%);
             width:0;height:0; border-radius:50%;
             background:radial-gradient(circle,#fff,#ffcc00,#ff6b35,#ff0000,transparent);
             opacity:0; transition:all 0.5s ease; z-index:5;
         }
-        .explosion.active { width:1000px;height:1000px;opacity:1;bottom:-400px; }
-        .mushroom-cloud { position:absolute;bottom:150px;left:50%;transform:translateX(-50%);opacity:0;transition:opacity 2s ease 1s;z-index:4; }
+        .explosion.active { width:1000px;height:1000px;opacity:1;bottom:-40%; }
+        .mushroom-cloud { position:absolute;bottom:20%;left:50%;transform:translateX(-50%);opacity:0;transition:opacity 2s ease 1s;z-index:4; }
         .mushroom-cloud.active { opacity:1; }
         .mushroom-stem { width:30px;height:120px;background:linear-gradient(to right,#4a2000,#ff6b35,#4a2000);margin:0 auto;border-radius:0 0 5px 5px; }
         .mushroom-cap { width:180px;height:90px;background:radial-gradient(ellipse at center,#ff6b35,#ff3300,#8b0000);border-radius:90px 90px 10px 10px;margin:0 auto -5px;transform:scale(0); }
         .mushroom-cloud.active .mushroom-cap { animation: mushroomGrow 3s ease-out forwards; }
         @keyframes mushroomGrow { from{transform:scale(0);} to{transform:scale(1);} }
-        .shockwave { position:absolute;bottom:170px;left:50%;transform:translateX(-50%);width:0;height:0;border:2px solid rgba(255,255,255,0.5);border-radius:50%;opacity:0;z-index:5; }
+        .shockwave { position:absolute;bottom:22%;left:50%;transform:translateX(-50%);width:0;height:0;border:2px solid rgba(255,255,255,0.5);border-radius:50%;opacity:0;z-index:5; }
         .shockwave.active { animation: shockwaveExpand 1.5s ease-out forwards; }
         @keyframes shockwaveExpand { 0%{width:0;height:0;opacity:1;margin-left:0;margin-bottom:0;} 100%{width:800px;height:300px;opacity:0;margin-left:-400px;margin-bottom:-150px;} }
 
@@ -573,7 +648,7 @@
 
         /* Panic button */
         .panic-btn {
-            position:fixed;bottom:15px;right:15px;z-index:50;
+            position:fixed;bottom:75px;right:15px;z-index:50;
             background:rgba(255,0,0,0.1);border:2px solid rgba(255,0,0,0.5);
             color:#ff0000;font-family:'Courier New',monospace;font-size:0.6rem;
             letter-spacing:2px;padding:0.6rem 1rem;border-radius:4px;cursor:pointer;
@@ -605,7 +680,7 @@
         .bomb-info.show { opacity:1; }
 
         /* Time indicator */
-        .time-indicator { position:fixed;top:15px;left:15px;z-index:50;font-size:0.55rem;color:rgba(255,255,255,0.3);letter-spacing:2px; }
+        .time-indicator { position:fixed;top:50px;left:15px;z-index:50;font-size:0.55rem;color:rgba(255,255,255,0.3);letter-spacing:2px; }
 
         /* Visit counter */
         .visit-counter { position:fixed;bottom:15px;left:50%;transform:translateX(-50%);z-index:50;font-size:0.5rem;color:rgba(255,255,255,0.2);letter-spacing:2px; }
@@ -669,8 +744,8 @@
         /* Horizon glow */
         .horizon-glow {
             position: absolute;
-            bottom: 200px; left: 0; right: 0;
-            height: 50px;
+            bottom: 25%; left: 0; right: 0;
+            height: 8%;
             pointer-events: none;
             transition: background 2s ease;
         }
@@ -691,7 +766,7 @@
         /* Mini countdown */
         .mini-countdown {
             position: fixed;
-            bottom: 50px; right: 15px;
+            bottom: 110px; right: 15px;
             z-index: 50;
             font-size: 0.5rem;
             color: rgba(255,107,53,0.4);
@@ -789,105 +864,346 @@
         }
         /* === MOBILE RESPONSIVE === */
         @media (max-width: 768px) {
-            body { padding: 0.5rem 0; }
-            .container { max-width: 100%; padding: 0.5rem; }
+            .container { max-width: 100%; padding: 0.3rem; }
             h1 { font-size: 1rem; letter-spacing: 4px; }
-            .stage-label { font-size: 0.6rem; letter-spacing: 2px; padding: 0.2rem 0.6rem; }
-            .quote { font-size: 0.7rem; max-width: 90%; margin-bottom: 1rem; }
+            .stage-label { font-size: 0.55rem; letter-spacing: 2px; padding: 0.2rem 0.5rem; }
+            .quote { font-size: 0.65rem; max-width: 90%; }
+            .bomb-scene { height: 35vh; }
+            .countdown { gap: 0.4rem; }
+            .time-block { padding: 0.6rem 0.7rem; min-width: 65px; }
+            .time-value { font-size: 1.8rem; }
+            .time-label { font-size: 0.5rem; letter-spacing: 2px; }
 
-            .bomb-scene { height: 400px; }
-
-            .countdown { gap: 0.5rem; }
-            .time-block { padding: 0.7rem 0.8rem; min-width: 70px; }
-            .time-value { font-size: 2rem; }
-            .time-label { font-size: 0.55rem; letter-spacing: 2px; }
-
-            /* Joost panel moves to bottom-left, smaller */
+            /* Joost panel on mobile: horizontal bar above ticker */
             .joost-panel {
-                left: 5px;
+                position: fixed;
+                left: 0; right: 0; bottom: 32px;
                 top: auto;
-                bottom: 40px;
                 transform: none;
-                width: 200px;
-                padding: 0.7rem;
+                width: 100%;
+                border-radius: 0;
+                padding: 0.5rem 1rem;
+                display: flex;
+                align-items: center;
+                gap: 0.8rem;
+                border-left: none; border-right: none;
+                border-bottom: none;
             }
-            .joost-panel-header { margin-bottom: 0.5rem; padding-bottom: 0.4rem; }
+            .joost-panel-header {
+                margin-bottom: 0; padding-bottom: 0;
+                border-bottom: none;
+                flex-shrink: 0;
+                flex-direction: row;
+            }
             .joost-panel-icon { font-size: 1rem; }
-            .joost-panel-title { font-size: 0.55rem; letter-spacing: 2px; }
-            .joost-quote { font-size: 0.6rem; min-height: 45px; line-height: 1.5; }
-            .joost-attribution { font-size: 0.45rem; }
+            .joost-panel-title { font-size: 0.5rem; letter-spacing: 2px; }
+            .joost-panel-live { margin-left: 0.3rem; }
+            .joost-quote { font-size: 0.55rem; min-height: auto; flex: 1; }
+            .joost-attribution { display: none; }
+            .joost-counter { display: none; }
 
-            /* Buttons smaller and repositioned */
-            .sound-btn, .fullscreen-btn, .lang-btn {
-                font-size: 0.55rem;
-                padding: 0.3rem 0.5rem;
-                letter-spacing: 1px;
-            }
+            .sound-btn, .fullscreen-btn, .lang-btn { font-size: 0.5rem; padding: 0.3rem 0.4rem; }
             .sound-btn { right: 5px; top: 5px; }
-            .fullscreen-btn { right: 90px; top: 5px; }
-            .lang-btn { right: 160px; top: 5px; }
-            .panic-btn { font-size: 0.5rem; padding: 0.4rem 0.6rem; bottom: 40px; right: 5px; }
-
-            /* Ticker */
-            .facts-ticker { height: 28px; }
-            .facts-ticker-content { font-size: 0.65rem; line-height: 28px; }
-
-            /* Side panels */
-            .time-indicator { font-size: 0.45rem; top: 5px; left: 5px; }
-            .working-hours { top: 35px; left: 5px; font-size: 0.4rem; }
-            .weather-display { top: 35px; right: 5px; font-size: 0.4rem; }
-            .mini-countdown { bottom: 40px; right: auto; left: 5px; font-size: 0.4rem; display: none; }
-            .telemetry { font-size: 0.45rem; bottom: 35px; }
-            .visit-counter { font-size: 0.4rem; }
-
-            /* Ground/city scale down */
-            .ground { height: 100px; }
-            .city-skyline { height: 100px; }
-            .dom-tower { height: 80px; width: 10px; }
-            .dom-tower::before { top: -15px; border-left-width: 6px; border-right-width: 6px; border-bottom-width: 15px; }
-            .building { width: 40px; height: 75px; }
-            .building::before { font-size: 0.3rem; top: 6px; }
-            .building-windows { top: 16px; left: 3px; right: 3px; bottom: 3px; gap: 1px; }
-            .utrecht-cs { width: 40px; height: 22px; }
-            .jaarbeurs { width: 25px; height: 18px; }
-            .tivoli { width: 20px; height: 28px; }
-            .hoog-catharijne { width: 30px; height: 15px; }
-            .crosshair { width: 40px; height: 40px; bottom: 70px; }
-            .searchlight { height: 150px; bottom: 100px; }
-            .heat-distortion { bottom: 100px; }
-            .horizon-glow { bottom: 100px; height: 30px; }
-
-            /* Progress */
-            .progress-bar { width: 250px; }
-            .milestones { width: 250px; }
-
-            /* Hide less important elements on mobile */
-            .radar { width: 35px; height: 35px; }
-            .altitude { font-size: 0.5rem; }
-            .altitude-value { font-size: 0.9rem; }
+            .fullscreen-btn { right: 80px; top: 5px; }
+            .lang-btn { right: 145px; top: 5px; }
+            .panic-btn { font-size: 0.45rem; padding: 0.3rem 0.5rem; bottom: 70px; right: 5px; }
+            .facts-ticker { height: 26px; }
+            .facts-ticker-content { font-size: 0.6rem; line-height: 26px; }
+            .time-indicator { font-size: 0.4rem; }
+            .working-hours { font-size: 0.4rem; }
+            .weather-display { font-size: 0.4rem; }
+            .mini-countdown { display: none; }
+            .telemetry { font-size: 0.4rem; bottom: 70px; }
+            .progress-bar { width: 220px; }
+            .milestones { width: 220px; }
         }
 
         @media (max-width: 480px) {
-            .bomb-scene { height: 300px; }
-            .countdown { gap: 0.3rem; }
-            .time-block { padding: 0.5rem 0.6rem; min-width: 60px; }
-            .time-value { font-size: 1.6rem; }
-            h1 { font-size: 0.85rem; }
-            .quote { font-size: 0.6rem; }
-
-            /* Hide Joost panel on very small screens, rely on ticker */
-            .joost-panel { display: none; }
-            .mini-countdown { display: none; }
+            .bomb-scene { height: 30vh; }
+            .time-value { font-size: 1.5rem; }
+            .time-block { min-width: 55px; padding: 0.4rem 0.5rem; }
+            h1 { font-size: 0.8rem; }
+            .quote { font-size: 0.55rem; }
+            .joost-quote { font-size: 0.5rem; }
             .working-hours { display: none; }
             .weather-display { display: none; }
+            .progress-bar { width: 180px; }
+            .milestones { width: 180px; }
+        }
 
-            .ground { height: 80px; }
-            .city-skyline { height: 80px; }
-            .building { width: 35px; height: 60px; }
-            .dom-tower { height: 60px; }
-            .crosshair { width: 30px; height: 30px; bottom: 55px; }
-            .progress-bar { width: 200px; }
-            .milestones { width: 200px; }
+        /* Theme selector */
+        .theme-btn {
+            position:fixed;top:15px;right:320px;z-index:50;
+            background:rgba(255,255,255,0.05);border:1px solid rgba(255,107,53,0.3);
+            color:#ff6b35;font-family:'Courier New',monospace;font-size:0.7rem;
+            letter-spacing:2px;padding:0.5rem 0.8rem;border-radius:4px;cursor:pointer;
+            transition:all 0.3s;text-transform:uppercase;
+        }
+        .theme-btn:hover { background:rgba(255,107,53,0.1);border-color:rgba(255,107,53,0.7); }
+
+        /* Theme: Retro Terminal */
+        body.theme-terminal { background: #001100; }
+        body.theme-terminal .time-value { color: #0f0 !important; text-shadow: 0 0 10px #0f0 !important; }
+        body.theme-terminal h1 { color: #0f0; text-shadow: 0 0 10px #0f0; }
+        body.theme-terminal .stage-label { color: #0f0; border-color: rgba(0,255,0,0.3); }
+        body.theme-terminal .quote { color: #0a0; }
+        body.theme-terminal .progress-fill { background: linear-gradient(to right, #0a0, #0f0); }
+        body.theme-terminal .status { color: #0f0 !important; }
+        body.theme-terminal .facts-ticker { border-top-color: rgba(0,255,0,0.3); }
+        body.theme-terminal .facts-ticker-content { color: rgba(0,255,0,0.7); }
+        body.theme-terminal .joost-panel { border-color: rgba(0,255,0,0.3); }
+        body.theme-terminal .joost-panel-title { color: #0f0; }
+        body.theme-terminal .joost-quote { color: rgba(0,255,0,0.8); }
+
+        /* Theme: Neon Synthwave */
+        body.theme-neon { background: linear-gradient(to bottom, #0a001a, #1a0030); }
+        body.theme-neon .time-value { color: #f0f !important; text-shadow: 0 0 20px #f0f, 0 0 40px #a0f !important; }
+        body.theme-neon h1 { color: #0ff; text-shadow: 0 0 15px #0ff; }
+        body.theme-neon .stage-label { color: #f0f; border-color: rgba(255,0,255,0.4); }
+        body.theme-neon .quote { color: #a0f; }
+        body.theme-neon .progress-fill { background: linear-gradient(to right, #f0f, #0ff); }
+        body.theme-neon .status { color: #0ff !important; }
+        body.theme-neon .facts-ticker { border-top-color: rgba(255,0,255,0.3); background: rgba(10,0,30,0.9); }
+        body.theme-neon .facts-ticker-content { color: rgba(0,255,255,0.7); }
+        body.theme-neon .joost-panel { border-color: rgba(255,0,255,0.3); }
+        body.theme-neon .joost-panel-title { color: #0ff; }
+        body.theme-neon .joost-quote { color: rgba(255,200,255,0.8); }
+
+        /* Theme: Classified */
+        body.theme-classified { background: #1a1a10; }
+        body.theme-classified .time-value { color: #c8a000 !important; text-shadow: 0 0 5px rgba(200,160,0,0.4) !important; }
+        body.theme-classified h1 { color: #c8a000; text-shadow: none; letter-spacing: 8px; }
+        body.theme-classified .stage-label { color: #c8a000; border-color: rgba(200,160,0,0.3); }
+        body.theme-classified .quote { color: #998050; }
+        body.theme-classified .progress-fill { background: linear-gradient(to right, #c8a000, #ff0000); }
+        body.theme-classified .facts-ticker { border-top-color: rgba(200,160,0,0.3); background: rgba(20,20,10,0.95); }
+        body.theme-classified .facts-ticker-content { color: rgba(200,160,0,0.7); }
+        body.theme-classified .joost-panel { border-color: rgba(200,160,0,0.3); }
+        body.theme-classified .joost-panel-title { color: #c8a000; }
+
+        /* Theme: Pip-Boy / Fallout */
+        body.theme-pipboy {
+            background: #001100;
+            font-family: 'Courier New', monospace;
+        }
+        body.theme-pipboy .time-value { color: #14fe17 !important; text-shadow: 0 0 8px #14fe17, 0 0 20px rgba(20,254,23,0.3) !important; }
+        body.theme-pipboy h1 { color: #14fe17; text-shadow: 0 0 10px #14fe17; font-family: 'Courier New', monospace; }
+        body.theme-pipboy .stage-label { color: #14fe17; border-color: rgba(20,254,23,0.4); font-family: 'Courier New', monospace; }
+        body.theme-pipboy .quote { color: #0a9e0c; font-family: 'Courier New', monospace; }
+        body.theme-pipboy .progress-fill { background: linear-gradient(to right, #0a5e0c, #14fe17); box-shadow: 0 0 10px rgba(20,254,23,0.5); }
+        body.theme-pipboy .time-block { border-color: rgba(20,254,23,0.3); background: rgba(20,254,23,0.03); }
+        body.theme-pipboy .time-label { color: #0a9e0c; }
+        body.theme-pipboy .status { color: #14fe17 !important; font-family: 'Courier New', monospace; }
+        body.theme-pipboy .facts-ticker { border-top-color: rgba(20,254,23,0.3); background: rgba(0,17,0,0.95); }
+        body.theme-pipboy .facts-ticker-content { color: rgba(20,254,23,0.7); font-family: 'Courier New', monospace; }
+        body.theme-pipboy .joost-panel { border-color: rgba(20,254,23,0.3); background: rgba(0,17,0,0.9); }
+        body.theme-pipboy .joost-panel-title { color: #14fe17; }
+        body.theme-pipboy .joost-panel-live { color: #14fe17; }
+        body.theme-pipboy .joost-quote { color: rgba(20,254,23,0.8); font-family: 'Courier New', monospace; }
+        body.theme-pipboy .joost-attribution { color: rgba(20,254,23,0.4); }
+        body.theme-pipboy .bomb-scene { border-color: rgba(20,254,23,0.2); }
+        body.theme-pipboy .telemetry { color: rgba(20,254,23,0.5); }
+        body.theme-pipboy .building { border-color: rgba(20,254,23,0.3); box-shadow: 0 0 15px rgba(20,254,23,0.1); background: rgba(20,254,23,0.05); }
+        body.theme-pipboy .building::before { color: #14fe17; text-shadow: 0 0 5px #14fe17; }
+        body.theme-pipboy .window { background: rgba(20,254,23,0.2); border-color: rgba(20,254,23,0.15); }
+        body.theme-pipboy .building-grid { background: repeating-linear-gradient(0deg, transparent 0px, transparent 8px, rgba(20,254,23,0.1) 8px, rgba(20,254,23,0.1) 9px), repeating-linear-gradient(90deg, transparent 0px, transparent 19px, rgba(20,254,23,0.08) 19px, rgba(20,254,23,0.08) 20px); }
+        body.theme-pipboy .crosshair { border-color: rgba(20,254,23,0.6); }
+        body.theme-pipboy .crosshair::before, body.theme-pipboy .crosshair::after { background: rgba(20,254,23,0.5); }
+        body.theme-pipboy .city-building { background: rgba(20,254,23,0.08); border-top-color: rgba(20,254,23,0.15); }
+        body.theme-pipboy .dom-tower { background: rgba(20,254,23,0.1); }
+        body.theme-pipboy .dom-tower::before { border-bottom-color: rgba(20,254,23,0.15); }
+        body.theme-pipboy .street-label { color: rgba(20,254,23,0.3); }
+        body.theme-pipboy .canal { background: rgba(20,254,23,0.1); }
+        body.theme-pipboy .radar { border-color: rgba(20,254,23,0.5); }
+        body.theme-pipboy .sky { background: linear-gradient(to bottom, #001100, #000800) !important; }
+        /* CRT scanline effect stronger */
+        body.theme-pipboy .scanlines { background: repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(0,0,0,0.15) 1px, rgba(0,0,0,0.15) 2px); }
+        /* CRT flicker */
+        body.theme-pipboy::after {
+            content: ''; position: fixed; top:0;left:0;right:0;bottom:0;
+            pointer-events: none; z-index: 200;
+            background: rgba(20,254,23,0.01);
+            animation: crtFlicker 0.1s infinite;
+        }
+        @keyframes crtFlicker { 0%{opacity:0.02;} 50%{opacity:0.04;} 100%{opacity:0.02;} }
+        /* CRT curved edges */
+        body.theme-pipboy .vignette { box-shadow: inset 0 0 120px rgba(0,0,0,0.7) !important; border-radius: 20px; }
+        /* Glow on everything */
+        body.theme-pipboy .bomb-body { background: linear-gradient(to right, #0a3e0c, #14fe17, #0a3e0c) !important; }
+        body.theme-pipboy .bomb-fins::before, body.theme-pipboy .bomb-fins::after { background: rgba(20,254,23,0.5) !important; }
+
+        /* Defuse minigame overlay */
+        .defuse-overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            z-index: 200; background: rgba(0,0,0,0.95);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none; transition: opacity 0.3s;
+        }
+        .defuse-overlay.show { opacity: 1; pointer-events: auto; }
+        .defuse-title { font-size: 1.2rem; color: #ff6b35; letter-spacing: 4px; margin-bottom: 1.5rem; }
+        .defuse-timer { font-size: 2rem; color: #ff0000; margin-bottom: 1rem; font-weight: bold; }
+        .defuse-wires {
+            display: flex; gap: 1.5rem; margin-bottom: 1.5rem;
+        }
+        .defuse-wire {
+            width: 8px; height: 120px; border-radius: 4px; cursor: pointer;
+            transition: all 0.2s; position: relative;
+            box-shadow: 0 0 10px currentColor;
+        }
+        .defuse-wire:hover { transform: scaleX(1.5); filter: brightness(1.5); }
+        .defuse-wire.cut { opacity: 0.2; height: 60px; cursor: default; }
+        .defuse-wire.cut::after {
+            content: '✂'; position: absolute; bottom: -20px; left: 50%; transform: translateX(-50%);
+            font-size: 0.8rem;
+        }
+        .defuse-result {
+            font-size: 1rem; letter-spacing: 3px; margin-top: 1rem;
+            min-height: 2rem;
+        }
+        .defuse-close {
+            margin-top: 1.5rem; font-size: 0.6rem; color: #666;
+            cursor: pointer; letter-spacing: 2px;
+        }
+        .defuse-close:hover { color: #aaa; }
+
+        /* Progress comparison */
+        .progress-compare {
+            position: fixed; top: 100px; left: 15px; z-index: 50;
+            font-size: 0.55rem; color: rgba(255,107,53,0.5);
+            letter-spacing: 1px; line-height: 1.8;
+        }
+
+        /* Film grain overlay */
+        .film-grain {
+            position: fixed; top:0;left:0;right:0;bottom:0;
+            pointer-events: none; z-index: 3; opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            animation: grainShift 0.3s steps(3) infinite;
+        }
+        @keyframes grainShift {
+            0% { transform: translate(0,0); }
+            33% { transform: translate(-1px,1px); }
+            66% { transform: translate(1px,-1px); }
+            100% { transform: translate(0,0); }
+        }
+
+        /* Chromatic aberration */
+        .chromatic {
+            position: fixed; top:0;left:0;right:0;bottom:0;
+            pointer-events: none; z-index: 2;
+            mix-blend-mode: screen;
+            opacity: 0;
+            transition: opacity 2s ease;
+        }
+
+        /* Streetlights */
+        .streetlight {
+            position: absolute; bottom: 5%;
+            width: 3px; height: 3px;
+            background: rgba(255,200,100,0.7);
+            border-radius: 50%;
+            box-shadow: 0 0 4px rgba(255,200,100,0.5), 0 0 8px rgba(255,200,100,0.2);
+            animation: streetlightGlow 3s ease-in-out infinite;
+        }
+        @keyframes streetlightGlow { 0%,100%{opacity:0.7;} 50%{opacity:1;} }
+        .streetlight-pole {
+            position: absolute; bottom: 5%;
+            width: 1px; height: 12px;
+            background: rgba(100,100,100,0.4);
+        }
+
+        /* Canal reflections */
+        .canal-reflection {
+            position: absolute; bottom: 0; left: 0; right: 0; height: 8px;
+            background: linear-gradient(to bottom, rgba(30,60,120,0.3), rgba(20,40,80,0.2));
+            overflow: hidden;
+        }
+        .reflection-light {
+            position: absolute; bottom: 2px;
+            width: 4px; height: 2px;
+            background: rgba(255,200,100,0.2);
+            border-radius: 50%;
+            animation: reflectionShimmer 2s ease-in-out infinite;
+            filter: blur(1px);
+        }
+        @keyframes reflectionShimmer { 0%,100%{opacity:0.3;transform:scaleX(1);} 50%{opacity:0.6;transform:scaleX(1.5);} }
+
+        /* Moving cars */
+        .car {
+            position: absolute; bottom: 6%;
+            width: 6px; height: 3px;
+            background: #333;
+            border-radius: 1px;
+            animation: carDrive var(--car-speed, 8s) linear infinite;
+        }
+        .car::before {
+            content: ''; position: absolute; left: -2px; top: 0;
+            width: 2px; height: 2px;
+            background: rgba(255,255,200,0.6);
+            border-radius: 50%;
+            box-shadow: 0 0 3px rgba(255,255,200,0.4);
+        }
+        .car::after {
+            content: ''; position: absolute; right: -2px; top: 0;
+            width: 2px; height: 2px;
+            background: rgba(255,0,0,0.5);
+            border-radius: 50%;
+        }
+        @keyframes carDrive { 0%{left:-10px;} 100%{left:calc(100% + 10px);} }
+        .car.reverse { animation-name: carDriveReverse; }
+        .car.reverse::before { left:auto;right:-2px; }
+        .car.reverse::after { right:auto;left:-2px; }
+        @keyframes carDriveReverse { 0%{left:calc(100% + 10px);} 100%{left:-10px;} }
+
+        /* Birds/bats */
+        .bird {
+            position: absolute;
+            font-size: 0.4rem;
+            color: rgba(255,255,255,0.3);
+            animation: birdFly var(--bird-speed, 6s) linear infinite;
+            pointer-events: none;
+        }
+        @keyframes birdFly { 0%{left:-5%;transform:translateY(0);} 50%{transform:translateY(-8px);} 100%{left:105%;transform:translateY(0);} }
+
+        /* Spotlight on WTC */
+        .spotlight {
+            position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+            width: 100px; height: 100%;
+            background: linear-gradient(to bottom, transparent 0%, rgba(255,200,100,0.02) 50%, rgba(255,200,100,0.04) 100%);
+            clip-path: polygon(40% 0%, 60% 0%, 75% 100%, 25% 100%);
+            pointer-events: none; z-index: 1;
+            animation: spotlightPulse 4s ease-in-out infinite;
+        }
+        @keyframes spotlightPulse { 0%,100%{opacity:0.5;} 50%{opacity:1;} }
+
+        /* Shooting star */
+        .shooting-star {
+            position: absolute;
+            width: 2px; height: 2px;
+            background: #fff;
+            border-radius: 50%;
+            pointer-events: none;
+            box-shadow: 0 0 4px #fff;
+        }
+        .shooting-star::after {
+            content: ''; position: absolute; top: 0; right: 0;
+            width: 30px; height: 1px;
+            background: linear-gradient(to left, #fff, transparent);
+            transform-origin: right center;
+        }
+
+        /* Progress bar sparks */
+        .progress-spark {
+            position: absolute; right: 0; top: 50%;
+            width: 2px; height: 2px;
+            background: #ffcc00;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: sparkFly 0.6s ease-out forwards;
+        }
+        @keyframes sparkFly {
+            0% { transform: translate(0,0) scale(1); opacity:1; }
+            100% { transform: translate(var(--sx), var(--sy)) scale(0); opacity:0; }
         }
     </style>
 </head>
@@ -895,12 +1211,18 @@
     <div class="glow-overlay" id="glow"></div>
     <div class="vignette" id="vignette"></div>
     <div class="scanlines"></div>
+    <div class="film-grain"></div>
+    <div class="chromatic" id="chromatic"></div>
     <div class="flash" id="flash"></div>
     <div class="warning-border" id="warningBorder"></div>
     <button class="sound-btn" id="soundBtn" onclick="toggleSound()">🔇 Sound</button>
     <button class="fullscreen-btn" onclick="toggleFullscreen()">⛶ Full</button>
     <button class="lang-btn" id="langBtn" onclick="toggleLanguage()">🇳🇱 NL</button>
-    <button class="panic-btn" id="panicBtn" onclick="panicAbort()">⚠ ABORT MISSION</button>
+    <button class="theme-btn" id="themeBtn" onclick="cycleTheme()">🎨 Theme</button>
+    <a href="doomsday.html" style="position:fixed;top:15px;left:15px;z-index:50;background:rgba(0,135,85,0.1);border:1px solid rgba(0,135,85,0.4);color:#39A87B;font-family:'Courier New',monospace;font-size:0.7rem;letter-spacing:2px;padding:0.5rem 1rem;border-radius:4px;text-decoration:none;text-transform:uppercase;transition:all 0.3s;">⏱ Arval Clock</a>
+    <a href="fred.html" style="position:fixed;top:15px;left:170px;z-index:50;background:rgba(102,126,234,0.1);border:1px solid rgba(102,126,234,0.4);color:#8888cc;font-family:'Courier New',monospace;font-size:0.7rem;letter-spacing:2px;padding:0.5rem 1rem;border-radius:4px;text-decoration:none;text-transform:uppercase;transition:all 0.3s;">⏳ FRED</a>
+    <button class="panic-btn" id="panicBtn" onclick="startDefuse()">⚠ DEFUSE</button>
+    <div class="progress-compare" id="progressCompare"></div>
     <div class="time-indicator" id="timeIndicator">Utrecht 00:00</div>
     <div class="working-hours" id="workingHours"></div>
     <div class="weather-display" id="weatherDisplay">Loading weather...</div>
@@ -922,6 +1244,22 @@
         <h2>ACCESS DENIED</h2>
         <p>Abort sequence unavailable — point of no return exceeded</p>
         <p style="margin-top:2rem;color:#333;font-size:0.6rem;">click anywhere to dismiss</p>
+    </div>
+
+    <!-- Defuse Minigame -->
+    <div class="defuse-overlay" id="defuseOverlay">
+        <div class="defuse-title">☢ DEFUSE THE BOMB ☢</div>
+        <div class="defuse-timer" id="defuseTimer">10</div>
+        <p style="color:#666;font-size:0.6rem;margin-bottom:1rem;letter-spacing:2px;">CUT THE CORRECT WIRE</p>
+        <div class="defuse-wires" id="defuseWires">
+            <div class="defuse-wire" style="background:#ff0000;color:#ff0000;" onclick="cutWire(0)"></div>
+            <div class="defuse-wire" style="background:#00cc00;color:#00cc00;" onclick="cutWire(1)"></div>
+            <div class="defuse-wire" style="background:#0088ff;color:#0088ff;" onclick="cutWire(2)"></div>
+            <div class="defuse-wire" style="background:#ffcc00;color:#ffcc00;" onclick="cutWire(3)"></div>
+            <div class="defuse-wire" style="background:#ff00ff;color:#ff00ff;" onclick="cutWire(4)"></div>
+        </div>
+        <div class="defuse-result" id="defuseResult"></div>
+        <div class="defuse-close" onclick="closeDefuse()">[ CLOSE ]</div>
     </div>
 
     <div class="container" id="main">
@@ -968,6 +1306,8 @@
                 <div class="speed-line" style="margin-left:45px;height:55px;animation-delay:0.25s;animation-duration:0.65s;"></div>
             </div>
             <div class="heat-distortion" id="heatDistortion"></div>
+            <div class="spotlight"></div>
+            <div id="birdsContainer"></div>
             <div class="smoke-trail" id="smokeTrail"></div>
             <div class="bomb" id="bomb" onclick="showBombInfo()">
                 <div class="bomb-body"></div>
@@ -985,34 +1325,57 @@
                 <div class="city-skyline">
                     <!-- Dom Tower -->
                     <div class="dom-tower"></div>
+                    <div class="dom-tower-detail"></div>
                     <!-- TivoliVredenburg -->
                     <div class="tivoli"></div>
-                    <!-- Utrecht CS -->
-                    <div class="utrecht-cs"></div>
+                    <!-- Utrecht CS with wave roof -->
+                    <div class="utrecht-cs"><div class="utrecht-cs-glass"></div></div>
                     <!-- Jaarbeurs -->
                     <div class="jaarbeurs"></div>
                     <!-- Hoog Catharijne -->
                     <div class="hoog-catharijne"></div>
-                    <!-- Generic buildings -->
-                    <div class="city-building" style="left:3%;width:18px;height:40px;"></div>
-                    <div class="city-building" style="left:8%;width:12px;height:55px;"></div>
-                    <div class="city-building" style="left:22%;width:14px;height:30px;"></div>
-                    <div class="city-building" style="left:26%;width:10px;height:45px;"></div>
-                    <div class="city-building" style="left:35%;width:16px;height:25px;"></div>
-                    <div class="city-building" style="left:39%;width:12px;height:35px;"></div>
-                    <div class="city-building" style="right:3%;width:14px;height:35px;"></div>
-                    <div class="city-building" style="right:7%;width:10px;height:50px;"></div>
-                    <div class="city-building" style="right:40%;width:16px;height:28px;"></div>
-                    <div class="city-building" style="right:45%;width:12px;height:42px;"></div>
+                    <!-- Generic skyline fill -->
+                    <div class="city-building" style="left:3%;width:14px;height:25%;"></div>
+                    <div class="city-building" style="left:8%;width:10px;height:35%;"></div>
+                    <div class="city-building" style="left:23%;width:12px;height:20%;"></div>
+                    <div class="city-building" style="left:37%;width:10px;height:18%;"></div>
+                    <div class="city-building" style="right:3%;width:12px;height:22%;"></div>
+                    <div class="city-building" style="right:7%;width:8px;height:30%;"></div>
+                    <div class="city-building" style="right:42%;width:14px;height:16%;"></div>
                     <!-- Canal -->
                     <div class="canal"></div>
+                    <div class="canal-reflection">
+                        <div class="reflection-light" style="left:15%;animation-delay:0s;"></div>
+                        <div class="reflection-light" style="left:30%;animation-delay:0.5s;"></div>
+                        <div class="reflection-light" style="left:50%;animation-delay:1s;"></div>
+                        <div class="reflection-light" style="left:65%;animation-delay:1.5s;"></div>
+                        <div class="reflection-light" style="left:80%;animation-delay:0.8s;"></div>
+                    </div>
+                    <!-- Streetlights -->
+                    <div class="streetlight-pole" style="left:12%;"></div>
+                    <div class="streetlight" style="left:12%;"></div>
+                    <div class="streetlight-pole" style="left:25%;"></div>
+                    <div class="streetlight" style="left:25%;"></div>
+                    <div class="streetlight-pole" style="left:43%;"></div>
+                    <div class="streetlight" style="left:43%;"></div>
+                    <div class="streetlight-pole" style="left:57%;"></div>
+                    <div class="streetlight" style="left:57%;"></div>
+                    <div class="streetlight-pole" style="left:72%;"></div>
+                    <div class="streetlight" style="left:72%;"></div>
+                    <div class="streetlight-pole" style="left:88%;"></div>
+                    <div class="streetlight" style="left:88%;"></div>
+                    <!-- Moving cars -->
+                    <div class="car" style="--car-speed:12s;bottom:7%;animation-delay:0s;"></div>
+                    <div class="car reverse" style="--car-speed:15s;bottom:8%;animation-delay:-5s;"></div>
+                    <div class="car" style="--car-speed:10s;bottom:7%;animation-delay:-3s;"></div>
                     <!-- Street labels -->
-                    <span class="street-label" style="bottom:10px;left:14%;">Oudegracht</span>
-                    <span class="street-label" style="bottom:10px;left:38%;">Vredenburg</span>
-                    <span class="street-label" style="bottom:10px;right:10%;">Stationsplein</span>
+                    <span class="street-label" style="bottom:10px;left:12%;">Oudegracht</span>
+                    <span class="street-label" style="bottom:10px;left:40%;">Jaarbeursplein</span>
+                    <span class="street-label" style="bottom:10px;right:8%;">Stationsplein</span>
                 </div>
             </div>
-            <div class="building" id="building">
+            <div class="building" id="building" onclick="showBombInfo()">
+                <div class="building-grid"></div>
                 <div class="building-antenna"></div>
                 <div class="building-windows">
                     <div class="window"></div><div class="window"></div><div class="window"></div><div class="window"></div>
@@ -1046,7 +1409,7 @@
 
         <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
         <div class="milestones" id="milestones"></div>
-        <p class="status" id="status">Systems nominal</p>
+        <p class="status" id="status">Team Oppenheimer — active</p>
     </div>
 
     <div class="telemetry" id="telemetry"></div>
@@ -1062,24 +1425,24 @@
 
         const stages = {
             nl: [
-                { threshold: 0.00, name: 'Fase I — Assemblage', quote: '"The physicists have known sin; and this is a knowledge which they cannot lose." — Oppenheimer', title: 'Trinity' },
-                { threshold: 0.15, name: 'Fase II — Bewapening', quote: '"Groei zonder structuur voelt eerst snel… en daarna duur." — Joost van Kekem', title: 'Trinity' },
-                { threshold: 0.30, name: 'Fase III — Bomluik Open', quote: '"Een paar mensen lachten, een paar mensen huilden. De meesten waren stil." — Oppenheimer', title: 'Gadget' },
-                { threshold: 0.45, name: 'Fase IV — Loslating', quote: '"Hoop is geen strategie." — Joost van Kekem, Vrijdagmiddag Sales Bingo', title: 'Little Boy' },
-                { threshold: 0.60, name: 'Fase V — Vrije Val', quote: '"Now I am become Death, the destroyer of worlds." — Oppenheimer', title: 'Fat Man' },
-                { threshold: 0.75, name: 'Fase VI — Terminale Afdaling', quote: '"Eerst bouwen, dan pas versnellen. Met richting. Met vertrouwen." — Joost van Kekem', title: 'Detonatie' },
-                { threshold: 0.88, name: 'Fase VII — Kritieke Nabijheid', quote: '"Als de gloed van duizend zonnen tegelijk aan de hemel zou verschijnen…" — Oppenheimer', title: '☢ Impact' },
-                { threshold: 0.96, name: 'Fase VIII — Point of No Return', quote: '"Liever tijdelijk ongeduldig dan langdurig ongelukkig." — Joost van Kekem', title: '☢☢☢' }
+                { threshold: 0.00, name: 'Fase I — Assemblage', quote: '"The physicists have known sin; and this is a knowledge which they cannot lose." — Oppenheimer', title: 'Team Oppenheimer' },
+                { threshold: 0.15, name: 'Fase II — Bewapening', quote: '"Groei zonder structuur voelt eerst snel… en daarna duur." — Joost van Kekem', title: 'Team Oppenheimer' },
+                { threshold: 0.30, name: 'Fase III — Bomluik Open', quote: '"Een paar mensen lachten, een paar mensen huilden. De meesten waren stil." — Oppenheimer', title: 'Ontbinding nadert' },
+                { threshold: 0.45, name: 'Fase IV — Loslating', quote: '"Hoop is geen strategie." — Joost van Kekem, Vrijdagmiddag Sales Bingo', title: 'Ontbinding nadert' },
+                { threshold: 0.60, name: 'Fase V — Vrije Val', quote: '"Now I am become Death, the destroyer of worlds." — Oppenheimer', title: 'Einde in zicht' },
+                { threshold: 0.75, name: 'Fase VI — Terminale Afdaling', quote: '"Eerst bouwen, dan pas versnellen. Met richting. Met vertrouwen." — Joost van Kekem', title: '☢ Ontbinding' },
+                { threshold: 0.88, name: 'Fase VII — Kritieke Nabijheid', quote: '"Als de gloed van duizend zonnen tegelijk aan de hemel zou verschijnen…" — Oppenheimer', title: '☢ Bijna ontbonden' },
+                { threshold: 0.96, name: 'Fase VIII — Point of No Return', quote: '"Liever tijdelijk ongeduldig dan langdurig ongelukkig." — Joost van Kekem', title: '☢☢☢ ONTBINDING ☢☢☢' }
             ],
             en: [
-                { threshold: 0.00, name: 'Stage I — Assembly', quote: '"The physicists have known sin; and this is a knowledge which they cannot lose." — Oppenheimer', title: 'Trinity' },
-                { threshold: 0.15, name: 'Stage II — Arming', quote: '"Growth without structure feels fast at first… and expensive after." — Joost van Kekem', title: 'Trinity' },
-                { threshold: 0.30, name: 'Stage III — Payload Bay Open', quote: '"A few people laughed, a few people cried. Most people were silent." — Oppenheimer', title: 'Gadget' },
-                { threshold: 0.45, name: 'Stage IV — Release', quote: '"Hope is not a strategy." — Joost van Kekem, Friday Afternoon Sales Bingo', title: 'Little Boy' },
-                { threshold: 0.60, name: 'Stage V — Free Fall', quote: '"Now I am become Death, the destroyer of worlds." — Oppenheimer', title: 'Fat Man' },
-                { threshold: 0.75, name: 'Stage VI — Terminal Descent', quote: '"First build, then accelerate. With direction. With trust." — Joost van Kekem', title: 'Detonation' },
-                { threshold: 0.88, name: 'Stage VII — Critical Proximity', quote: '"If the radiance of a thousand suns were to burst at once into the sky…" — Oppenheimer', title: '☢ Impact' },
-                { threshold: 0.96, name: 'Stage VIII — Point of No Return', quote: '"Rather temporarily impatient than permanently unhappy." — Joost van Kekem', title: '☢☢☢' }
+                { threshold: 0.00, name: 'Stage I — Assembly', quote: '"The physicists have known sin; and this is a knowledge which they cannot lose." — Oppenheimer', title: 'Team Oppenheimer' },
+                { threshold: 0.15, name: 'Stage II — Arming', quote: '"Growth without structure feels fast at first… and expensive after." — Joost van Kekem', title: 'Team Oppenheimer' },
+                { threshold: 0.30, name: 'Stage III — Payload Bay Open', quote: '"A few people laughed, a few people cried. Most people were silent." — Oppenheimer', title: 'Disbandment approaching' },
+                { threshold: 0.45, name: 'Stage IV — Release', quote: '"Hope is not a strategy." — Joost van Kekem, Friday Afternoon Sales Bingo', title: 'Disbandment approaching' },
+                { threshold: 0.60, name: 'Stage V — Free Fall', quote: '"Now I am become Death, the destroyer of worlds." — Oppenheimer', title: 'End in sight' },
+                { threshold: 0.75, name: 'Stage VI — Terminal Descent', quote: '"First build, then accelerate. With direction. With trust." — Joost van Kekem', title: '☢ Disbandment' },
+                { threshold: 0.88, name: 'Stage VII — Critical Proximity', quote: '"If the radiance of a thousand suns were to burst at once into the sky…" — Oppenheimer', title: '☢ Almost disbanded' },
+                { threshold: 0.96, name: 'Stage VIII — Point of No Return', quote: '"Rather temporarily impatient than permanently unhappy." — Joost van Kekem', title: '☢☢☢ DISBANDED ☢☢☢' }
             ]
         };
 
@@ -1136,10 +1499,8 @@
             if (stage !== lastStage) {
                 lastStage = stage;
                 document.getElementById('stageLabel').textContent = stage.name;
-                document.getElementById('quote').textContent = stage.quote;
                 document.getElementById('title').textContent = stage.title;
-                document.getElementById('quote').style.animation = 'none';
-                setTimeout(() => document.getElementById('quote').style.animation = 'fadeIn 2s ease forwards', 10);
+                typewriterQuote(stage.quote);
             }
 
             updateBomb(progress);
@@ -1166,7 +1527,9 @@
 
             // Map 0.45-1.0 to full fall distance
             const fallProgress = (progress - 0.45) / 0.55;
-            const bombTop = 20 + (fallProgress * 560);
+            const sceneHeight = document.getElementById('bombScene').offsetHeight || 500;
+            const groundHeight = sceneHeight * 0.25; // ground takes ~25% of scene
+            const bombTop = 20 + (fallProgress * (sceneHeight - groundHeight - 80));
             bomb.style.top = bombTop + 'px';
             smokeTrail.style.height = bombTop + 'px';
 
@@ -1239,6 +1602,11 @@
             } else {
                 document.getElementById('bombScene').style.filter = 'none';
             }
+
+            // Chromatic aberration
+            updateChromatic(progress);
+            // Depth of field on background
+            updateDepthOfField(progress);
         }
 
         // === TELEMETRY ===
@@ -1250,14 +1618,14 @@
             document.getElementById('telemetry').innerHTML = `SYS: ${sys}<br>VEL: ${vel} m/s<br>TEMP: ${temp.toLocaleString()}°C<br>PSI: ${psi} atm<br>YIELD: ${progress > 0.5 ? '21 KT' : 'CLASSIFIED'}`;
 
             const statusEl = document.getElementById('status');
-            if (progress < 0.15) { statusEl.textContent = 'Systems nominal'; statusEl.style.color = '#4a9'; }
-            else if (progress < 0.30) { statusEl.textContent = 'Weapon armed'; statusEl.style.color = '#ff6b35'; }
-            else if (progress < 0.45) { statusEl.textContent = 'Bay doors open'; statusEl.style.color = '#ff6b35'; }
-            else if (progress < 0.60) { statusEl.textContent = 'Package released'; statusEl.style.color = '#ff4500'; }
-            else if (progress < 0.75) { statusEl.textContent = 'Free fall — accelerating'; statusEl.style.color = '#ff3300'; }
-            else if (progress < 0.88) { statusEl.textContent = '⚠ Terminal velocity reached ⚠'; statusEl.style.color = '#ff2200'; }
-            else if (progress < 0.96) { statusEl.textContent = '⚠⚠ CRITICAL ALTITUDE ⚠⚠'; statusEl.style.color = '#ff0000'; }
-            else { statusEl.textContent = '☢ BRACE FOR IMPACT ☢'; statusEl.style.color = '#ff0000'; }
+            if (progress < 0.15) { statusEl.textContent = 'Team Oppenheimer — active'; statusEl.style.color = '#4a9'; }
+            else if (progress < 0.30) { statusEl.textContent = 'Team Oppenheimer — armed'; statusEl.style.color = '#ff6b35'; }
+            else if (progress < 0.45) { statusEl.textContent = 'Disbandment countdown initiated'; statusEl.style.color = '#ff6b35'; }
+            else if (progress < 0.60) { statusEl.textContent = 'Package released — disbandment accelerating'; statusEl.style.color = '#ff4500'; }
+            else if (progress < 0.75) { statusEl.textContent = 'Free fall — Team Oppenheimer ending soon'; statusEl.style.color = '#ff3300'; }
+            else if (progress < 0.88) { statusEl.textContent = '⚠ Disbandment imminent ⚠'; statusEl.style.color = '#ff2200'; }
+            else if (progress < 0.96) { statusEl.textContent = '⚠⚠ TEAM OPPENHEIMER ALMOST DISBANDED ⚠⚠'; statusEl.style.color = '#ff0000'; }
+            else { statusEl.textContent = '☢ TEAM OPPENHEIMER WILL BE DISBANDED ☢'; statusEl.style.color = '#ff0000'; }
         }
 
         // === IMPACT ===
@@ -1281,8 +1649,8 @@
             main.style.setProperty('--shake-duration','0.03s');
 
             document.getElementById('title').textContent = '☢ DETONATION ☢';
-            document.getElementById('stageLabel').textContent = 'IMPACT CONFIRMED';
-            document.getElementById('status').textContent = 'Ground zero reached';
+            document.getElementById('stageLabel').textContent = 'TEAM OPPENHEIMER DISBANDED';
+            document.getElementById('status').textContent = 'Ground zero reached — XXImo destroyed';
             document.getElementById('status').style.color = '#ff0000';
             document.getElementById('warningBorder').classList.add('active');
             document.getElementById('days').textContent = '0';
@@ -1535,17 +1903,134 @@
             else document.exitFullscreen();
         }
 
-        function panicAbort() {
-            const ad = document.getElementById('accessDenied');
-            ad.classList.add('show');
-            if (soundEnabled) playSiren();
-            setTimeout(() => { ad.addEventListener('click', () => ad.classList.remove('show'), { once: true }); }, 500);
-        }
-
         function showBombInfo() {
             const info = document.getElementById('bombInfo');
             bombInfoVisible = !bombInfoVisible;
             info.classList.toggle('show', bombInfoVisible);
+        }
+
+        // === THEME SELECTOR ===
+        const themes = ['default', 'terminal', 'neon', 'classified', 'pipboy'];
+        let themeIndex = 0;
+
+        function cycleTheme() {
+            document.body.classList.remove('theme-terminal', 'theme-neon', 'theme-classified', 'theme-pipboy');
+            themeIndex = (themeIndex + 1) % themes.length;
+            if (themes[themeIndex] !== 'default') {
+                document.body.classList.add('theme-' + themes[themeIndex]);
+            }
+            const names = { default: '🎨 Oppenheimer', terminal: '🖥 Terminal', neon: '🌈 Neon', classified: '📋 Classified', pipboy: '☢ Pip-Boy' };
+            document.getElementById('themeBtn').textContent = names[themes[themeIndex]];
+        }
+
+        // === DEFUSE MINIGAME ===
+        let defuseTimerInterval = null;
+        let defuseTimeLeft = 10;
+        let defuseActive = false;
+
+        function startDefuse() {
+            const overlay = document.getElementById('defuseOverlay');
+            overlay.classList.add('show');
+            defuseActive = true;
+            defuseTimeLeft = 10;
+            document.getElementById('defuseTimer').textContent = '10';
+            document.getElementById('defuseResult').textContent = '';
+            document.getElementById('defuseResult').style.color = '';
+            // Reset wires
+            document.querySelectorAll('.defuse-wire').forEach(w => { w.classList.remove('cut'); w.style.pointerEvents = 'auto'; });
+            // Start countdown
+            defuseTimerInterval = setInterval(() => {
+                defuseTimeLeft--;
+                document.getElementById('defuseTimer').textContent = defuseTimeLeft;
+                if (defuseTimeLeft <= 3) document.getElementById('defuseTimer').style.animation = 'liveBlink 0.3s infinite';
+                if (defuseTimeLeft <= 0) {
+                    clearInterval(defuseTimerInterval);
+                    defuseFail('TIME\'S UP — DETONATION IMMINENT');
+                }
+            }, 1000);
+            if (soundEnabled) playTick();
+        }
+
+        function cutWire(index) {
+            if (!defuseActive) return;
+            const wires = document.querySelectorAll('.defuse-wire');
+            wires[index].classList.add('cut');
+            wires[index].style.pointerEvents = 'none';
+
+            // Every wire is wrong — the bomb cannot be stopped
+            const failMessages = [
+                'WRONG WIRE — DETONATION ACCELERATED',
+                'INCORRECT — FAILSAFE TRIGGERED',
+                'ERROR — TAMPER DETECTED',
+                'WRONG — COUNTDOWN CONTINUES',
+                'NICE TRY — BOMB IS UNDEFUSABLE'
+            ];
+            if (soundEnabled) playSiren();
+            defuseFail(failMessages[index]);
+        }
+
+        function defuseFail(msg) {
+            defuseActive = false;
+            clearInterval(defuseTimerInterval);
+            const result = document.getElementById('defuseResult');
+            result.textContent = '❌ ' + msg;
+            result.style.color = '#ff0000';
+            document.querySelectorAll('.defuse-wire').forEach(w => w.style.pointerEvents = 'none');
+            document.getElementById('defuseTimer').style.animation = '';
+        }
+
+        function closeDefuse() {
+            document.getElementById('defuseOverlay').classList.remove('show');
+            clearInterval(defuseTimerInterval);
+            defuseActive = false;
+        }
+
+        // === PROGRESS COMPARISON ===
+        function updateProgressComparison() {
+            const now = new Date();
+            const utNow = new Date(now.toLocaleString('en-US', { timeZone: 'Europe/Amsterdam' }));
+            const day = utNow.getDay(); // 0=Sun, 6=Sat
+            const currentProgress = getProgress() * 100;
+
+            // Calculate what progress was at the start of today (or start of weekend for Sat/Sun)
+            let compareDate;
+            if (day === 0) {
+                // Sunday — compare to Friday evening (start of weekend)
+                compareDate = new Date(utNow);
+                compareDate.setDate(compareDate.getDate() - 2);
+                compareDate.setHours(17, 0, 0, 0);
+            } else if (day === 6) {
+                // Saturday — compare to Friday evening
+                compareDate = new Date(utNow);
+                compareDate.setDate(compareDate.getDate() - 1);
+                compareDate.setHours(17, 0, 0, 0);
+            } else {
+                // Weekday — compare to yesterday same time
+                compareDate = new Date(utNow);
+                compareDate.setDate(compareDate.getDate() - 1);
+            }
+
+            const compareProgress = Math.min(Math.max((compareDate.getTime() - startDate) / totalDuration, 0), 1) * 100;
+            const diff = (currentProgress - compareProgress).toFixed(2);
+
+            let label;
+            if (day === 0 || day === 6) {
+                label = currentLang === 'nl' ? 'SINDS VRIJDAG' : 'SINCE FRIDAY';
+            } else {
+                label = currentLang === 'nl' ? 'SINDS GISTEREN' : 'SINCE YESTERDAY';
+            }
+
+            document.getElementById('progressCompare').innerHTML =
+                `${label}:<br>+${diff}% ${currentLang === 'nl' ? 'dichter bij impact' : 'closer to impact'}`;
+        }
+
+        // === RADAR BLIP TRACKING ===
+        function updateRadarBlip() {
+            const p = getProgress();
+            // Dot moves from top (25%) to bottom (85%) of radar
+            const dotTop = 25 + (p * 60);
+            const dot = document.querySelector('.radar-dot');
+            if (dot) dot.style.top = dotTop + '%';
         }
 
         // === WORKING HOURS ===
@@ -1622,22 +2107,22 @@
         });
 
         // === CONSOLE EASTER EGGS ===
-        console.log('%c☢ PROJECT TRINITY ☢', 'color: #ff6b35; font-size: 20px; font-weight: bold;');
+        console.log('%c☢ TEAM OPPENHEIMER ☢', 'color: #ff6b35; font-size: 20px; font-weight: bold;');
         console.log('%c"Now I am become Death, the destroyer of worlds." — J. Robert Oppenheimer', 'color: #aaa; font-style: italic;');
         console.log('%c╔══════════════════════════════════════╗', 'color: #ff6b35;');
         console.log('%c║  TARGET: XXImo, Utrecht              ║', 'color: #ff6b35;');
         console.log('%c║  DEADLINE: August 31, 2026           ║', 'color: #ff6b35;');
-        console.log('%c║  STATUS: IN PROGRESS                 ║', 'color: #ff6b35;');
+        console.log('%c║  TEAM OPPENHEIMER: ACTIVE            ║', 'color: #ff6b35;');
         console.log('%c╚══════════════════════════════════════╝', 'color: #ff6b35;');
         console.log('%cTry the Konami Code: ↑↑↓↓←→←→BA', 'color: #666; font-size: 10px;');
 
         // === TAB TITLE COUNTDOWN ===
         function updateTabTitle() {
             const diff = targetDate - Date.now();
-            if (diff <= 0) { document.title = '☢ IMPACT — XXImo'; return; }
+            if (diff <= 0) { document.title = '☢ TEAM OPPENHEIMER DISBANDED — XXImo'; return; }
             const d = Math.floor(diff / 86400000);
             const h = Math.floor((diff % 86400000) / 3600000);
-            document.title = `${d}d ${h}h — XXImo ☢`;
+            document.title = `${d}d ${h}h — Team Oppenheimer disbands ☢`;
         }
 
         // === B-29 BOMBER & CONTRAILS ===
@@ -1841,7 +2326,7 @@
                 '☢ De B-29 "Enola Gay" vloog op 9.500 meter hoogte toen Little Boy werd losgelaten.',
                 '☢ Oppenheimer werd de "vader van de atoombom" genoemd.',
                 '☢ De flits van Trinity was zichtbaar tot 320 km afstand.',
-                '☢ XXImo zit in het WTC-gebouw in Utrecht.',
+                '☢ XXImo zit in Utrecht. Team Oppenheimer heeft het doelwit vergrendeld.',
                 '☢ De Domtoren is 112,5 meter hoog — de hoogste kerktoren van Nederland.',
                 '☢ Utrecht werd gesticht in 47 na Christus als Romeins fort.',
                 '☢ De Oudegracht is een uniek tweelaagsgrachtensysteem.',
@@ -1874,7 +2359,7 @@
                 '☢ The B-29 "Enola Gay" flew at 31,060 feet when it released Little Boy.',
                 '☢ Oppenheimer was known as the "father of the atomic bomb".',
                 '☢ The flash from Trinity was visible from 200 miles away.',
-                '☢ XXImo is located in the WTC building in Utrecht, Netherlands.',
+                '☢ XXImo is located in Utrecht. Team Oppenheimer has locked on target.',
                 '☢ The Dom Tower in Utrecht is 112.5m tall — the tallest church tower in the Netherlands.',
                 '☢ Utrecht was founded in 47 AD as a Roman fortress.',
                 '☢ The Oudegracht is a unique two-level canal system found only in Utrecht.',
@@ -1969,6 +2454,115 @@
             }, 500);
         }
 
+        // === VISUAL POLISH ===
+
+        // Typewriter effect on quotes
+        let typewriterTimeout = null;
+        function typewriterQuote(text) {
+            const el = document.getElementById('quote');
+            el.textContent = '';
+            el.style.opacity = '1';
+            let i = 0;
+            clearTimeout(typewriterTimeout);
+            function typeChar() {
+                if (i < text.length) {
+                    el.textContent += text[i];
+                    i++;
+                    typewriterTimeout = setTimeout(typeChar, 30 + Math.random() * 20);
+                }
+            }
+            typeChar();
+        }
+
+        // Chromatic aberration increases with progress
+        function updateChromatic(progress) {
+            const el = document.getElementById('chromatic');
+            if (progress > 0.6) {
+                const intensity = (progress - 0.6) * 5;
+                el.style.opacity = Math.min(0.3, intensity * 0.1);
+                el.style.boxShadow = `inset ${intensity}px 0 0 rgba(255,0,0,0.1), inset -${intensity}px 0 0 rgba(0,0,255,0.1)`;
+            }
+        }
+
+        // Parallax on mouse move
+        document.addEventListener('mousemove', (e) => {
+            const scene = document.getElementById('bombScene');
+            if (!scene) return;
+            const rect = scene.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width - 0.5;
+            const y = (e.clientY - rect.top) / rect.height - 0.5;
+            const clouds = scene.querySelector('.cloud-layer');
+            if (clouds) clouds.style.transform = `translateX(${x * 10}px)`;
+            const ground = scene.querySelector('.ground');
+            if (ground) ground.style.transform = `translateX(${x * -3}px)`;
+        });
+
+        // Shooting stars (at night)
+        function createShootingStar() {
+            const { hour } = getUtrechtTime();
+            if (hour >= 7 && hour < 20) return;
+            if (Math.random() > 0.3) return;
+            const scene = document.getElementById('bombScene');
+            const star = document.createElement('div');
+            star.className = 'shooting-star';
+            star.style.top = (5 + Math.random() * 30) + '%';
+            star.style.left = (Math.random() * 60) + '%';
+            scene.appendChild(star);
+            const angle = 20 + Math.random() * 30;
+            star.style.transform = `rotate(${angle}deg)`;
+            star.animate([
+                { left: star.style.left, opacity: 1 },
+                { left: (parseFloat(star.style.left) + 30) + '%', opacity: 0 }
+            ], { duration: 800, easing: 'ease-out' });
+            setTimeout(() => star.remove(), 900);
+        }
+
+        // Birds/bats near Dom Tower
+        function createBird() {
+            const { hour } = getUtrechtTime();
+            const container = document.getElementById('birdsContainer');
+            const bird = document.createElement('div');
+            bird.className = 'bird';
+            bird.textContent = (hour >= 20 || hour < 6) ? '🦇' : '∨';
+            bird.style.top = (20 + Math.random() * 30) + '%';
+            const speed = 5 + Math.random() * 5;
+            bird.style.setProperty('--bird-speed', speed + 's');
+            bird.style.animationDelay = -Math.random() * speed + 's';
+            container.appendChild(bird);
+            setTimeout(() => bird.remove(), speed * 1000);
+        }
+
+        // Windows go dark as bomb approaches (evacuation)
+        function updateWindowEvacuation(progress) {
+            if (progress < 0.7) return;
+            const windows = document.querySelectorAll('.city-building::after, .city-building');
+            document.querySelectorAll('.city-building').forEach(b => {
+                const darkChance = (progress - 0.7) * 3;
+                if (Math.random() < darkChance * 0.01) {
+                    b.style.setProperty('--win-opacity', '0.1');
+                }
+            });
+        }
+
+        // Progress bar sparks
+        function createProgressSpark() {
+            const bar = document.getElementById('progress');
+            if (!bar || bar.offsetWidth < 10) return;
+            const spark = document.createElement('div');
+            spark.className = 'progress-spark';
+            spark.style.setProperty('--sx', (Math.random() * 20 - 10) + 'px');
+            spark.style.setProperty('--sy', (Math.random() * -20 - 5) + 'px');
+            bar.appendChild(spark);
+            setTimeout(() => spark.remove(), 600);
+        }
+
+        // Depth of field — blur background buildings
+        function updateDepthOfField(progress) {
+            document.querySelectorAll('.city-building').forEach(b => {
+                b.style.filter = `blur(${0.5 + progress * 0.5}px)`;
+            });
+        }
+
         // === RANDOM FLICKER ===
         function randomFlicker() {
             const p = getProgress(); if (p < 0.5) return;
@@ -1990,14 +2584,18 @@
         updateTabTitle();
         updateCountdown();
         updateJoostPanel();
+        updateProgressComparison();
+        updateRadarBlip();
         fetchWeather();
 
         setInterval(updateCountdown, 1000);
         setInterval(updateTabTitle, 1000);
+        setInterval(updateRadarBlip, 1000);
         setInterval(updateDayNight, 30000);
         setInterval(updateHorizonGlow, 30000);
         setInterval(updateWorkingHours, 60000);
         setInterval(updateMiniCountdown, 10000);
+        setInterval(updateProgressComparison, 60000);
         setInterval(updateBomber, 50);
         setInterval(updateJoostPanel, 8000); // Rotate Joost quotes every 8 seconds
         setInterval(() => { if (soundEnabled) updateHum(); }, 5000);
@@ -2007,6 +2605,9 @@
         setInterval(() => { const p=getProgress(); if(p>0.75&&Math.random()<(p-0.7)*2) createDebris(); }, 400);
         setInterval(randomFlicker, 200);
         setInterval(triggerLightning, 3000);
+        setInterval(createShootingStar, 4000);
+        setInterval(createBird, 6000);
+        setInterval(createProgressSpark, 300);
         setInterval(() => { if (soundEnabled && getProgress() > 0.88) playSiren(); }, 15000);
         setInterval(() => { if (soundEnabled && getProgress() > 0.3) playRadioChatter(); }, 8000);
         // Refresh weather every 15 minutes
